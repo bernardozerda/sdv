@@ -1,6 +1,6 @@
 <?php  
 
-echo "segunda version";
+echo "Versio Dos";
     /**
      * ESTE ES EL INICIO DEL APLICATIVO, SI NO HAY SESION
      * ACTIVA, EL INDEX REDIRECCIONA AQUI.
