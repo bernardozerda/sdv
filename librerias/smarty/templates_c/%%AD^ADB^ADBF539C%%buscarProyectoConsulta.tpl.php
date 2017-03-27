@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-21 11:42:11
+<?php /* Smarty version 2.6.26, created on 2017-03-22 15:52:09
          compiled from proyectos/buscarProyectoConsulta.tpl */ ?>
 	<table cellspacing="" cellpadding="0" width="99%" border="0">
 		<tr>

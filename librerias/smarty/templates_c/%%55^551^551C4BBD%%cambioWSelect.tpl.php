@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-20 15:04:41
+<?php /* Smarty version 2.6.26, created on 2017-03-09 12:20:04
          compiled from reportes/cambioWSelect.tpl */ ?>
 
 	<?php if ($this->_tpl_vars['txtMostrar'] == 'criterio'): ?>

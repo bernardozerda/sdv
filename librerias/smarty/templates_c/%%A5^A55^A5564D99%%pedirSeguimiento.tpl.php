@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-20 03:59:36
+<?php /* Smarty version 2.6.26, created on 2017-03-07 15:10:04
          compiled from subsidios/pedirSeguimiento.tpl */ ?>
 
 	<!-- TABLA QUE MUESTRA LAS CATEGORIAS DE SEGUIMIENTO -->

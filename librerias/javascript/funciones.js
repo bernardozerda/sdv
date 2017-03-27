@@ -28,14 +28,14 @@ function cargarContenido(txtDivDestino, txtArchivoPhp, txtParametros, bolCargand
     document.getElementById(txtDivDestino).innerHTML = '';
 
     // Determina si la ventan de bloque al usuario mientras carga el script se muestra		
-    bolCargando = typeof(bolCargando) != 'undefined' ? bolCargando : 0;
+    bolCargando = typeof (bolCargando) != 'undefined' ? bolCargando : 0;
     if (bolCargando == 1) {
         var objCargando = obtenerObjetoCargando( );
     }
 
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
 
                     // Toda respuesta del archivo en el parametro se muestra en el objeto destino
@@ -44,14 +44,13 @@ function cargarContenido(txtDivDestino, txtArchivoPhp, txtParametros, bolCargand
                     // si hubo pantalla de bloque al usuario, se oculta
                     if (bolCargando == 1) {
                         objCargando.hide();
-                        eliminarObjeto(objCargando.id);
                     }
                 }
             };
 
     // Objeto de respuesta si la carga falla
     var handleFailure =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
                     // Cuando se vence la sesion la respuesta es HTTP 401 = Not Authorized
                     if (o.status == "401") {
@@ -198,7 +197,7 @@ function soloLetrasEspacio(objLimpiar) {
             txtResultado += txtCaracter;
         }
     }
-	objLimpiar.value = txtResultado.substr(0, (txtResultado + " ").indexOf(" "));
+    objLimpiar.value = txtResultado.substr(0, (txtResultado + " ").indexOf(" "));
 }
 
 /**
@@ -256,7 +255,7 @@ function soloNumeros(objLimpiar) {
         txtResultado += txtCaracter.replace(/[^0-9\.]/, ""); // todo lo que no sea numero es removido
     }
     objLimpiar.value = txtResultado;
-    
+
 }
 
 function soloNit(objLimpiar) {
@@ -381,7 +380,7 @@ function someterFormulario(txtDivDestino, objFormulario, txtArchivo, cargaArchiv
     }
 
     // Verifica si es necesaria la pantalla de bloqueo al usuario
-    objetoCargando = typeof(objetoCargando) != 'undefined' ? objetoCargando : 0;
+    objetoCargando = typeof (objetoCargando) != 'undefined' ? objetoCargando : 0;
 
     window.scrollTo(0, 0); // ubica el scroll al inicio
 
@@ -395,14 +394,13 @@ function someterFormulario(txtDivDestino, objFormulario, txtArchivo, cargaArchiv
 
     // Objeto de respuesta si es satisfactoria la carga 
     var handleSuccess =
-            function(o) {
+            function (o) {
 
                 if (o.responseText !== undefined) {
                     //        	alert('ok');
                     // oculta la pantalla de bloqueo segin sea el caso
                     if (objetoCargando == 1) {
                         objCargando.hide();
-                        //alert( objCargando.id );
                     }
 
                     // toda respuesta se envia al objeto destino
@@ -413,7 +411,7 @@ function someterFormulario(txtDivDestino, objFormulario, txtArchivo, cargaArchiv
 
     // Objeto de respuesta si la carga falla
     var handleFailure =
-            function(o) {
+            function (o) {
                 //    	alert('fallo');
                 if (o.responseText !== undefined) {
                     // Cuando se vence la sesion la respuesta es
@@ -428,7 +426,6 @@ function someterFormulario(txtDivDestino, objFormulario, txtArchivo, cargaArchiv
                     document.getElementById('mensajes').innerHTML += o.statusText;
                     if (objetoCargando == 1) {
                         objCargando.hide();
-                        eliminarObjeto(objCargando.id);
                     }
 
                 }
@@ -439,7 +436,7 @@ function someterFormulario(txtDivDestino, objFormulario, txtArchivo, cargaArchiv
     // Esto es cuando en el form hay un inpuy de tipo file y se coloca true en el paramentro correspondiente
     // en la firma de esta funcion.
     var handleUpload =
-            function(o) {
+            function (o) {
                 //    	alert('upload');
                 if (o.responseText !== undefined) {
 
@@ -488,7 +485,7 @@ function eliminarObjeto(idObj) {
     objBorrar = document.getElementById(idObj);
 
     // Verifica la existencia del objeto en la pantalla
-    if (typeof(objBorrar) != 'undefined' && objBorrar != null) {
+    if (typeof (objBorrar) != 'undefined' && objBorrar != null) {
         padre = document.getElementById(idObj).parentNode;  // obtiene el nodo padre 
         hijo = document.getElementById(idObj); 						// obtiene el objeto hijo --> el mismo objeto a borrar
         padre.removeChild(hijo); 														// elimina el objeto hijo
@@ -528,46 +525,46 @@ function eliminarRegistro(seqRegistro, txtPregunta, txtArchivo) {
     objDialogo.setBody(txtPregunta);			   // texto que se muestra en el cuerpo (formato html)
     objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
 
-   // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
-   var handleYes = function() {
-      
-      var txtParametros = "";
-      if( typeof( YAHOO.util.Dom.get("txtComentario") ) != "undefined" ){
-         var objComentario = YAHOO.util.Dom.get("txtComentario");
-         txtParametros += "&txtComentario=" + objComentario.value;
-      }
-      
-      if( typeof( YAHOO.util.Dom.get("seqGestion") ) != "undefined" ){
-         var objGestion = YAHOO.util.Dom.get("seqGestion");
-         txtParametros += "&seqGestion=" + objGestion.options[ objGestion.selectedIndex ].value;
-      }
-      
-      if( typeof( YAHOO.util.Dom.get("borrarAAD") ) != "undefined" ){
-         var objBorrarAAD = YAHOO.util.Dom.get("borrarAAD");
-         txtParametros += "&bolBorrar=" + objBorrarAAD.checked;
-      }
-      
-      // Envia los datos el archivo que contesta la peticion de borrado
-      cargarContenido("mensajes", txtArchivo, "seqBorrar=" + seqRegistro + txtParametros, true);
+    // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
+    var handleYes = function () {
 
-      // cuando la respuesta esta lista, verifica por medio de la clase (css)
-      // si la respuesta es satisfactoria, de ser asi, elimina de la pantalla el 
-      // objeto que contiene el registro en pantalla
-      YAHOO.util.Event.onContentReady(
-              "tablaMensajes",
-              function() {
-                  // Cambiar 'msgOk' si la clase (css) que muestra los mensajes satisfactorios no se llama asi
-                  if (document.getElementById('tablaMensajes').className == "msgOk") {
-                      eliminarObjeto(seqRegistro);
-                  }
-              }
-      );
+        var txtParametros = "";
+        if (typeof (YAHOO.util.Dom.get("txtComentario")) != "undefined") {
+            var objComentario = YAHOO.util.Dom.get("txtComentario");
+            txtParametros += "&txtComentario=" + objComentario.value;
+        }
 
-      this.hide(); // oculta el objeto de confirmacion
-   }
+        if (typeof (YAHOO.util.Dom.get("seqGestion")) != "undefined") {
+            var objGestion = YAHOO.util.Dom.get("seqGestion");
+            txtParametros += "&seqGestion=" + objGestion.options[ objGestion.selectedIndex ].value;
+        }
+
+        if (typeof (YAHOO.util.Dom.get("borrarAAD")) != "undefined") {
+            var objBorrarAAD = YAHOO.util.Dom.get("borrarAAD");
+            txtParametros += "&bolBorrar=" + objBorrarAAD.checked;
+        }
+
+        // Envia los datos el archivo que contesta la peticion de borrado
+        cargarContenido("mensajes", txtArchivo, "seqBorrar=" + seqRegistro + txtParametros, true);
+
+        // cuando la respuesta esta lista, verifica por medio de la clase (css)
+        // si la respuesta es satisfactoria, de ser asi, elimina de la pantalla el 
+        // objeto que contiene el registro en pantalla
+        YAHOO.util.Event.onContentReady(
+                "tablaMensajes",
+                function () {
+                    // Cambiar 'msgOk' si la clase (css) que muestra los mensajes satisfactorios no se llama asi
+                    if (document.getElementById('tablaMensajes').className == "msgOk") {
+                        eliminarObjeto(seqRegistro);
+                    }
+                }
+        );
+
+        this.hide(); // oculta el objeto de confirmacion
+    }
 
     // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
-    var handleNo = function() {
+    var handleNo = function () {
         document.getElementById("mensajes").innerHTML = "";
         this.hide();
     }
@@ -709,7 +706,7 @@ function olvidoContrasena(txtUsuario) {
 
 
         // Manejador del boton submit
-        var handleSubmit = function(o) {
+        var handleSubmit = function (o) {
 
             document.getElementById("errorOlvido").style.display = ""; // muestra el objeto de los mensjaes
 
@@ -728,7 +725,7 @@ function olvidoContrasena(txtUsuario) {
         };
 
         // Manejador del boton cancelar
-        var handleCancel = function() {
+        var handleCancel = function () {
             this.cancel();
         };
 
@@ -811,297 +808,44 @@ function buscarCedula(txtNombreArchivo) {
 
 }
 
-	function agregarMiembroHogarBp(){
-		
-		var arrAbreviacionesTipoDocumento = new Array();
-			arrAbreviacionesTipoDocumento[ 1 ] = "C.C.";
-			arrAbreviacionesTipoDocumento[ 2 ] = "C.E.";
-			arrAbreviacionesTipoDocumento[ 3 ] = "T.I.";
-			arrAbreviacionesTipoDocumento[ 4 ] = "R.C.";
-			arrAbreviacionesTipoDocumento[ 5 ] = "Pas.";
-			arrAbreviacionesTipoDocumento[ 7 ] = "N.U.I.";
-		
-		// Variable a recoger del nuevo miembro del hogar
-		var objNombre1		 = document.getElementById("nombre1");
-		var objNombre2		 = document.getElementById("nombre2");
-		var objApellido1	 = document.getElementById("apellido1");
-		var objApellido2	 = document.getElementById("apellido2");
-		var objTpoDocumento	 = document.getElementById("tipoDocumento");
-		var objNumDocumento  = document.getElementById("numeroDoc");
-		var objParentesco    = document.getElementById("parentesco");
-		var objFchNacimiento = document.getElementById("fechaNac");
-		var objCondEspecial  = document.getElementById("condicionEspecial");
-		var objCondEspecial2 = document.getElementById("condicionEspecial2");
-		var objCondEspecial3 = document.getElementById("condicionEspecial3");
-		var objCondEtnica    = document.getElementById("condicionEtnica");
-		var objEstCivil		 = document.getElementById("estadoCivil");
-		var objOcupacion	 = document.getElementById("ocupacion");
-		var objSexo			 = document.getElementById("sexo");
-		var objLgtb			 = document.getElementById("lgtb");
-		var objIngresos		 = document.getElementById("ingresos");
-		var objCompensacion  = document.getElementById("cajaCompensacion");
-		var objNvlEducativo  = document.getElementById("nivelEducativo");
-		var objSalud		 = document.getElementById("salud");
-		var objBeneficiario  = document.getElementById("beneficiario");
-		
-		var objPlanGobierno  = document.getElementById("seqPlanGobierno");
-		//alert (objPlanGobierno);
-		
-		// Celda que contiene los miembros del hogar
-		var objHogar = document.getElementById("datosHogar");
-
-		// Primer Apellido no puede estar vacio
-		if( objApellido1.value == "" ){
-			alert( "El primer apellido no puede estar vac" + String.fromCharCode( 237 ) + "o" );
-			objApellido1.focus();
-			return false;
-		}
-		
-		// Primer Nombre no puede estar vacio
-		if( objNombre1.value == "" ){
-			alert( "El primer nombre no puede estar vac" + String.fromCharCode( 237 ) + "o" );
-			objNombre1.focus();
-			return false;
-		}
-		
-		// Tiene que tener numero de documento
-		if( objNumDocumento.value == "" ){
-			alert( "No puede registrar una persona sin el numero de docuemnto" );
-			objNumDocumento.focus();
-			return false;
-		}
-		
-		// Valida que la fecha sea correcta
-		if( ! esFechaValida( objFchNacimiento ) ){
-			objFchNacimiento.focus()
-			return false;
-		}
-		
-		// Debe tener ingresos mensuales
-		if( objIngresos.value == "" ){
-			alert( "Debe registrar el ingreso mensual del ciudadano" );
-			objIngresos.focus();
-			return false;
-		}
-		
-		// Validacion de cedula -- Si ya esta incluido
-		var arrMiembros = objHogar.getElementsByTagName("table");
-		for( i = 0 ; i < arrMiembros.length ; i++ ){
-			if( objNumDocumento.value == arrMiembros[ i ].id ){
-				alert( "Ya esta registrada una persona con cedula " + objNumDocumento.value );
-				return false;
-			}
-		}
-		
-		// Ciudadano
-		txtNombreCiudadano = ucwords( objNombre1.value.toString().toLowerCase() + " " + objNombre2.value.toString().toLowerCase()  + " " + objApellido1.value.toString().toLowerCase() + " " + objApellido2.value.toString().toLowerCase() );
-		
-		// Abreviacion del tipo de documento
-		var seqTipoDocumento = objTpoDocumento.options[ objTpoDocumento.selectedIndex ].value;
-		var txtTipoDocumento = arrAbreviacionesTipoDocumento[ seqTipoDocumento ];
-		var txtParentesco    = objParentesco.options[ objParentesco.selectedIndex ].text;
-			txtParentesco	 = txtParentesco.substr( txtParentesco.indexOf("-") + 2 );
-		var txtOcupacion     = objOcupacion.options[ objOcupacion.selectedIndex ].text;
-			txtOcupacion     = txtOcupacion.toString().toLowerCase();
-			txtOcupacion     = txtOcupacion.substr( txtOcupacion.indexOf( "-" ) + 2 );
-			txtOcupacion     = ucwords( txtOcupacion );
-
-		var txtInsertar = "";		
-			txtInsertar += "<table cellpadding='0' cellspacing='0' border='0' width='100%' id='" + objNumDocumento.value + "'> ";
-			txtInsertar += "	<tr onMouseOver='this.style.background = \"#E4E4E4\";' onMouseOut='this.style.background = \"#F9F9F9\"; ' style='cursor:pointer'> ";
-			txtInsertar += "		<td align='center' width='18px' height='22px'> ";
-			txtInsertar += "			<div style='width:12px; height:14px; cursor:pointer; border: 1px solid #999999;' "; 
-			txtInsertar += "				 onClick='desplegarDetallesMiembroHogar(\"" + objNumDocumento.value + "\")' ";
-			txtInsertar += "				 onMouseOver='this.style.backgroundColor=\"#ADD8E6\";' ";
-			txtInsertar += "				 onMouseOut='this.style.backgroundColor=\"#F9F9F9\";' ";
-			txtInsertar += "				 id='masDetalles" + objNumDocumento.value + "' ";
-			txtInsertar += "			>+</div>   ";
-			txtInsertar += "		</td> ";
-			txtInsertar += "		<td width='262px' style='padding-left:5px;'>" + txtNombreCiudadano + "</td> ";
-			txtInsertar += "		<td width='120px'>" + txtTipoDocumento + " " + objNumDocumento.value + "</td> ";
-			txtInsertar += "		<td width='190px'>" + txtParentesco + "</td> ";
-			txtInsertar += "		<td align='right' style='padding-right:7px'>$ " + objIngresos.value + "</td> ";
-			txtInsertar += "		<td align='center' width='18px' height='22px'> ";
-			txtInsertar += "			<div	style='width:12px; height:14px; cursor:pointer; border: 1px solid #999999;' "; 
-			txtInsertar += "					onClick='modificarMiembroHogar(\"" + objNumDocumento.value + "\")' ";
-			txtInsertar += "					onMouseOver='this.style.backgroundColor=\"#ADD8E6\";' ";
-			txtInsertar += "					onMouseOut='this.style.backgroundColor=\"#F9F9F9\";' ";
-			txtInsertar += "			>E</div> ";
-			txtInsertar += "		</td> ";
-			txtInsertar += "		<td align='center' width='18px' height='22px'> ";
-			txtInsertar += "			<div	style='width:12px; height:14px; cursor:pointer; border: 1px solid #999999;' "; 
-			txtInsertar += "					onClick='quitarMiembroHogar(\"" + objNumDocumento.value + "\");' ";
-			txtInsertar += "					onMouseOver='this.style.backgroundColor=\"#FFA4A4\";' ";
-			txtInsertar += "					onMouseOut='this.style.backgroundColor=\"#F9F9F9\";' ";
-			txtInsertar += "			>X</div>   ";
-			txtInsertar += "		</td> ";
-			txtInsertar += "	</tr> ";
-			txtInsertar += "<input type='hidden' id='parentesco-" + objNumDocumento.value + "' value='" + objParentesco.options[ objParentesco.selectedIndex ].value + "'>";
-			txtInsertar += "<input type='hidden' id='ingreso-" + objNumDocumento.value + "' value='" + objIngresos.value + "'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtNombre1' name='hogar["+objNumDocumento.value+"][txtNombre1]' value='"+objNombre1.value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtNombre2' name='hogar["+objNumDocumento.value+"][txtNombre2]' value='"+objNombre2.value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtApellido1' name='hogar["+objNumDocumento.value+"][txtApellido1]' value='"+objApellido1.value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtApellido2' name='hogar["+objNumDocumento.value+"][txtApellido2]' value='"+objApellido2.value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqTipoDocumento' name='hogar["+objNumDocumento.value+"][seqTipoDocumento]' value='"+objTpoDocumento.options[ objTpoDocumento.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-numDocumento' name='hogar["+objNumDocumento.value+"][numDocumento]' value='"+objNumDocumento.value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqParentesco' name='hogar["+objNumDocumento.value+"][seqParentesco]' value='"+objParentesco.options[ objParentesco.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-fchNacimiento' name='hogar["+objNumDocumento.value+"][fchNacimiento]' value='"+objFchNacimiento.value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCondicionEspecial' name='hogar["+objNumDocumento.value+"][seqCondicionEspecial]' value='"+objCondEspecial.options[ objCondEspecial.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCondicionEspecial2' name='hogar["+objNumDocumento.value+"][seqCondicionEspecial2]' value='"+objCondEspecial2.options[ objCondEspecial2.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCondicionEspecial3' name='hogar["+objNumDocumento.value+"][seqCondicionEspecial3]' value='"+objCondEspecial3.options[ objCondEspecial3.selectedIndex ].value+"'>";			
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqEtnia' name='hogar["+objNumDocumento.value+"][seqEtnia]' value='"+objCondEtnica.options[ objCondEtnica.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqEstadoCivil' name='hogar["+objNumDocumento.value+"][seqEstadoCivil]' value='"+objEstCivil.options[ objEstCivil.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqOcupacion' name='hogar["+objNumDocumento.value+"][seqOcupacion]' value='"+objOcupacion.options[ objOcupacion.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSexo' name='hogar["+objNumDocumento.value+"][seqSexo]' value='"+objSexo.options[ objSexo.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolLgtb' name='hogar["+objNumDocumento.value+"][bolLgtb]' value='"+objLgtb.options[ objLgtb.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-valIngresos' name='hogar["+objNumDocumento.value+"][valIngresos]' value='"+objIngresos.value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCajaCompensacion' name='hogar["+objNumDocumento.value+"][seqCajaCompensacion]' value='"+objCompensacion.options[ objCompensacion.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqNivelEducativo' name='hogar["+objNumDocumento.value+"][seqNivelEducativo]' value='"+objNvlEducativo.options[ objNvlEducativo.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSalud' name='hogar["+objNumDocumento.value+"][seqSalud]' value='"+objSalud.options[ objSalud.selectedIndex ].value+"'>";
-			txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolBeneficiario' name='hogar["+objNumDocumento.value+"][bolBeneficiario]' value='"+objBeneficiario.options[ objBeneficiario.selectedIndex ].value+"'>";
-			txtInsertar += "</table> ";
-			
-			txtInsertar += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" style=\"display:none\" id=\"detalles" + objNumDocumento.value + "\"> ";
-			txtInsertar += "	<tr> ";
-			txtInsertar += "		<td colspan=\"6\"> ";
-			txtInsertar += "			<table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\" style=\"border: 1px solid #999999;\"> ";
-			txtInsertar += "				<tr> ";
-			txtInsertar += "					<td><b>Sexo:</b> " + objSexo.options[ objSexo.selectedIndex ].text + "</td> ";
-			txtInsertar += "					<td><b>LGTB:</b> " + objLgtb.options[ objLgtb.selectedIndex ].text + "</td> ";
-			txtInsertar += "				</tr> ";
-			txtInsertar += "				<tr> ";
-			txtInsertar += "					<td><b>Estado Civil:</b> " + objEstCivil.options[ objEstCivil.selectedIndex ].text.substr( objEstCivil.options[ objEstCivil.selectedIndex ].text.indexOf("-") + 2 ) + "</td> ";
-			txtInsertar += "					<td><b>Condici&oacute;n &Eacute;nica:</b> " + ucwords( objCondEtnica.options[ objCondEtnica.selectedIndex ].text.toString().toLowerCase() ) + "</td> ";
-			txtInsertar += "				</tr> ";
-			txtInsertar += "				<tr> ";
-			txtInsertar += "					<td><b>Fecha de Nacimiento:</b> " + objFchNacimiento.value + "</td> ";
-			txtInsertar += "					<td><b>Condici&oacute;n Especial 1:</b> " + objCondEspecial.options[ objCondEspecial.selectedIndex ].text.substr( objCondEspecial.options[ objCondEspecial.selectedIndex ].text.indexOf("-") + 2 ) + "</td> ";
-			txtInsertar += "				</tr> ";
-			txtInsertar += "				<tr> ";
-			txtInsertar += "					<td><b>Nivel Educativo:</b> " + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].text + "</td> ";
-			txtInsertar += "					<td><b>Condici&oacute;n Especial 2:</b> " + objCondEspecial2.options[ objCondEspecial2.selectedIndex ].text.substr( objCondEspecial2.options[ objCondEspecial2.selectedIndex ].text.indexOf("-") + 2 ) + "</td> ";
-			txtInsertar += "				</tr> ";
-			txtInsertar += "				<tr> ";
-			txtInsertar += "					<td><b>Caja Compensaci&oacute;n:</b> " + objCompensacion.options[ objCompensacion.selectedIndex ].text + "</td> ";
-			txtInsertar += "					<td><b>Condici&oacute;n Especial 3:</b> " + objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text.substr( objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text.indexOf("-") + 2 ) + "</td> ";
-			txtInsertar += "				</tr> ";
-			txtInsertar += "				<tr> ";
-			txtInsertar += "					<td><b>Sistema de Salud:</b> " + objSalud.options[ objSalud.selectedIndex ].text + "</td> ";
-			txtInsertar += "					<td><b>Beneficiario de Subsidios:</b> " + objBeneficiario.options[ objBeneficiario.selectedIndex ].text + "</td> ";
-			txtInsertar += "				</tr> ";
-			txtInsertar += "				<tr> ";
-			txtInsertar += "					<td colspan=\"3\"><b>Ocupaci&oacute;n:</b> " + txtOcupacion + "</td> ";
-			txtInsertar += "				</tr> ";
-			txtInsertar += "			</table> ";
-			txtInsertar += "		</td> ";
-			txtInsertar += "	</tr> ";
-			txtInsertar += "</table> ";
-
-        eliminarObjeto( "parentesco-" + objNumDocumento.value );
-        eliminarObjeto( "ingreso-" + objNumDocumento.value );
-        eliminarObjeto( objNumDocumento.value + "-txtNombre1" );
-        eliminarObjeto( objNumDocumento.value + "-txtNombre2" );
-        eliminarObjeto( objNumDocumento.value + "-txtApellido1" );
-        eliminarObjeto( objNumDocumento.value + "-txtApellido2" );
-        eliminarObjeto( objNumDocumento.value + "-seqTipoDocumento" );
-        eliminarObjeto( objNumDocumento.value + "-numDocumento" );
-        eliminarObjeto( objNumDocumento.value + "-seqParentesco" );
-        eliminarObjeto( objNumDocumento.value + "-fchNacimiento" );
-        eliminarObjeto( objNumDocumento.value + "-seqCondicionEspecial" );
-        eliminarObjeto( objNumDocumento.value + "-seqCondicionEspecial2" );
-        eliminarObjeto( objNumDocumento.value + "-seqCondicionEspecial3" );
-        eliminarObjeto( objNumDocumento.value + "-seqEtnia" );
-        eliminarObjeto( objNumDocumento.value + "-seqEstadoCivil" );
-        eliminarObjeto( objNumDocumento.value + "-seqOcupacion" );
-        eliminarObjeto( objNumDocumento.value + "-seqSexo" );
-        eliminarObjeto( objNumDocumento.value + "-bolLgtb" );
-        eliminarObjeto( objNumDocumento.value + "-valIngresos" );
-        eliminarObjeto( objNumDocumento.value + "-seqCajaCompensacion" );
-        eliminarObjeto( objNumDocumento.value + "-seqNivelEducativo" );
-        eliminarObjeto( objNumDocumento.value + "-seqSalud" );
-        eliminarObjeto( objNumDocumento.value + "-bolBeneficiario" );
-        
-		objHogar.innerHTML += txtInsertar;		
-		
-		// Sumando el ingreso del miembro del hogar
-		var objTotalValor   = document.getElementById("valIngresoHogar");
-  		var objTotalMostrar = document.getElementById("valTotalMostrar");
-
-		var arrMiembros = objHogar.getElementsByTagName("table");
-		objTotalValor.value = 0;
-		for( i = 0 ; i < arrMiembros.length ; i++ ){
-			if( parseInt( arrMiembros[ i ].id ) ){
-				//objTotalValor.value = parseInt( objTotalValor.value ) + parseInt( document.getElementById("ingreso-" + arrMiembros[ i ].id ).value );
-				varValorFormat = objTotalValor.value.replace(/[.,,]/g, '');
-				valorMiembroSumar = document.getElementById("ingreso-" + arrMiembros[ i ].id).value.replace(/[.,,]/g, '');
-				objTotalValor.value = parseInt(varValorFormat) + parseInt(valorMiembroSumar);
-			}
-		}
-		
-		objTotalMostrar.innerHTML = "$ " + dar_formato( objTotalValor.value );
-		
-		// Variable a recoger del nuevo miembro del hogar
-		objNombre1.value	 = "";
-		objNombre2.value	 = "";
-		objApellido1.value	 = "";
-		objApellido2.value	 = "";
-		objTpoDocumento.selectedIndex = 0;
-		objNumDocumento.value = "";
-		objParentesco.selectedIndex = 0;
-		objFchNacimiento.value = "";
-		objCondEspecial.selectedIndex = 0;
-		objCondEtnica.selectedIndex = 0;
-		objEstCivil.selectedIndex = 0;
-		objOcupacion.selectedIndex = 0;
-		objSexo.selectedIndex = 0;
-		objLgtb.selectedIndex = 0;
-		objIngresos.value = "";
-		objCompensacion.selectedIndex = 0;
-		objNvlEducativo.selectedIndex = 0;
-		objSalud.selectedIndex = 0;
-		objBeneficiario.selectedIndex = 0;
-		
-		mostrarOcultar('agregarMiembro');
-		
-		return true;
-		
-	}
-
-function agregarMiembroHogar() {
+function agregarMiembroHogarBp() {
 
     var arrAbreviacionesTipoDocumento = new Array();
     arrAbreviacionesTipoDocumento[ 1 ] = "C.C.";
     arrAbreviacionesTipoDocumento[ 2 ] = "C.E.";
     arrAbreviacionesTipoDocumento[ 3 ] = "T.I.";
     arrAbreviacionesTipoDocumento[ 4 ] = "R.C.";
-    arrAbreviacionesTipoDocumento[ 5 ] = "PAS.";
-    arrAbreviacionesTipoDocumento[ 6 ] = "NIT.";
-	arrAbreviacionesTipoDocumento[ 7 ] = "N.U.I.";
+    arrAbreviacionesTipoDocumento[ 5 ] = "Pas.";
+    arrAbreviacionesTipoDocumento[ 7 ] = "N.U.I.";
 
     // Variable a recoger del nuevo miembro del hogar
-    var objNombre1       = document.getElementById("nombre1");
-    var objNombre2        = document.getElementById("nombre2");
-    var objApellido1      = document.getElementById("apellido1");
-    var objApellido2      = document.getElementById("apellido2");
-    var objTpoDocumento   = document.getElementById("tipoDocumento");
-    var objNumDocumento   = document.getElementById("numeroDoc");
-    var objParentesco     = document.getElementById("parentesco");
-    var objFchNacimiento  = document.getElementById("fechaNac");
-    var objCondEspecial   = document.getElementById("condicionEspecial");
-    var objCondEspecial2  = document.getElementById("condicionEspecial2");
-    var objCondEspecial3  = document.getElementById("condicionEspecial3");
-    var objCondEtnica     = document.getElementById("condicionEtnica");
-    var objEstCivil       = document.getElementById("estadoCivil");
-    var objOcupacion      = document.getElementById("ocupacion");
-    var objSexo           = document.getElementById("sexo");
-    var objLgtb           = document.getElementById("bolLgtb");
-    var objIngresos       = document.getElementById("ingresos");
-    var objNvlEducativo   = document.getElementById("nivelEducativo");
-    var objSeqTipoVictima = document.getElementById("seqTipoVictima");
-    var objSeqGrupoLgtbi = document.getElementById("seqGrupoLgtbi");
-    
+    var objNombre1 = document.getElementById("nombre1");
+    var objNombre2 = document.getElementById("nombre2");
+    var objApellido1 = document.getElementById("apellido1");
+    var objApellido2 = document.getElementById("apellido2");
+    var objTpoDocumento = document.getElementById("tipoDocumento");
+    var objNumDocumento = document.getElementById("numeroDoc");
+    var objParentesco = document.getElementById("parentesco");
+    var objFchNacimiento = document.getElementById("fechaNac");
+    var objCondEspecial = document.getElementById("condicionEspecial");
+    var objCondEspecial2 = document.getElementById("condicionEspecial2");
+    var objCondEspecial3 = document.getElementById("condicionEspecial3");
+    var objCondEtnica = document.getElementById("condicionEtnica");
+    var objEstCivil = document.getElementById("estadoCivil");
+    var objOcupacion = document.getElementById("ocupacion");
+    var objSexo = document.getElementById("sexo");
+    var objLgtb = document.getElementById("lgtb");
+    var objIngresos = document.getElementById("ingresos");
+    var objCompensacion = document.getElementById("cajaCompensacion");
+    var objNvlEducativo = document.getElementById("nivelEducativo");
+    var objAnosAprobados = document.getElementById("anosAprobados");
+    var objAfiliacionSalud = document.getElementById("afiliacionSalud");
+    var objSalud = document.getElementById("salud");
+    var objBeneficiario = document.getElementById("beneficiario");
 
-    
+    var objPlanGobierno = document.getElementById("seqPlanGobierno");
+    //alert (objPlanGobierno);
+
     // Celda que contiene los miembros del hogar
     var objHogar = document.getElementById("datosHogar");
 
@@ -1138,14 +882,277 @@ function agregarMiembroHogar() {
         objIngresos.focus();
         return false;
     }
-    
+
+    // Validacion de cedula -- Si ya esta incluido
+    var arrMiembros = objHogar.getElementsByTagName("table");
+    for (i = 0; i < arrMiembros.length; i++) {
+        if (objNumDocumento.value == arrMiembros[ i ].id) {
+            alert("Ya esta registrada una persona con cedula " + objNumDocumento.value);
+            return false;
+        }
+    }
+
+    // Ciudadano
+    txtNombreCiudadano = ucwords(objNombre1.value.toString().toLowerCase() + " " + objNombre2.value.toString().toLowerCase() + " " + objApellido1.value.toString().toLowerCase() + " " + objApellido2.value.toString().toLowerCase());
+
+    // Abreviacion del tipo de documento
+    var seqTipoDocumento = objTpoDocumento.options[ objTpoDocumento.selectedIndex ].value;
+    var txtTipoDocumento = arrAbreviacionesTipoDocumento[ seqTipoDocumento ];
+    var txtParentesco = objParentesco.options[ objParentesco.selectedIndex ].text;
+    txtParentesco = txtParentesco.substr(txtParentesco.indexOf("-") + 2);
+    var txtOcupacion = objOcupacion.options[ objOcupacion.selectedIndex ].text;
+    txtOcupacion = txtOcupacion.toString().toLowerCase();
+    txtOcupacion = txtOcupacion.substr(txtOcupacion.indexOf("-") + 2);
+    txtOcupacion = ucwords(txtOcupacion);
+
+    var txtInsertar = "";
+    txtInsertar += "<table cellpadding='0' cellspacing='0' border='0' width='100%' id='" + objNumDocumento.value + "'> ";
+    txtInsertar += "	<tr onMouseOver='this.style.background = \"#E4E4E4\";' onMouseOut='this.style.background = \"#F9F9F9\"; ' style='cursor:pointer'> ";
+    txtInsertar += "		<td align='center' width='18px' height='22px'> ";
+    txtInsertar += "			<div style='width:12px; height:14px; cursor:pointer; border: 1px solid #999999;' ";
+    txtInsertar += "				 onClick='desplegarDetallesMiembroHogar(\"" + objNumDocumento.value + "\")' ";
+    txtInsertar += "				 onMouseOver='this.style.backgroundColor=\"#ADD8E6\";' ";
+    txtInsertar += "				 onMouseOut='this.style.backgroundColor=\"#F9F9F9\";' ";
+    txtInsertar += "				 id='masDetalles" + objNumDocumento.value + "' ";
+    txtInsertar += "			>+</div>   ";
+    txtInsertar += "		</td> ";
+    txtInsertar += "		<td width='262px' style='padding-left:5px;'>" + txtNombreCiudadano + "</td> ";
+    txtInsertar += "		<td width='120px'>" + txtTipoDocumento + " " + objNumDocumento.value + "</td> ";
+    txtInsertar += "		<td width='190px'>" + txtParentesco + "</td> ";
+    txtInsertar += "		<td align='right' style='padding-right:7px'>$ " + objIngresos.value + "</td> ";
+    txtInsertar += "		<td align='center' width='18px' height='22px'> ";
+    txtInsertar += "			<div	style='width:12px; height:14px; cursor:pointer; border: 1px solid #999999;' ";
+    txtInsertar += "					onClick='modificarMiembroHogar(\"" + objNumDocumento.value + "\")' ";
+    txtInsertar += "					onMouseOver='this.style.backgroundColor=\"#ADD8E6\";' ";
+    txtInsertar += "					onMouseOut='this.style.backgroundColor=\"#F9F9F9\";' ";
+    txtInsertar += "			>E</div> ";
+    txtInsertar += "		</td> ";
+    txtInsertar += "		<td align='center' width='18px' height='22px'> ";
+    txtInsertar += "			<div	style='width:12px; height:14px; cursor:pointer; border: 1px solid #999999;' ";
+    txtInsertar += "					onClick='quitarMiembroHogar(\"" + objNumDocumento.value + "\");' ";
+    txtInsertar += "					onMouseOver='this.style.backgroundColor=\"#FFA4A4\";' ";
+    txtInsertar += "					onMouseOut='this.style.backgroundColor=\"#F9F9F9\";' ";
+    txtInsertar += "			>X</div>   ";
+    txtInsertar += "		</td> ";
+    txtInsertar += "	</tr> ";
+    txtInsertar += "<input type='hidden' id='parentesco-" + objNumDocumento.value + "' value='" + objParentesco.options[ objParentesco.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='ingreso-" + objNumDocumento.value + "' value='" + objIngresos.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtNombre1' name='hogar[" + objNumDocumento.value + "][txtNombre1]' value='" + objNombre1.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtNombre2' name='hogar[" + objNumDocumento.value + "][txtNombre2]' value='" + objNombre2.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtApellido1' name='hogar[" + objNumDocumento.value + "][txtApellido1]' value='" + objApellido1.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtApellido2' name='hogar[" + objNumDocumento.value + "][txtApellido2]' value='" + objApellido2.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqTipoDocumento' name='hogar[" + objNumDocumento.value + "][seqTipoDocumento]' value='" + objTpoDocumento.options[ objTpoDocumento.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-numDocumento' name='hogar[" + objNumDocumento.value + "][numDocumento]' value='" + objNumDocumento.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqParentesco' name='hogar[" + objNumDocumento.value + "][seqParentesco]' value='" + objParentesco.options[ objParentesco.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-fchNacimiento' name='hogar[" + objNumDocumento.value + "][fchNacimiento]' value='" + objFchNacimiento.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCondicionEspecial' name='hogar[" + objNumDocumento.value + "][seqCondicionEspecial]' value='" + objCondEspecial.options[ objCondEspecial.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCondicionEspecial2' name='hogar[" + objNumDocumento.value + "][seqCondicionEspecial2]' value='" + objCondEspecial2.options[ objCondEspecial2.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCondicionEspecial3' name='hogar[" + objNumDocumento.value + "][seqCondicionEspecial3]' value='" + objCondEspecial3.options[ objCondEspecial3.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqEtnia' name='hogar[" + objNumDocumento.value + "][seqEtnia]' value='" + objCondEtnica.options[ objCondEtnica.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqEstadoCivil' name='hogar[" + objNumDocumento.value + "][seqEstadoCivil]' value='" + objEstCivil.options[ objEstCivil.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqOcupacion' name='hogar[" + objNumDocumento.value + "][seqOcupacion]' value='" + objOcupacion.options[ objOcupacion.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSexo' name='hogar[" + objNumDocumento.value + "][seqSexo]' value='" + objSexo.options[ objSexo.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolLgtb' name='hogar[" + objNumDocumento.value + "][bolLgtb]' value='" + objLgtb.options[ objLgtb.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-valIngresos' name='hogar[" + objNumDocumento.value + "][valIngresos]' value='" + objIngresos.value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCajaCompensacion' name='hogar[" + objNumDocumento.value + "][seqCajaCompensacion]' value='" + objCompensacion.options[ objCompensacion.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqNivelEducativo' name='hogar[" + objNumDocumento.value + "][seqNivelEducativo]' value='" + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-anosAprobados' name='hogar[" + objNumDocumento.value + "][anosAprobados]' value='" + objAnosAprobados.options[objAnosAprobados.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSalud' name='hogar[" + objNumDocumento.value + "][seqSalud]' value='" + objSalud.options[ objSalud.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolBeneficiario' name='hogar[" + objNumDocumento.value + "][bolBeneficiario]' value='" + objBeneficiario.options[ objBeneficiario.selectedIndex ].value + "'>";
+    txtInsertar += "</table> ";
+
+    txtInsertar += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\" style=\"display:none\" id=\"detalles" + objNumDocumento.value + "\"> ";
+    txtInsertar += "	<tr> ";
+    txtInsertar += "		<td colspan=\"6\"> ";
+    txtInsertar += "			<table cellpadding=\"2\" cellspacing=\"0\" border=\"0\" width=\"100%\" style=\"border: 1px solid #999999;\"> ";
+    txtInsertar += "				<tr> ";
+    txtInsertar += "					<td><b>Sexo:</b> " + objSexo.options[ objSexo.selectedIndex ].text + "</td> ";
+    txtInsertar += "					<td><b>LGTB:</b> " + objLgtb.options[ objLgtb.selectedIndex ].text + "</td> ";
+    txtInsertar += "				</tr> ";
+    txtInsertar += "				<tr> ";
+    txtInsertar += "					<td><b>Estado Civil:</b> " + objEstCivil.options[ objEstCivil.selectedIndex ].text.substr(objEstCivil.options[ objEstCivil.selectedIndex ].text.indexOf("-") + 2) + "</td> ";
+    txtInsertar += "					<td><b>Condici&oacute;n &Eacute;nica:</b> " + ucwords(objCondEtnica.options[ objCondEtnica.selectedIndex ].text.toString().toLowerCase()) + "</td> ";
+    txtInsertar += "				</tr> ";
+    txtInsertar += "				<tr> ";
+    txtInsertar += "					<td><b>Fecha de Nacimiento:</b> " + objFchNacimiento.value + "</td> ";
+    txtInsertar += "					<td><b>Condici&oacute;n Especial 1:</b> " + objCondEspecial.options[ objCondEspecial.selectedIndex ].text.substr(objCondEspecial.options[ objCondEspecial.selectedIndex ].text.indexOf("-") + 2) + "</td> ";
+    txtInsertar += "				</tr> ";
+    txtInsertar += "				<tr> ";
+    txtInsertar += "					<td><b>Nivel Educativo:</b> " + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].text + "</td> ";
+    txtInsertar += "					<td><b>Condici&oacute;n Especial 2:</b> " + objCondEspecial2.options[ objCondEspecial2.selectedIndex ].text.substr(objCondEspecial2.options[ objCondEspecial2.selectedIndex ].text.indexOf("-") + 2) + "</td> ";
+    txtInsertar += "				</tr> ";
+    txtInsertar += "				<tr> ";
+    txtInsertar += "					<td><b>Caja Compensaci&oacute;n:</b> " + objCompensacion.options[ objCompensacion.selectedIndex ].text + "</td> ";
+    txtInsertar += "					<td><b>Condici&oacute;n Especial 3:</b> " + objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text.substr(objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text.indexOf("-") + 2) + "</td> ";
+    txtInsertar += "				</tr> ";
+    txtInsertar += "				<tr> ";
+    txtInsertar += "					<td><b>Sistema de Salud:</b> " + objSalud.options[ objSalud.selectedIndex ].text + "</td> ";
+    txtInsertar += "					<td><b>Beneficiario de Subsidios:</b> " + objBeneficiario.options[ objBeneficiario.selectedIndex ].text + "</td> ";
+    txtInsertar += "				</tr> ";
+    txtInsertar += "				<tr> ";
+    txtInsertar += "					<td colspan=\"3\"><b>Ocupaci&oacute;n:</b> " + txtOcupacion + "</td> ";
+    txtInsertar += "				</tr> ";
+    txtInsertar += "			</table> ";
+    txtInsertar += "		</td> ";
+    txtInsertar += "	</tr> ";
+    txtInsertar += "</table> ";
+
+    eliminarObjeto("parentesco-" + objNumDocumento.value);
+    eliminarObjeto("ingreso-" + objNumDocumento.value);
+    eliminarObjeto(objNumDocumento.value + "-txtNombre1");
+    eliminarObjeto(objNumDocumento.value + "-txtNombre2");
+    eliminarObjeto(objNumDocumento.value + "-txtApellido1");
+    eliminarObjeto(objNumDocumento.value + "-txtApellido2");
+    eliminarObjeto(objNumDocumento.value + "-seqTipoDocumento");
+    eliminarObjeto(objNumDocumento.value + "-numDocumento");
+    eliminarObjeto(objNumDocumento.value + "-seqParentesco");
+    eliminarObjeto(objNumDocumento.value + "-fchNacimiento");
+    eliminarObjeto(objNumDocumento.value + "-seqCondicionEspecial");
+    eliminarObjeto(objNumDocumento.value + "-seqCondicionEspecial2");
+    eliminarObjeto(objNumDocumento.value + "-seqCondicionEspecial3");
+    eliminarObjeto(objNumDocumento.value + "-seqEtnia");
+    eliminarObjeto(objNumDocumento.value + "-seqEstadoCivil");
+    eliminarObjeto(objNumDocumento.value + "-seqOcupacion");
+    eliminarObjeto(objNumDocumento.value + "-seqSexo");
+    eliminarObjeto(objNumDocumento.value + "-bolLgtb");
+    eliminarObjeto(objNumDocumento.value + "-valIngresos");
+    eliminarObjeto(objNumDocumento.value + "-seqCajaCompensacion");
+    eliminarObjeto(objNumDocumento.value + "-seqNivelEducativo");
+    eliminarObjeto(objNumDocumento.value + "-anosAprobados");
+    eliminarObjeto(objNumDocumento.value + "-afiliacionSalud");
+    eliminarObjeto(objNumDocumento.value + "-seqSalud");
+    eliminarObjeto(objNumDocumento.value + "-bolBeneficiario");
+
+    objHogar.innerHTML += txtInsertar;
+
+    // Sumando el ingreso del miembro del hogar
+    var objTotalValor = document.getElementById("valIngresoHogar");
+    var objTotalMostrar = document.getElementById("valTotalMostrar");
+
+    var arrMiembros = objHogar.getElementsByTagName("table");
+    objTotalValor.value = 0;
+    for (i = 0; i < arrMiembros.length; i++) {
+        if (parseInt(arrMiembros[ i ].id)) {
+            //objTotalValor.value = parseInt( objTotalValor.value ) + parseInt( document.getElementById("ingreso-" + arrMiembros[ i ].id ).value );
+            varValorFormat = objTotalValor.value.replace(/[.,,]/g, '');
+            valorMiembroSumar = document.getElementById("ingreso-" + arrMiembros[ i ].id).value.replace(/[.,,]/g, '');
+            objTotalValor.value = parseInt(varValorFormat) + parseInt(valorMiembroSumar);
+        }
+    }
+
+    objTotalMostrar.innerHTML = "$ " + dar_formato(objTotalValor.value);
+
+    // Variable a recoger del nuevo miembro del hogar
+    objNombre1.value = "";
+    objNombre2.value = "";
+    objApellido1.value = "";
+    objApellido2.value = "";
+    objTpoDocumento.selectedIndex = 0;
+    objNumDocumento.value = "";
+    objParentesco.selectedIndex = 0;
+    objFchNacimiento.value = "";
+    objCondEspecial.selectedIndex = 0;
+    objCondEtnica.selectedIndex = 0;
+    objEstCivil.selectedIndex = 0;
+    objOcupacion.selectedIndex = 0;
+    objSexo.selectedIndex = 0;
+    objLgtb.selectedIndex = 0;
+    objIngresos.value = "";
+    objCompensacion.selectedIndex = 0;
+    objNvlEducativo.selectedIndex = 0;
+    objAnosAprobados.selectedIndex = 0;
+    objAfiliacionSalud.selectedIndex = 0;
+    objSalud.selectedIndex = 0;
+    objBeneficiario.selectedIndex = 0;
+
+    mostrarOcultar('agregarMiembro');
+
+    return true;
+
+}
+
+function agregarMiembroHogar() {
+
+    var arrAbreviacionesTipoDocumento = new Array();
+    arrAbreviacionesTipoDocumento[ 1 ] = "C.C.";
+    arrAbreviacionesTipoDocumento[ 2 ] = "C.E.";
+    arrAbreviacionesTipoDocumento[ 3 ] = "T.I.";
+    arrAbreviacionesTipoDocumento[ 4 ] = "R.C.";
+    arrAbreviacionesTipoDocumento[ 5 ] = "PAS.";
+    arrAbreviacionesTipoDocumento[ 6 ] = "NIT.";
+    arrAbreviacionesTipoDocumento[ 7 ] = "N.U.I.";
+
+    // Variable a recoger del nuevo miembro del hogar
+    var objNombre1 = document.getElementById("nombre1");
+    var objNombre2 = document.getElementById("nombre2");
+    var objApellido1 = document.getElementById("apellido1");
+    var objApellido2 = document.getElementById("apellido2");
+    var objTpoDocumento = document.getElementById("tipoDocumento");
+    var objNumDocumento = document.getElementById("numeroDoc");
+    var objParentesco = document.getElementById("parentesco");
+    var objFchNacimiento = document.getElementById("fechaNac");
+    var objCondEspecial = document.getElementById("condicionEspecial");
+    var objCondEspecial2 = document.getElementById("condicionEspecial2");
+    var objCondEspecial3 = document.getElementById("condicionEspecial3");
+    var objCondEtnica = document.getElementById("condicionEtnica");
+    var objEstCivil = document.getElementById("estadoCivil");
+    var objOcupacion = document.getElementById("ocupacion");
+    var objSexo = document.getElementById("sexo");
+    var objLgtb = document.getElementById("bolLgtb");
+    var objIngresos = document.getElementById("ingresos");
+    var objNvlEducativo = document.getElementById("nivelEducativo");
+    var objAnosAprobados = document.getElementById("anosAprobados");
+    var objAfiliacionSalud = document.getElementById("afiliacionSalud");
+    var objSeqTipoVictima = document.getElementById("seqTipoVictima");
+    var objSeqGrupoLgtbi = document.getElementById("seqGrupoLgtbi");
+
+
+
+    // Celda que contiene los miembros del hogar
+    var objHogar = document.getElementById("datosHogar");
+
+    // Primer Apellido no puede estar vacio
+    if (objApellido1.value == "") {
+        alert("El primer apellido no puede estar vac" + String.fromCharCode(237) + "o");
+        objApellido1.focus();
+        return false;
+    }
+
+    // Primer Nombre no puede estar vacio
+    if (objNombre1.value == "") {
+        alert("El primer nombre no puede estar vac" + String.fromCharCode(237) + "o");
+        objNombre1.focus();
+        return false;
+    }
+
+    // Tiene que tener numero de documento
+    if (objNumDocumento.value == "") {
+        alert("No puede registrar una persona sin el numero de docuemnto");
+        objNumDocumento.focus();
+        return false;
+    }
+
+    // Valida que la fecha sea correcta
+    if (!esFechaValida(objFchNacimiento)) {
+        objFchNacimiento.focus()
+        return false;
+    }
+
+    // Debe tener ingresos mensuales
+    if (objIngresos.value == "") {
+        alert("Debe registrar el ingreso mensual del ciudadano");
+        objIngresos.focus();
+        return false;
+    }
+
     // Debe tener parentesco
     if (objParentesco.selectedIndex == 0) {
         alert("Debe registrar el parentezco del ciudadano");
         objParentesco.focus();
         return false;
     }
-    
+
     // Debe tener estado civil
     if (objEstCivil.selectedIndex == 0) {
         alert("Debe registrar el estado civil del ciudadano");
@@ -1161,6 +1168,8 @@ function agregarMiembroHogar() {
             return false;
         }
     }
+
+
 
     // Ciudadano
     var txtNombreCiudadano = ucwords(objNombre1.value.toString().toLowerCase() + " " + objNombre2.value.toString().toLowerCase() + " " + objApellido1.value.toString().toLowerCase() + " " + objApellido2.value.toString().toLowerCase());
@@ -1203,7 +1212,7 @@ function agregarMiembroHogar() {
     txtInsertar += "			>X</div>   ";
     txtInsertar += "		</td> ";
     txtInsertar += "	</tr> ";
-    
+
     var txtTexto = objIngresos.value;
     var txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1211,10 +1220,10 @@ function agregarMiembroHogar() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objIngresos.value = txtResultado;
-    
+
     txtInsertar += "<input type='hidden' id='parentesco-" + objNumDocumento.value + "' value='" + objParentesco.options[ objParentesco.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='ingreso-" + objNumDocumento.value + "' value='" + objIngresos.value + "'>";
-    
+
     txtTexto = objNumDocumento.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1222,7 +1231,7 @@ function agregarMiembroHogar() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objNumDocumento.value = txtResultado;
-    
+
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtNombre1' name='hogar[" + objNumDocumento.value + "][txtNombre1]' value='" + objNombre1.value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtNombre2' name='hogar[" + objNumDocumento.value + "][txtNombre2]' value='" + objNombre2.value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-txtApellido1' name='hogar[" + objNumDocumento.value + "][txtApellido1]' value='" + objApellido1.value + "'>";
@@ -1241,6 +1250,8 @@ function agregarMiembroHogar() {
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolLgtb' name='hogar[" + objNumDocumento.value + "][bolLgtb]' value='" + objLgtb.options[ objLgtb.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-valIngresos' name='hogar[" + objNumDocumento.value + "][valIngresos]' value='" + objIngresos.value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqNivelEducativo' name='hogar[" + objNumDocumento.value + "][seqNivelEducativo]' value='" + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-anosAprobados' name='hogar[" + objNumDocumento.value + "][anosAprobados]' value='" + objAnosAprobados.options[ objAnosAprobados.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqTipoVictima' name='hogar[" + objNumDocumento.value + "][seqTipoVictima]' value='" + objSeqTipoVictima.options[ objSeqTipoVictima.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqGrupoLgtbi' name='hogar[" + objNumDocumento.value + "][seqGrupoLgtbi]' value='" + objSeqGrupoLgtbi.options[ objSeqGrupoLgtbi.selectedIndex ].value + "'>";
     txtInsertar += "</table> ";
@@ -1263,18 +1274,18 @@ function agregarMiembroHogar() {
     txtInsertar += "				</tr> ";
     txtInsertar += "				<tr> ";
     txtInsertar += "					<td><b>Nivel Educativo:</b> " + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].text + "</td> ";
-    txtInsertar += "					<td><b>Condici&oacute;n Especial 3:</b> " + objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text + "</td> ";    
+    txtInsertar += "					<td><b>Condici&oacute;n Especial 3:</b> " + objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text + "</td> ";
     txtInsertar += "				</tr> ";
     txtInsertar += "				<tr> ";
-    if( objLgtb.options[ objLgtb.selectedIndex ].value == 0 ){
-       txtInsertar += "<td><b>LGTBI:</b> " + objLgtb.options[ objLgtb.selectedIndex ].text + "</td>";
-    }else{
-       txtInsertar += "<td><b>LGTBI:</b> " + objSeqGrupoLgtbi.options[ objSeqGrupoLgtbi.selectedIndex ].text + "</td> ";
+    if (objLgtb.options[ objLgtb.selectedIndex ].value == 0) {
+        txtInsertar += "<td><b>LGTBI:</b> " + objLgtb.options[ objLgtb.selectedIndex ].text + "</td>";
+    } else {
+        txtInsertar += "<td><b>LGTBI:</b> " + objSeqGrupoLgtbi.options[ objSeqGrupoLgtbi.selectedIndex ].text + "</td> ";
     }
     txtInsertar += "					<td><b>Tipo de V&iacute;ctima:</b> " + objSeqTipoVictima.options[ objSeqTipoVictima.selectedIndex ].text + "</td> ";
     txtInsertar += "				</tr> ";
     txtInsertar += "				<tr> ";
-    txtInsertar += "					<td colspan='3'><b>Ocupaci&oacute;n:</b> " + txtOcupacion + "</td> ";    
+    txtInsertar += "					<td colspan='3'><b>Ocupaci&oacute;n:</b> " + txtOcupacion + "</td> ";
     txtInsertar += "				</tr> ";
     txtInsertar += "			</table> ";
     txtInsertar += "		</td> ";
@@ -1316,6 +1327,8 @@ function agregarMiembroHogar() {
     objLgtb.selectedIndex = 0;
     objIngresos.value = "";
     objNvlEducativo.selectedIndex = 0;
+    objAnosAprobados.selectedIndex = 0;
+    objAfiliacionSalud.selectedIndex = 0;
     objSeqTipoVictima.selectedIndex = 0;
     objSeqGrupoLgtbi.selectedIndex = 0;
 
@@ -1336,7 +1349,7 @@ function quitarMiembroHogar(numDocumento) {
         alert("No puede eliminar a la cabeza de familia como miembro del hogar");
     } else {
         // Resta el valor al total
-		objTotalValor.value = parseInt(objTotalValor.value) - parseInt(objIngreso.value.replace(/[.,,]/g, ''));
+        objTotalValor.value = parseInt(objTotalValor.value) - parseInt(objIngreso.value.replace(/[.,,]/g, ''));
 
         // Muestra el valor en pantalla
         objTotalMostrar.innerHTML = "$ " + dar_formato(objTotalValor.value);
@@ -1522,7 +1535,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objSaldoCuenta.value = txtResultado;
-    
+
     txtTexto = objSaldoCuenta2.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1530,7 +1543,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objSaldoCuenta2.value = txtResultado;
-    
+
     txtTexto = objSubsidio.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1538,7 +1551,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objSubsidio.value = txtResultado;
-    
+
     txtTexto = objAporteLote.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1546,7 +1559,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objAporteLote.value = txtResultado;
- 
+
     txtTexto = objCesantias.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1554,7 +1567,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objCesantias.value = txtResultado;
- 
+
     txtTexto = objAvanceObra.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1562,7 +1575,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objAvanceObra.value = txtResultado;
- 
+
     txtTexto = objMateriales.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1570,7 +1583,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objMateriales.value = txtResultado;
- 
+
     txtTexto = objCredito.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1578,7 +1591,7 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objCredito.value = txtResultado;
- 
+
     txtTexto = objDonacion.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1586,16 +1599,16 @@ function sumarTotalRecursos() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objDonacion.value = txtResultado;
- 
-    objSaldoCuenta.value  = (objSaldoCuenta.value  == "") ? 0 : objSaldoCuenta.value;
+
+    objSaldoCuenta.value = (objSaldoCuenta.value == "") ? 0 : objSaldoCuenta.value;
     objSaldoCuenta2.value = (objSaldoCuenta2.value == "") ? 0 : objSaldoCuenta2.value;
-    objSubsidio.value     = (objSubsidio.value     == "") ? 0 : objSubsidio.value;
-    objAporteLote.value   = (objAporteLote.value   == "") ? 0 : objAporteLote.value;
-    objCesantias.value    = (objCesantias.value    == "") ? 0 : objCesantias.value;
-    objAvanceObra.value   = (objAvanceObra.value   == "") ? 0 : objAvanceObra.value;
-    objMateriales.value   = (objMateriales.value   == "") ? 0 : objMateriales.value;
-    objCredito.value      = (objCredito.value      == "") ? 0 : objCredito.value;
-    objDonacion.value     = (objDonacion.value     == "") ? 0 : objDonacion.value;
+    objSubsidio.value = (objSubsidio.value == "") ? 0 : objSubsidio.value;
+    objAporteLote.value = (objAporteLote.value == "") ? 0 : objAporteLote.value;
+    objCesantias.value = (objCesantias.value == "") ? 0 : objCesantias.value;
+    objAvanceObra.value = (objAvanceObra.value == "") ? 0 : objAvanceObra.value;
+    objMateriales.value = (objMateriales.value == "") ? 0 : objMateriales.value;
+    objCredito.value = (objCredito.value == "") ? 0 : objCredito.value;
+    objDonacion.value = (objDonacion.value == "") ? 0 : objDonacion.value;
 
     var valSuma = 0;
     var objMostrar = document.getElementById("totalRecursosMostrar");
@@ -1628,13 +1641,15 @@ function sumarTotalRecursos() {
 
 
 function modificarMiembroHogar(numDocumento) {
-   var txtResultado = "";
-   for (i = 0; i < numDocumento.length; i++) {
-       txtCaracter = numDocumento.charAt(i);
-       txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
-   }
-   numDocumentoSinPuntos = txtResultado;
-   
+
+    var txtResultado = "";
+    for (i = 0; i < numDocumento.length; i++) {
+        txtCaracter = numDocumento.charAt(i);
+        txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
+    }
+
+    numDocumentoSinPuntos = txtResultado;
+
     // Muestra la tabla
     document.getElementById("agregarMiembro").style.display = "";
 
@@ -1745,7 +1760,19 @@ function modificarMiembroHogar(numDocumento) {
                     document.getElementById("seqGrupoLgtbi").selectedIndex = (document.getElementById("seqGrupoLgtbi").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-seqGrupoLgtbi").value) ? j : document.getElementById("seqGrupoLgtbi").selectedIndex;
                 }
             }
-            
+
+            if (arrVariables[ i ].id == numDocumentoSinPuntos + "-anosAprobados") {
+                for (j = 0; j < document.getElementById("anosAprobados").length; j++) {
+                    document.getElementById("anosAprobados").selectedIndex = (document.getElementById("anosAprobados").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-anosAprobados").value) ? j : document.getElementById("anosAprobados").selectedIndex;
+                }
+            }
+
+            if (arrVariables[ i ].id == numDocumentoSinPuntos + "-afiliacionSalud") {
+                for (j = 0; j < document.getElementById("afiliacionSalud").length; j++) {
+                    document.getElementById("afiliacionSalud").selectedIndex = (document.getElementById("afiliacionSalud").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-afiliacionSalud").value) ? j : document.getElementById("afiliacionSalud").selectedIndex;
+                }
+            }
+
             if (arrVariables[ i ].id == numDocumentoSinPuntos + "-seqTipoVictima") {
                 for (j = 0; j < document.getElementById("seqTipoVictima").length; j++) {
                     document.getElementById("seqTipoVictima").selectedIndex = (document.getElementById("seqTipoVictima").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-seqTipoVictima").value) ? j : document.getElementById("seqTipoVictima").selectedIndex;
@@ -1755,10 +1782,12 @@ function modificarMiembroHogar(numDocumento) {
         }
     }
 
+    selectAnidados(numDocumento, 1);
     var objTotalValor = document.getElementById("valIngresoHogar");
     var objTotalMostrar = document.getElementById("valTotalMostrar");
     var objIngreso = document.getElementById("ingreso-" + numDocumento);
     var objParentesco = document.getElementById("parentesco-" + numDocumento);
+
 
     // Resta el valor al total
     objTotalValor.value = parseInt(objTotalValor.value);
@@ -1782,44 +1811,44 @@ function asignarValorSubsidio(objTipoSolucion, bolDesplazado) {
     var seqModalidad = document.getElementById("seqModalidad").value;
     var seqSolucion = document.getElementById("seqSolucion").value;
     var bolDesplazado = document.getElementById("bolDesplazado").value;
-    
+
     var objValSubsidio = document.getElementById("tdValSubsidio");
-    if( objValSubsidio != null ){
-      cargarContenido(
-              "tdValSubsidio",
-              "./contenidos/subsidios/valorSubsidio.php",
-              "modalidad=" + seqModalidad + "&solucion=" + seqSolucion + "&desplazado=" + bolDesplazado,
-              false
-              );
+    if (objValSubsidio != null) {
+        cargarContenido(
+                "tdValSubsidio",
+                "./contenidos/subsidios/valorSubsidio.php",
+                "modalidad=" + seqModalidad + "&solucion=" + seqSolucion + "&desplazado=" + bolDesplazado,
+                false
+                );
     }
 
 }
 
 function asignarValorSubsidioUnidadProyecto(objUnidadProyecto) {
-	var seqUnidadProyecto = document.getElementById("seqUnidadProyecto").value;
+    var seqUnidadProyecto = document.getElementById("seqUnidadProyecto").value;
 
     var objValSubsidio = document.getElementById("tdValSubsidio");
-    if( objValSubsidio != null ){
-      cargarContenido(
-              "tdValSubsidio",
-              "./contenidos/subsidios/valorSubsidioUnidadProyecto.php",
-              "unidadProyecto=" + seqUnidadProyecto,
-              false
-              );
+    if (objValSubsidio != null) {
+        cargarContenido(
+                "tdValSubsidio",
+                "./contenidos/subsidios/valorSubsidioUnidadProyecto.php",
+                "unidadProyecto=" + seqUnidadProyecto,
+                false
+                );
     }
 }
 
 function asignarSoporteCambioSubsidioUnidadProyecto(objUnidadProyecto) {
-	var seqUnidadProyecto = document.getElementById("seqUnidadProyecto").value;
+    var seqUnidadProyecto = document.getElementById("seqUnidadProyecto").value;
 
     var objTxtSoporteCambio = document.getElementById("tdTxtSoporteCambio");
-    if( objTxtSoporteCambio != null ){
-      cargarContenido(
-              "tdTxtSoporteCambio",
-              "./contenidos/subsidios/valorSoporteCambioSubsidio.php",
-              "unidadProyecto=" + seqUnidadProyecto,
-              false
-              );
+    if (objTxtSoporteCambio != null) {
+        cargarContenido(
+                "tdTxtSoporteCambio",
+                "./contenidos/subsidios/valorSoporteCambioSubsidio.php",
+                "unidadProyecto=" + seqUnidadProyecto,
+                false
+                );
     }
 }
 
@@ -1836,7 +1865,7 @@ function sumarTotal() {
     var objPresupuesto = document.getElementById("valPresupuesto");
     var objAvaluo = document.getElementById("valAvaluo");
     var objTotal = document.getElementById("valTotal");
-    
+
     var txtTexto = objPresupuesto.value;
     var txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1844,9 +1873,9 @@ function sumarTotal() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objPresupuesto.value = txtResultado;
-    
+
     objPresupuesto.value = (objPresupuesto.value == "") ? 0 : objPresupuesto.value;
-    
+
     txtTexto = objAvaluo.value;
     txtResultado = "";
     for (i = 0; i < txtTexto.length; i++) {
@@ -1854,139 +1883,136 @@ function sumarTotal() {
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
     objAvaluo.value = txtResultado;
-    
+
     objAvaluo.value = (objAvaluo.value == "") ? 0 : objAvaluo.value;
 
     var valSuma = 0;
     valSuma += parseInt(objPresupuesto.value);
     valSuma += parseInt(objAvaluo.value);
 
-    objTotal.value = dar_formato( valSuma );
+    objTotal.value = dar_formato(valSuma);
 
 }
 
 
 function pedirConfirmacion(txtDestino, objFormulario, txtArchivo) {
-//alert("prueba");
-	 if (navigator.onLine) { 
-		eliminarObjeto("dlgPedirConfirmacionListener");
 
-		someterFormulario(txtDestino, objFormulario, txtArchivo, false, true);
+    if (navigator.onLine) {
 
-		YAHOO.util.Event.onContentReady(
-				"dlgPedirConfirmacionListener",
-				function() {
+        eliminarObjeto("dlgPedirConfirmacionListener");
 
-					// Acion de someter el formulario
-					var handleSubmit = function() {
-						this.submit();
-					};
+        someterFormulario(txtDestino, objFormulario, txtArchivo, false, true);
 
-					// Cancela la accion de someter el formulario y cierra el cuadro de dialogo
-					var handleCancel = function() {
-						this.cancel();
-					};
+        YAHOO.util.Event.onContentReady(
+                "dlgPedirConfirmacionListener",
+                function () {
 
-					// Cuando da Submit al formulario del dialogo este es la funcion que contesta
-					var handleSuccess = function(o) {
-						var response = o.responseText;
-						response = response.split("<!")[0];                                                
-						document.getElementById("mensajes").innerHTML = response;
-                                                
-                                                var tmpObj = null;
-                                                tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
-                                                while( tmpObj != null ){
-                                                    //alert( tmpObj );
-                                                    eliminarObjeto("dlgPedirConfirmacion_mask");
-                                                    tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
-                                                }
-                                                
-                                                
-						
-					};
+                    // Acion de someter el formulario
+                    var handleSubmit = function () {
+                        this.submit();
+                    };
 
-					// Cuando se da submit y la accion falla este es el mensaje
-					var handleFailure = function(o) {
-						alert("Submission failed: " + o.status);
-					};
+                    // Cancela la accion de someter el formulario y cierra el cuadro de dialogo
+                    var handleCancel = function () {
+                        this.cancel();
+                    };
 
-					// Objeto de configuracion
-					var objConfiguracion = {
-						width: "300px",
-						fixedcenter: true,
-						close: false,
-						draggable: false,
-						modal: true,
-						buttons: [{
-								text: "Salvar Información",
-								handler: handleSubmit,
-								isDefault: true
-							},
-							/*{
-							 text:"Salvar InformaciÃ³n Parcial", 
-							 handler:handleSubmit, 
-							 isDefault:false
-							 },*/
-							{
-								text: "Cancelar",
-								handler: handleCancel
-							}
-						],
-						constraintoviewport: true
-					};
+                    // Cuando da Submit al formulario del dialogo este es la funcion que contesta
+                    var handleSuccess = function (o) {
+                        var response = o.responseText;
+                        response = response.split("<!")[0];
+                        document.getElementById("mensajes").innerHTML = response;
+                        var tmpObj = null;
+                        tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
+                        while (tmpObj != null) {
+                            //alert( tmpObj );
+                            eliminarObjeto("dlgPedirConfirmacion_mask");
+                            tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
+                        }
+                    };
 
-					// Instancia el cuadro de dialogo
-					var dialog1 = new YAHOO.widget.Dialog("dlgPedirConfirmacion", objConfiguracion);
+                    // Cuando se da submit y la accion falla este es el mensaje
+                    var handleFailure = function (o) {
+                        alert("Submission failed: " + o.status);
+                    };
 
-					// Objeto callback del formulario para manejar la respuesta de este
-					dialog1.callback = {
-						success: handleSuccess,
-						failure: handleFailure
-					};
+                    // Objeto de configuracion
+                    var objConfiguracion = {
+                        width: "300px",
+                        fixedcenter: true,
+                        close: false,
+                        draggable: false,
+                        modal: true,
+                        buttons: [{
+                                text: "Salvar Información",
+                                handler: handleSubmit,
+                                isDefault: true
+                            },
+                            /*{
+                             text:"Salvar InformaciÃ³n Parcial", 
+                             handler:handleSubmit, 
+                             isDefault:false
+                             },*/
+                            {
+                                text: "Cancelar",
+                                handler: handleCancel
+                            }
+                        ],
+                        constraintoviewport: true
+                    };
 
-					// Muestra el cuadro de dialogo
-					dialog1.render();
-					dialog1.show();
+                    // Instancia el cuadro de dialogo
+                    var dialog1 = new YAHOO.widget.Dialog("dlgPedirConfirmacion", objConfiguracion);
 
-				}
-		);
-	} else {
+                    // Objeto callback del formulario para manejar la respuesta de este
+                    dialog1.callback = {
+                        success: handleSuccess,
+                        failure: handleFailure
+                    };
+
+                    // Muestra el cuadro de dialogo
+                    dialog1.render();
+                    dialog1.show();
+
+                }
+        );
+    } else {
         alert('Por favor verifique la conexión a internet y de nuevo haga clic en Salvar Acualización');
     }
 
 }
 
-function desembolsoBusquedaOferta(seqFormulario,seqCasaMano,bolEscrituracion) {
-   
-   var txtCarpeta = "desembolso";
-   if( typeof( seqCasaMano ) == "undefined" ){
-      seqCasaMano = 0;
-   }else {
-	  if( seqCasaMano != 0 ){
-        txtCarpeta = "casaMano";
-      }
-   }
-   
-   if( typeof( bolEscrituracion ) == "undefined" ){
-      bolEscrituracion = 0;
-   }else {
-      bolEscrituracion = 1;
-   }
-   
+function desembolsoBusquedaOferta(seqFormulario, seqCasaMano, bolEscrituracion) {
+
+    var txtCarpeta = "desembolso";
+    if (typeof (seqCasaMano) == "undefined") {
+        seqCasaMano = 0;
+    } else {
+        if (seqCasaMano != 0) {
+            txtCarpeta = "casaMano";
+        }
+    }
+
+    if (typeof (bolEscrituracion) == "undefined") {
+        bolEscrituracion = 0;
+    } else {
+        bolEscrituracion = 1;
+    }
+
     var objFormulario = YAHOO.util.Dom.get("frmBusquedaOferta");
     someterFormulario('mensajes', objFormulario, './contenidos/' + txtCarpeta + '/pedirConfirmacion.php', false, true);
 
     YAHOO.util.Event.onContentReady(
             "tablaMensajes",
-            function() {
+            function () {
 
                 var objTabla = YAHOO.util.Dom.get("tablaMensajes");
-                
-                if( seqCasaMano == 0 && txtCarpeta == "casaMano" ){
-                   var objIdCasaMano = YAHOO.util.Dom.get( "casaMano" );
-                   seqCasaMano = objIdCasaMano.value;
+
+                if (seqCasaMano == 0 && txtCarpeta == "casaMano") {
+                    var objIdCasaMano = YAHOO.util.Dom.get("casaMano");
+                    seqCasaMano = objIdCasaMano.value;
                 }
-                
+
                 if (objTabla.className == "msgOk") {
                     var wndFormato;
                     try {
@@ -2023,7 +2049,7 @@ function obtenerTipoSolucionDesplazado(objDesplazado, txtIdModalidad) {
 
     YAHOO.util.Event.onContentReady(
             "seqSolucion",
-            function() {
+            function () {
                 document.getElementById("seqSolucion").focus();
             }
     );
@@ -2043,7 +2069,7 @@ function obtenerTipoSolucion(objModalidad) {
 
     YAHOO.util.Event.onContentReady(
             "seqSolucion",
-            function() {
+            function () {
                 document.getElementById("seqSolucion").focus();
             }
     );
@@ -2062,7 +2088,7 @@ function obtenerConjuntoResidencial(objProyectoPadre) {
 
     YAHOO.util.Event.onContentReady(
             "seqProyectoHijo",
-            function() {
+            function () {
                 document.getElementById("seqProyectoHijo").focus();
             }
     );
@@ -2081,7 +2107,7 @@ function obtenerUnidadProyecto(objProyecto) {
 
     YAHOO.util.Event.onContentReady(
             "seqUnidadProyecto",
-            function() {
+            function () {
                 document.getElementById("seqUnidadProyecto").focus();
             }
     );
@@ -2100,7 +2126,7 @@ function obtenerUnidadEstudioTecnico(objProyecto) {
 
     YAHOO.util.Event.onContentReady(
             "seqUnidadProyecto",
-            function() {
+            function () {
                 document.getElementById("seqUnidadProyecto").focus();
             }
     );
@@ -2119,7 +2145,7 @@ function obtenerGestion(objGrupoGestion, idDestino, idSelectDestino) {
 
     YAHOO.util.Event.onContentReady(
             idSelectDestino,
-            function() {
+            function () {
                 document.getElementById("txtComentario").style.background = "#FFFFFF";
                 document.getElementById(idSelectDestino).focus();
             }
@@ -2140,7 +2166,7 @@ function obtenerGestionProyectos(objGrupoGestion, idDestino, idSelectDestino) {
 
     YAHOO.util.Event.onContentReady(
             idSelectDestino,
-            function() {
+            function () {
                 document.getElementById("txtComentario").style.background = "#FFFFFF";
                 document.getElementById(idSelectDestino).focus();
             }
@@ -2180,10 +2206,10 @@ function fechasFuturas(objSelectOrigen, idSelectDestino) {
 function imprimirPostulacion(objFormulario) {
 
     someterFormulario('mensajes', objFormulario, './contenidos/subsidios/salvarPostulacion.php', false, true);
-    
+
     YAHOO.util.Event.onContentReady(
             "tablaMensajes",
-            function() {
+            function () {
                 var objTablaMensajes = document.getElementById("tablaMensajes");
                 var arrFilas = objTablaMensajes.getElementsByTagName("td");
                 if (arrFilas[ 0 ].className != "msgError") {
@@ -2230,7 +2256,7 @@ function ucwords(str) {
     // *     returns 1: 'Kevin Van Zonneveld'
     // *     example 2: ucwords('HELLO WORLD');
     // *     returns 2: 'HELLO WORLD'
-    return (str + '').replace(/^(.)|\s(.)/g, function($1) {
+    return (str + '').replace(/^(.)|\s(.)/g, function ($1) {
         return $1.toUpperCase( );
     });
 }
@@ -2238,13 +2264,13 @@ function ucwords(str) {
 function continuarCalificacion() {
 
     // Define various event handlers for Dialog
-    var handleYes = function() {
+    var handleYes = function () {
         //cargarContenido("contenido", "./contenidos/calificacion/procesoCalificacion.php", "", true);
-		cargarContenido("contenido", "./contenidos/calificacion/calificacionPlan2.php", "", true);
+        cargarContenido("contenido", "./contenidos/calificacion/calificacionPlan2.php", "", true);
         this.cancel();
     };
 
-    var handleNo = function() {
+    var handleNo = function () {
         this.cancel();
     };
 
@@ -2292,7 +2318,7 @@ function cuadroBusquedaAvanzada(idDestino) {
     var objDestino = YAHOO.util.Dom.get(idDestino);
     var objCuadro = YAHOO.util.Dom.get("cuadro" + idDestino);
     var objIcono = YAHOO.util.Dom.get("mas" + idDestino);
-    
+
     var numAlto = 0;
     if (objDestino.style.width == "" || objDestino.style.width == "1px") {
         numAlto = 100;
@@ -2302,13 +2328,13 @@ function cuadroBusquedaAvanzada(idDestino) {
         objIcono.innerHTML = "+";
     }
 
-    var animacionIniciada = function() {
+    var animacionIniciada = function () {
         if (numAlto == 1) {
             objCuadro.style.display = "none";
         }
     }
 
-    var animacionCompleta = function() {
+    var animacionCompleta = function () {
         objDestino.style.width = numAlto;
         if (numAlto == 100) {
             objCuadro.style.display = "block";
@@ -2348,11 +2374,11 @@ function calendarioPopUp(idInputDestino) {
 
     YAHOO.util.Event.onContentReady(
             "calendarioPopUp",
-            function() {
+            function () {
 
                 var objInputDestino = document.getElementById(idInputDestino);
-                
-                var sleeccionaFecha = function(type, args, obj) {
+
+                var sleeccionaFecha = function (type, args, obj) {
                     var dates = args[0];
                     var date = dates[0];
                     var year = date[0], month = date[1], day = date[2];
@@ -2382,9 +2408,9 @@ function calendarioPopUp(idInputDestino) {
                 objCalendario.cfg.setProperty("MONTHS_SHORT", ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]);
                 objCalendario.cfg.setProperty("WEEKDAYS_MEDIUM", ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"]);
                 objCalendario.selectEvent.subscribe(sleeccionaFecha, objCalendario, true);
-                
+
                 //alert( objInputDestino );
-                
+
                 objCalendario.render( );
             }
     );
@@ -2399,8 +2425,8 @@ function calendarioPopUp(idInputDestino) {
 }
 
 function calendarioPopUpCalcula(idInputDestino, actual, campo) {
-		/**/
-		
+    /**/
+
     var objPanel = new YAHOO.widget.Panel(
             "calendar",
             {
@@ -2416,43 +2442,43 @@ function calendarioPopUpCalcula(idInputDestino, actual, campo) {
 
     YAHOO.util.Event.onContentReady(
             "calendarioPopUp",
-            function() {
+            function () {
 
                 var objInputDestino = document.getElementById(idInputDestino);
-                
-                var sleeccionaFecha = function(type, args, obj) {
+
+                var sleeccionaFecha = function (type, args, obj) {
                     var dates = args[0];
                     var date = dates[0];
                     var year = date[0], month = date[1], day = date[2];
 
                     objInputDestino.value = year + "-" + month + "-" + day;
-					///////////////////////// inicio
-					var vlrInicial = objInputDestino.value;
-					if (vlrInicial.substr(6,1) == "-"){
-						var Parte1n = vlrInicial.substr(0,5);
-						var Parte2n = "0"
-						var Parte3n = vlrInicial.substr(5,5);
-						var vlrInicialNuevo = Parte1n + Parte2n + Parte3n;
-					} else {
-						var vlrInicialNuevo = vlrInicial;
-					}
-					
-					var vlrActual = actual.value;
-					if (vlrActual.substr(6,1) == "-"){
-						var Parte1 = vlrActual.substr(0,5);
-						var Parte2 = "0"
-						var Parte3 = vlrActual.substr(5,5);
-						var vlrActualNuevo = Parte1 + Parte2 + Parte3;
-					} else {
-						var vlrActualNuevo = vlrActual;
-					}
-					var diff =  Math.floor(( Date.parse(vlrActualNuevo) - Date.parse(vlrInicialNuevo) ) / 86400000);
-					if (isNaN(diff)){
-						document.getElementById(campo).value = 0;
-					} else {
-						document.getElementById(campo).value = diff;
-					}
-					////////////////////////// fin
+                    ///////////////////////// inicio
+                    var vlrInicial = objInputDestino.value;
+                    if (vlrInicial.substr(6, 1) == "-") {
+                        var Parte1n = vlrInicial.substr(0, 5);
+                        var Parte2n = "0"
+                        var Parte3n = vlrInicial.substr(5, 5);
+                        var vlrInicialNuevo = Parte1n + Parte2n + Parte3n;
+                    } else {
+                        var vlrInicialNuevo = vlrInicial;
+                    }
+
+                    var vlrActual = actual.value;
+                    if (vlrActual.substr(6, 1) == "-") {
+                        var Parte1 = vlrActual.substr(0, 5);
+                        var Parte2 = "0"
+                        var Parte3 = vlrActual.substr(5, 5);
+                        var vlrActualNuevo = Parte1 + Parte2 + Parte3;
+                    } else {
+                        var vlrActualNuevo = vlrActual;
+                    }
+                    var diff = Math.floor((Date.parse(vlrActualNuevo) - Date.parse(vlrInicialNuevo)) / 86400000);
+                    if (isNaN(diff)) {
+                        document.getElementById(campo).value = 0;
+                    } else {
+                        document.getElementById(campo).value = diff;
+                    }
+                    ////////////////////////// fin
                     objPanel.hide();
                 }
 
@@ -2476,7 +2502,7 @@ function calendarioPopUpCalcula(idInputDestino, actual, campo) {
                 objCalendario.cfg.setProperty("MONTHS_SHORT", ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]);
                 objCalendario.cfg.setProperty("WEEKDAYS_MEDIUM", ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"]);
                 objCalendario.selectEvent.subscribe(sleeccionaFecha, objCalendario, true);
-                
+
                 objCalendario.render( );
             }
     );
@@ -2507,44 +2533,44 @@ function calendarioPopUpIncrementa(idInputDestino, diasIncremento, campoDestino)
 
     YAHOO.util.Event.onContentReady(
             "calendarioPopUp",
-            function() {
+            function () {
 
                 var objInputDestino = document.getElementById(idInputDestino);
-                
-                var sleeccionaFecha = function(type, args, obj) {
+
+                var sleeccionaFecha = function (type, args, obj) {
                     var dates = args[0];
                     var date = dates[0];
                     var year = date[0], month = date[1], day = date[2];
 
                     objInputDestino.value = year + "-" + month + "-" + day;
-					// inicio
-					var fechaOriginal = year + "-" + month + "-" + day;
-					if (fechaOriginal.substr(6,1) == "-"){
-						var Parte1 = fechaOriginal.substr(0,5);
-						var Parte2 = "0"
-						var Parte3 = fechaOriginal.substr(5,5);
-						var fechaOriginalNueva = Parte1 + Parte2 + Parte3;
-					} else {
-						var fechaOriginalNueva = fechaOriginal;
-					}
-					//alert (fechaOriginalNueva);
-					ms = Date.parse(fechaOriginalNueva);
-					fecha = new Date(ms);
-					dayx = fecha.getDate();
-					monthx = fecha.getMonth()+1;
-					yearx = fecha.getFullYear();
+                    // inicio
+                    var fechaOriginal = year + "-" + month + "-" + day;
+                    if (fechaOriginal.substr(6, 1) == "-") {
+                        var Parte1 = fechaOriginal.substr(0, 5);
+                        var Parte2 = "0"
+                        var Parte3 = fechaOriginal.substr(5, 5);
+                        var fechaOriginalNueva = Parte1 + Parte2 + Parte3;
+                    } else {
+                        var fechaOriginalNueva = fechaOriginal;
+                    }
+                    //alert (fechaOriginalNueva);
+                    ms = Date.parse(fechaOriginalNueva);
+                    fecha = new Date(ms);
+                    dayx = fecha.getDate();
+                    monthx = fecha.getMonth() + 1;
+                    yearx = fecha.getFullYear();
 
-					tiempo = fecha.getTime();
-					milisegundos = parseInt(diasIncremento*24*60*60*1000);
-					total = fecha.setTime(tiempo+milisegundos);
-					dayx = fecha.getDate();
-					monthx = fecha.getMonth()+1;
-					yearx = fecha.getFullYear();
-					
-					var fechaVence = yearx + "-" + monthx + "-" + dayx;
-					document.getElementById(campoDestino).value = fechaVence;
-					// fin
-					
+                    tiempo = fecha.getTime();
+                    milisegundos = parseInt(diasIncremento * 24 * 60 * 60 * 1000);
+                    total = fecha.setTime(tiempo + milisegundos);
+                    dayx = fecha.getDate();
+                    monthx = fecha.getMonth() + 1;
+                    yearx = fecha.getFullYear();
+
+                    var fechaVence = yearx + "-" + monthx + "-" + dayx;
+                    document.getElementById(campoDestino).value = fechaVence;
+                    // fin
+
                     objPanel.hide();
                 }
 
@@ -2568,9 +2594,9 @@ function calendarioPopUpIncrementa(idInputDestino, diasIncremento, campoDestino)
                 objCalendario.cfg.setProperty("MONTHS_SHORT", ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]);
                 objCalendario.cfg.setProperty("WEEKDAYS_MEDIUM", ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"]);
                 objCalendario.selectEvent.subscribe(sleeccionaFecha, objCalendario, true);
-                
+
                 //alert( objInputDestino );
-                
+
                 objCalendario.render( );
             }
     );
@@ -2728,7 +2754,7 @@ function verCambiosFormulario(seqFormulario, seqSeguimiento) {
 
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
 
                     var objConfiguracion = {
@@ -2757,7 +2783,7 @@ function verCambiosFormulario(seqFormulario, seqSeguimiento) {
 
     // Objeto de respuesta si la carga falla
     var handleFailure =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
 
                     // Cuando se vence la sesion la respuesta es HTTP 401 = Not Authorized
@@ -2794,7 +2820,7 @@ function verCambiosFormularioProyectos(seqProyecto, seqSeguimiento) {
 
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
 
                     var objConfiguracion = {
@@ -2823,7 +2849,7 @@ function verCambiosFormularioProyectos(seqProyecto, seqSeguimiento) {
 
     // Objeto de respuesta si la carga falla
     var handleFailure =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
 
                     // Cuando se vence la sesion la respuesta es HTTP 401 = Not Authorized
@@ -2869,7 +2895,7 @@ function limpiarBusqueda() {
     var objCriterioTextoInicia = document.getElementById("criterioTextoInicia");
     var objCriterioTextoTermina = document.getElementById("criterioTextoTermina");
     var objCriterioTextoContiene = document.getElementById("criterioTextoContiene");
-    
+
     objReferencia.value = "";
     objGrupoGestion.selectedIndex = 0;
     objGestion.selectedIndex = 0;
@@ -3087,26 +3113,26 @@ function limpiarRadio(objRadio, arrRadios) {
     }
 }
 
-function desembolsoRevisionJuridica(seqFormulario, seqCasaMano ) {
+function desembolsoRevisionJuridica(seqFormulario, seqCasaMano) {
 
-   var txtCarpeta = "desembolso";
-   var txtCasaMano = "";
-   
-   if( typeof( seqCasaMano ) == "undefined" ){
-      txtCarpeta = "desembolso";
-      txtCasaMano = "";
-   } else {
-      txtCarpeta = "casaMano";
-      txtCasaMano = "&seqCasaMano=" + seqCasaMano;
-   }
-      
-   var objFormulario = YAHOO.util.Dom.get("frmBusquedaOferta");
+    var txtCarpeta = "desembolso";
+    var txtCasaMano = "";
+
+    if (typeof (seqCasaMano) == "undefined") {
+        txtCarpeta = "desembolso";
+        txtCasaMano = "";
+    } else {
+        txtCarpeta = "casaMano";
+        txtCasaMano = "&seqCasaMano=" + seqCasaMano;
+    }
+
+    var objFormulario = YAHOO.util.Dom.get("frmBusquedaOferta");
 
     someterFormulario('mensajes', objFormulario, './contenidos/' + txtCarpeta + '/pedirConfirmacion.php', false, true);
 
     YAHOO.util.Event.onContentReady(
             "tablaMensajes",
-            function() {
+            function () {
 
                 var objTabla = YAHOO.util.Dom.get("tablaMensajes");
                 if (objTabla.className == "msgOk") {
@@ -3182,45 +3208,45 @@ function ResumenProgramaGrafica(dato) {
 
 }
 
-function desembolsoRevisionTecnica(seqFormulario , seqCasaMano) {
+function desembolsoRevisionTecnica(seqFormulario, seqCasaMano) {
 
-   var txtCarpeta = "desembolso";
-   var txtCasaMano = "";
-   
-   if( typeof( seqCasaMano ) == "undefined" ){
-      txtCarpeta = "desembolso";
-      txtCasaMano = "";
-   } else {
-      txtCarpeta = "casaMano";
-      txtCasaMano = "&seqCasaMano=" + seqCasaMano;
-   }
+    var txtCarpeta = "desembolso";
+    var txtCasaMano = "";
 
-   var objFormulario = YAHOO.util.Dom.get("frmBusquedaOferta");
-   someterFormulario('mensajes', objFormulario, './contenidos/' + txtCarpeta + '/pedirConfirmacion.php', false, true);
-   YAHOO.util.Event.onContentReady(
-           "tablaMensajes",
-           function() {
-               var objTabla = YAHOO.util.Dom.get("tablaMensajes");
-               if (objTabla.className == "msgOk") {
-                   var wndFormato;
-                   try {
+    if (typeof (seqCasaMano) == "undefined") {
+        txtCarpeta = "desembolso";
+        txtCasaMano = "";
+    } else {
+        txtCarpeta = "casaMano";
+        txtCasaMano = "&seqCasaMano=" + seqCasaMano;
+    }
 
-                       var txtUrl = "./contenidos/desembolso/formatoRevisionTecnica.php";
-                       txtUrl += "?seqFormulario=" + seqFormulario + txtCasaMano;
+    var objFormulario = YAHOO.util.Dom.get("frmBusquedaOferta");
+    someterFormulario('mensajes', objFormulario, './contenidos/' + txtCarpeta + '/pedirConfirmacion.php', false, true);
+    YAHOO.util.Event.onContentReady(
+            "tablaMensajes",
+            function () {
+                var objTabla = YAHOO.util.Dom.get("tablaMensajes");
+                if (objTabla.className == "msgOk") {
+                    var wndFormato;
+                    try {
 
-                       var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100";
+                        var txtUrl = "./contenidos/desembolso/formatoRevisionTecnica.php";
+                        txtUrl += "?seqFormulario=" + seqFormulario + txtCasaMano;
 
-                       if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
-                           throw "ErrorPopUp";
-                       }
-                   } catch (objError) {
-                       if (objError == "ErrorPopUp") {
-                           alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
-                       }
-                   }
-               }
-           }
-   );
+                        var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100";
+
+                        if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
+                            throw "ErrorPopUp";
+                        }
+                    } catch (objError) {
+                        if (objError == "ErrorPopUp") {
+                            alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
+                        }
+                    }
+                }
+            }
+    );
 
 }
 
@@ -3345,12 +3371,12 @@ function recogerValor(arrDestinos, txtTipoDato, idVariables) {
 
     var objVariables = YAHOO.util.Dom.get(idVariables);
 
-    var respuesta = function(o) {
+    var respuesta = function (o) {
 
         for (i = 0; i < arrDestinos.length; i++) {
             var idDestino = arrDestinos[ i ];
             var objDestino = YAHOO.util.Dom.get(idDestino);
-            
+
             if (YAHOO.util.Dom.get("var" + idDestino) != null) {
                 eliminarObjeto("var" + idDestino);
             }
@@ -3362,15 +3388,15 @@ function recogerValor(arrDestinos, txtTipoDato, idVariables) {
 
     }
 
-    var falla = function(o) {
+    var falla = function (o) {
         alert("falla = " + o.status + ": " + o.responseText);
     }
 
-    var aceptar = function() {
+    var aceptar = function () {
         this.submit();
     }
 
-    var cancelar = function() {
+    var cancelar = function () {
         this.cancel();
     }
 
@@ -3429,7 +3455,7 @@ function recogerValor(arrDestinos, txtTipoDato, idVariables) {
 
     var objPanel = new YAHOO.widget.Dialog("dialog1", objConfiguracion);
 
-    objPanel.validate = function() {
+    objPanel.validate = function () {
         var objDatos = this.getData();
         if (objDatos.valor == "") {
             alert("Digite un valor");
@@ -3479,9 +3505,9 @@ function calendarioDesembolso(arrDestinos, idVariables) {
 
     YAHOO.util.Event.onContentReady(
             "calendarioPopUp",
-            function() {
+            function () {
 
-                var sleeccionaFecha = function(type, args, obj) {
+                var sleeccionaFecha = function (type, args, obj) {
                     var dates = args[0];
                     var date = dates[0];
                     var year = date[0], month = date[1], day = date[2];
@@ -3576,7 +3602,7 @@ function desembolsoEstudioTitulos(seqFormulario) {
     someterFormulario('mensajes', objFormulario, './contenidos/desembolso/pedirConfirmacion.php', false, true);
     YAHOO.util.Event.onContentReady(
             "tablaMensajes",
-            function() {
+            function () {
                 var objTabla = YAHOO.util.Dom.get("tablaMensajes");
                 if (objTabla.className == "msgOk") {
                     var wndFormato;
@@ -3618,7 +3644,7 @@ function cargarRegistroDesembolso(seqFormulario, seqSolicitud) {
         }
     }
 
-    var handleSuccess = function(o) {
+    var handleSuccess = function (o) {
 
         //			objMensajes.innerHTML = o.responseText;
 
@@ -3675,7 +3701,7 @@ function cargarRegistroDesembolso(seqFormulario, seqSolicitud) {
         objCargando.hide();
     }
 
-    var handleFailure = function(o) {
+    var handleFailure = function (o) {
         if (o.responseText !== undefined) {
             if (o.status == "401") {
                 document.location = 'index.php';
@@ -3851,7 +3877,7 @@ function cargarContenidoPlano(txtInputDireccion, txtDivDireccionOculto) {
 
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
                     // Toda respuesta del archivo en el parametro se muestra en el objeto destino
                     document.getElementById(txtDivDestino).innerHTML = o.responseText;
@@ -3860,7 +3886,7 @@ function cargarContenidoPlano(txtInputDireccion, txtDivDireccionOculto) {
 
     // Objeto de respuesta si la carga falla
     var handleFailure =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
                     return false;
                 }
@@ -3889,29 +3915,29 @@ function mostrarObjDireccionOculto(txtInputDireccion, txtDivDireccionOculto) {
     var txtDireccionForm = document.getElementById(txtInputDireccion);
     var txtDivDireccionGenerada = "divDireccionGenerada_" + txtInputDireccion;
 
-    var respuesta = function(o) {
+    var respuesta = function (o) {
     }
-    var falla = function(o) {
+    var falla = function (o) {
         alert("falla = " + o.status + ": " + o.responseText);
     }
 
-    var aceptar = function() {
+    var aceptar = function () {
         direccionGenerada = document.getElementById(txtDivDireccionGenerada);
         txtDireccionForm.value.replace(/s{2,}/g, ' ');
         txtDireccionForm.value = direccionGenerada.innerHTML;
         this.cancel();
-        
+
         direccionGenerada.innerHTML = txtDireccionForm.value;
-        mostrarMapa( txtDireccionForm );
-        
-        var objCiudad = document.getElementById( "seqCiudad" );
-        if( objCiudad != null ){
-           objCiudad.focus();
+        mostrarMapa(txtDireccionForm);
+
+        var objCiudad = document.getElementById("seqCiudad");
+        if (objCiudad != null) {
+            objCiudad.focus();
         }
-        
+
     }
 
-    var cancelar = function() {
+    var cancelar = function () {
         // txtDireccionForm.value = "";
 
         this.cancel();
@@ -3940,7 +3966,7 @@ function mostrarObjDireccionOculto(txtInputDireccion, txtDivDireccionOculto) {
     }
 
     var objPanel = new YAHOO.widget.Dialog("dialog1", objConfiguracion);
-    objPanel.validate = function() {
+    objPanel.validate = function () {
         var objDatos = this.getData();
         if (objDatos.valor == "") {
             alert("Digite un valor");
@@ -3989,8 +4015,7 @@ function eventoCambioCalleDireccion( ) {
 
         frmCheckSurVia.disabled = false;
         frmCheckEsteNumero.disabled = false;
-    }
-    else if (txtDireccionTipoVia != '')
+    } else if (txtDireccionTipoVia != '')
     {
         frmCheckEsteVia.disabled = false;
         frmCheckSurNumero.disabled = false;
@@ -3999,8 +4024,7 @@ function eventoCambioCalleDireccion( ) {
         frmCheckEsteNumero.disabled = true;
         frmCheckSurVia.checked = false;
         frmCheckEsteNumero.checked = false;
-    }
-    else
+    } else
     {
         frmCheckEsteVia.disabled = true;
         frmCheckSurNumero.disabled = true;
@@ -4110,15 +4134,15 @@ function actualizarDireccion(txtDivDireccionGenerada)
 
 function actualizaTipoDireccion(vTipo) {
     var valorSeleccionado = vTipo.value;
-    if( document.getElementById('tipoRural') != null ){
-        document.getElementById('tipoRural').checked  = false;
+    if (document.getElementById('tipoRural') != null) {
+        document.getElementById('tipoRural').checked = false;
         document.getElementById('tipoUrbano').checked = false;
-        if (valorSeleccionado == 0 ) {
+        if (valorSeleccionado == 0) {
             //document.getElementById('seqTipoDireccion').value = 0;
             document.getElementById('tipoUrbano').checked = true;
         } else {
             //document.getElementById('seqTipoDireccion').value = 1;
-            document.getElementById('tipoRural').checked  = true;
+            document.getElementById('tipoRural').checked = true;
         }
     }
 }
@@ -4162,7 +4186,7 @@ function salvarBVU(txtForm) {
     someterFormulario('mensajes', txtForm, './contenidos/bvu/salvarFormulario.php', false, true);
     YAHOO.util.Event.onContentReady(
             "tablaMensajes",
-            function() {
+            function () {
                 var objTabla = YAHOO.util.Dom.get("tablaMensajes");
                 if (objTabla.className == "msgOk") {
                     try {
@@ -4363,11 +4387,11 @@ function plantillaModuloOperativoNomina( ) {
 }
 
 
-   function plantillaActoAdministrativo2( txtObjetoSelect ){
+function plantillaActoAdministrativo2(txtObjetoSelect) {
 
-      var objSelect   = YAHOO.util.Dom.get( txtObjetoSelect );
+    var objSelect = YAHOO.util.Dom.get(txtObjetoSelect);
 
-      var objPopUp = new YAHOO.widget.Panel(
+    var objPopUp = new YAHOO.widget.Panel(
             "pop",
             {
                 width: "650px",
@@ -4377,41 +4401,41 @@ function plantillaModuloOperativoNomina( ) {
                 modal: true,
                 visible: true
             }
-      );
+    );
 
-      var fncExito = function( objRespuesta ){
-         objPopUp.setHeader("Instrucciones para la creación del archivo de carga");
-         objPopUp.setBody( objRespuesta.responseText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncExito = function (objRespuesta) {
+        objPopUp.setHeader("Instrucciones para la creación del archivo de carga");
+        objPopUp.setBody(objRespuesta.responseText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var fncFalla = function( objRespuesta ){
-         objPopUp.setHeader("Error al abrir el documento");
-         objPopUp.setBody( objRespuesta.status + ": " + objRespuesta.statusText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncFalla = function (objRespuesta) {
+        objPopUp.setHeader("Error al abrir el documento");
+        objPopUp.setBody(objRespuesta.status + ": " + objRespuesta.statusText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var objRetorno = {
-         success: fncExito,
-         failure: fncFalla
-      }
-      
-      YAHOO.util.Connect.asyncRequest(
-               "POST", 
-               "./contenidos/actosAdministrativos/plantillaActoAdministrativo.php", 
-               objRetorno, 
-               "seqTipoActo=" + objSelect.options[ objSelect.selectedIndex ].value
-      );
+    var objRetorno = {
+        success: fncExito,
+        failure: fncFalla
+    }
 
-   }
+    YAHOO.util.Connect.asyncRequest(
+            "POST",
+            "./contenidos/actosAdministrativos/plantillaActoAdministrativo.php",
+            objRetorno,
+            "seqTipoActo=" + objSelect.options[ objSelect.selectedIndex ].value
+            );
 
-   function plantillaCargueEstudioTecnicoUnidad( txtObjetoSelect ){
+}
 
-      var objSelect   = YAHOO.util.Dom.get( txtObjetoSelect );
+function plantillaCargueEstudioTecnicoUnidad(txtObjetoSelect) {
 
-      var objPopUp = new YAHOO.widget.Panel(
+    var objSelect = YAHOO.util.Dom.get(txtObjetoSelect);
+
+    var objPopUp = new YAHOO.widget.Panel(
             "pop",
             {
                 width: "700px",
@@ -4421,41 +4445,41 @@ function plantillaModuloOperativoNomina( ) {
                 modal: true,
                 visible: true
             }
-      );
+    );
 
-      var fncExito = function( objRespuesta ){
-         objPopUp.setHeader("Carga de plantilla de estudios técnicos de unidades");
-         objPopUp.setBody( objRespuesta.responseText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncExito = function (objRespuesta) {
+        objPopUp.setHeader("Carga de plantilla de estudios técnicos de unidades");
+        objPopUp.setBody(objRespuesta.responseText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var fncFalla = function( objRespuesta ){
-         objPopUp.setHeader("Error al abrir el documento");
-         objPopUp.setBody( objRespuesta.status + ": " + objRespuesta.statusText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncFalla = function (objRespuesta) {
+        objPopUp.setHeader("Error al abrir el documento");
+        objPopUp.setBody(objRespuesta.status + ": " + objRespuesta.statusText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var objRetorno = {
-         success: fncExito,
-         failure: fncFalla
-      }
-      
-      YAHOO.util.Connect.asyncRequest(
-               "POST", 
-               "./contenidos/unidadProyecto/plantillaCargaEstudiosTecnicos.php", 
-               objRetorno, 
-               "seqTipoActo=1"
-      );
+    var objRetorno = {
+        success: fncExito,
+        failure: fncFalla
+    }
 
-   }
+    YAHOO.util.Connect.asyncRequest(
+            "POST",
+            "./contenidos/unidadProyecto/plantillaCargaEstudiosTecnicos.php",
+            objRetorno,
+            "seqTipoActo=1"
+            );
 
-	function plantillaCargaCartaHabitabilidad( txtObjetoSelect ){
+}
 
-      var objSelect   = YAHOO.util.Dom.get( txtObjetoSelect );
+function plantillaCargaCartaHabitabilidad(txtObjetoSelect) {
 
-      var objPopUp = new YAHOO.widget.Panel(
+    var objSelect = YAHOO.util.Dom.get(txtObjetoSelect);
+
+    var objPopUp = new YAHOO.widget.Panel(
             "pop",
             {
                 width: "700px",
@@ -4465,78 +4489,78 @@ function plantillaModuloOperativoNomina( ) {
                 modal: true,
                 visible: true
             }
-      );
+    );
 
-      var fncExito = function( objRespuesta ){
-         objPopUp.setHeader("Carga de plantilla de estudios técnicos de unidades");
-         objPopUp.setBody( objRespuesta.responseText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncExito = function (objRespuesta) {
+        objPopUp.setHeader("Carga de plantilla de estudios técnicos de unidades");
+        objPopUp.setBody(objRespuesta.responseText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var fncFalla = function( objRespuesta ){
-         objPopUp.setHeader("Error al abrir el documento");
-         objPopUp.setBody( objRespuesta.status + ": " + objRespuesta.statusText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncFalla = function (objRespuesta) {
+        objPopUp.setHeader("Error al abrir el documento");
+        objPopUp.setBody(objRespuesta.status + ": " + objRespuesta.statusText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var objRetorno = {
-         success: fncExito,
-         failure: fncFalla
-      }
-      
-      YAHOO.util.Connect.asyncRequest(
-               "POST", 
-               "./contenidos/unidadProyecto/plantillaCargaCartaHabitabilidad.php", 
-               objRetorno, 
-               "seqTipoActo=1"
-      );
+    var objRetorno = {
+        success: fncExito,
+        failure: fncFalla
+    }
 
-   }
-   
-   function plantillaProyectoUnidadHabitacional( ){
+    YAHOO.util.Connect.asyncRequest(
+            "POST",
+            "./contenidos/unidadProyecto/plantillaCargaCartaHabitabilidad.php",
+            objRetorno,
+            "seqTipoActo=1"
+            );
 
-	var objPopUp = new YAHOO.widget.Panel(
+}
+
+function plantillaProyectoUnidadHabitacional( ) {
+
+    var objPopUp = new YAHOO.widget.Panel(
             "pop",
             {
                 height: "450px",
-				width: "650px",
+                width: "650px",
                 fixedcenter: true,
                 close: true,
                 draggable: true,
                 modal: true,
                 visible: true
             }
-      );
+    );
 
-      var fncExito = function( objRespuesta ){
-         objPopUp.setHeader("Consulta de proyecto y unidad habitacional");
-         objPopUp.setBody( objRespuesta.responseText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncExito = function (objRespuesta) {
+        objPopUp.setHeader("Consulta de proyecto y unidad habitacional");
+        objPopUp.setBody(objRespuesta.responseText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var fncFalla = function( objRespuesta ){
-         objPopUp.setHeader("Error al abrir el documento");
-         objPopUp.setBody( objRespuesta.status + ": " + objRespuesta.statusText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncFalla = function (objRespuesta) {
+        objPopUp.setHeader("Error al abrir el documento");
+        objPopUp.setBody(objRespuesta.status + ": " + objRespuesta.statusText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var objRetorno = {
-         success: fncExito,
-         failure: fncFalla
-      }
-      
-	  YAHOO.util.Connect.asyncRequest(
-               "POST", 
-               "./contenidos/actosAdministrativos/plantillaProyectoUnidadHabitacional.php", 
-               objRetorno
-      );
+    var objRetorno = {
+        success: fncExito,
+        failure: fncFalla
+    }
 
-   }
-   
+    YAHOO.util.Connect.asyncRequest(
+            "POST",
+            "./contenidos/actosAdministrativos/plantillaProyectoUnidadHabitacional.php",
+            objRetorno
+            );
+
+}
+
 function plantillaActoAdministrativo(idTipoActo) {
 
     var objTipoActo = YAHOO.util.Dom.get(idTipoActo);
@@ -4607,7 +4631,7 @@ function plantillaActoAdministrativo(idTipoActo) {
     if (seqTipoContrato == 7) {
         txtBody += "<tr><td width='120px'><b>Documento</b></td><td>Numero de documento del posutlante principal</td></tr>";
     }
-    
+
     // Indexacion
     if (seqTipoContrato == 8) {
         txtBody += "<tr><td width='250px'><b>Documento</b></td><td>Numero de documento del posutlante principal</td></tr>";
@@ -4615,13 +4639,13 @@ function plantillaActoAdministrativo(idTipoActo) {
         txtBody += "<tr><td width='250px'><b>Fecha Res. Asignación</b></td><td>Fecha de la resolución de asignación a indexar</td></tr>";
         txtBody += "<tr><td width='250px'><b>Valor Indexación</b></td><td>Valor de la indexación</td></tr>";
     }
-	
-	// resolucion de perdida
+
+    // resolucion de perdida
     if (seqTipoContrato == 9) {
         txtBody += "<tr><td width='120px'><b>Documento</b></td><td>Numero de documento del postulante principal</td></tr>";
     }
-	
-	// resolucion de revocatoria
+
+    // resolucion de revocatoria
     if (seqTipoContrato == 10) {
         txtBody += "<tr><td width='120px'><b>Documento</b></td><td>Numero de documento del postulante principal</td></tr>";
     }
@@ -4704,8 +4728,8 @@ function filtarActosAdministrativos( ) {
 
     var numActo = document.getElementById('numActo').value;
     var seqTipoActo = document.getElementById('seqTipoActoBuscar').selectedIndex;
-        seqTipoActo = document.getElementById('seqTipoActoBuscar').options[ seqTipoActo ].value;
-    
+    seqTipoActo = document.getElementById('seqTipoActoBuscar').options[ seqTipoActo ].value;
+
     var txtParametros;
 
     txtParametros = "numActo=" + numActo
@@ -4879,7 +4903,7 @@ function salvarConsignacion(idContenedor) {
     var txtParametros = "";
 
     // funcion para filtrar los objetos que son recolectados por YAHOO.util.Dom.getElementsBy
-    var fncSeleccionarCampos = function(objObtenido) {
+    var fncSeleccionarCampos = function (objObtenido) {
         if (objObtenido.id != "") {
             return true;
         } else {
@@ -5085,7 +5109,7 @@ function pedirConfirmacionEjecutarNomina( ) {
 
 
     // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
-    var handleYes = function() {
+    var handleYes = function () {
         someterFormulario(
                 'mensajes',
                 'frmAgregarNomina',
@@ -5097,7 +5121,7 @@ function pedirConfirmacionEjecutarNomina( ) {
     }
 
     // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
-    var handleNo = function() {
+    var handleNo = function () {
         document.getElementById("mensajes").innerHTML = "";
         this.cancel();
     }
@@ -5146,7 +5170,7 @@ function pedirConfirmacionBorrarConcepto(seqConcepto) {
 
 
     // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
-    var handleYes = function() {
+    var handleYes = function () {
         cargarContenido(
                 'mensajes',
                 './contenidos/crm/borrarConcepto.php',
@@ -5157,7 +5181,7 @@ function pedirConfirmacionBorrarConcepto(seqConcepto) {
     }
 
     // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
-    var handleNo = function() {
+    var handleNo = function () {
         document.getElementById("mensajes").innerHTML = "";
         this.cancel();
     }
@@ -5224,7 +5248,7 @@ function generarDataTableVigencias(objDataTable, txtDiv, tituloVigencia) {
             resizeable: true
         };
     }
-    var myRowFormatter = function(elTr, oRecord) {
+    var myRowFormatter = function (elTr, oRecord) {
         if (oRecord.getData(tituloVigencia) < 15) {
             Dom.addClass(elTr, 'vigenciaRojo');
         } else if (oRecord.getData(tituloVigencia) >= 15 && oRecord.getData(tituloVigencia) < 30) {
@@ -5262,7 +5286,7 @@ function generarGraficaSeriesIndicadorSolicitudDesembolso(objGrafica, txtTipoGra
         prefijo = "$";
     }
 
-    var formatoNumero = function(value) {
+    var formatoNumero = function (value) {
         return YAHOO.util.Number.format(value,
                 {
                     prefix: prefijo,
@@ -5271,21 +5295,21 @@ function generarGraficaSeriesIndicadorSolicitudDesembolso(objGrafica, txtTipoGra
         );
     }
 
-    var toolTipSeries = function(item, index, series)
+    var toolTipSeries = function (item, index, series)
     {
         var toolTipText = series.displayName + ", Mes: " + item.mes + ": ";
         toolTipText += "\n" + formatoNumero(item[series.yField]);
         return toolTipText;
     }
 
-    var toolTipSeriesResolucion = function(item, index, series)
+    var toolTipSeriesResolucion = function (item, index, series)
     {
         var toolTipText = series.displayName + ", Resolucion: " + item.resolucion + ": ";
         toolTipText += "\n" + formatoNumero(item[series.yField]);
         return toolTipText;
     }
 
-    var toolTipColumnas = function(item, index, series)
+    var toolTipColumnas = function (item, index, series)
     {
         var toolTipText = series.displayName + " " + item.ejex;
         toolTipText += "\n" + formatoNumero(item[series.yField]);
@@ -5770,7 +5794,7 @@ function graficaColumna(nombre, ejes, datos) {
         };
     }
 
-    var getDataTipText = function(item, index, series, axisField)
+    var getDataTipText = function (item, index, series, axisField)
     {
         var toolTipText = dar_formato(item[series[axisField]]);
         toolTipText += "\n" + series.displayName + " de " + item.ejeX;
@@ -5779,7 +5803,7 @@ function graficaColumna(nombre, ejes, datos) {
     }
 
 
-    var getYAxisDataTipText = function(item, index, series)
+    var getYAxisDataTipText = function (item, index, series)
     {
         return getDataTipText(item, index, series, "yField");
     }
@@ -5815,7 +5839,7 @@ function graficaBar(nombre, ejes, datos) {
         };
     }
 
-    var getDataTipText = function(item, index, series, axisField)
+    var getDataTipText = function (item, index, series, axisField)
     {
         var toolTipText = dar_formato(item[series[axisField]]);
         toolTipText += "\n" + series.displayName + " de " + item.ejeX;
@@ -5823,7 +5847,7 @@ function graficaBar(nombre, ejes, datos) {
         return toolTipText;
     }
 
-    var getXAxisDataTipText = function(item, index, series)
+    var getXAxisDataTipText = function (item, index, series)
     {
         return getDataTipText(item, index, series, "xField");
     }
@@ -5911,7 +5935,7 @@ function graficasTablas() {
                 nombre + "_tabla",
                 myColumnDefs,
                 myDataSource, {
-        }
+                }
         );
 
     }
@@ -6207,7 +6231,7 @@ function agendas() {
     };
 
     // Funcion que se ejecuta cuando una fecha del calendario es seleccionada
-    var fncSelect = function(type, args, obj) {
+    var fncSelect = function (type, args, obj) {
 
         var numDia = (86400 * 1000); // Milisegundos en el dia
 
@@ -6240,7 +6264,7 @@ function agendas() {
         objCalendario.hasta = (fchUltimoDia.getMonth() + 1) + "/" + fchUltimoDia.getFullYear();
 
         // Coloca la pagina que correspondeal calendario
-        if (typeof(objCalendario.desde) != "undefined" && typeof(objCalendario.hasta) != "undefined") {
+        if (typeof (objCalendario.desde) != "undefined" && typeof (objCalendario.hasta) != "undefined") {
             if (objCalendario.desde != objCalendario.hasta) {
                 objCalendario.cfg.setProperty("pagedate", (fchPrimerDia.getMonth() + 1) + "/" + fchPrimerDia.getFullYear());
             }
@@ -6291,14 +6315,14 @@ function animarListadoGrupos() {
     };
 
     // funcion que se ejecuta cuando se completa la animacion
-    var objOnComplete = function() {
+    var objOnComplete = function () {
         if (numAncho == 125) {
 
-            var objOk = function(o) {
+            var objOk = function (o) {
                 objArbolGrupos.innerHTML = o.responseText;
             }
 
-            var objEr = function(o) {
+            var objEr = function (o) {
                 alert("Error " + o.status + ": " + o.statusText);
             }
 
@@ -6324,16 +6348,16 @@ function animarListadoGrupos() {
 function mostrarMapa(inputDireccion) {
     var origen = document.getElementById(inputDireccion.form.id);
     var direccion = inputDireccion.value.trim();
-    if( typeof ( origen ) != "undefined" && direccion.length > 3 ){
+    if (typeof (origen) != "undefined" && direccion.length > 3) {
         //window.open('http://www.bogota.gov.co/mad/buscador.php?direccion=' + direccion);
-		window.open('http://mapacallejero.bogota.gov.co/mad/flash.php?direccion=' + direccion);
+        window.open('http://mapacallejero.bogota.gov.co/mad/flash.php?direccion=' + direccion);
     }
-    
+
 //    var origen = document.getElementById('frmInscripcion').name;
 //    if (origen == 'frmInscripcion') {
 //        window.open('http://www.bogota.gov.co/mad/buscador.php?direccion=' + direccion);
 //    }
-    
+
 }
 
 
@@ -6345,12 +6369,12 @@ function mostrarMapa(inputDireccion) {
  * @version 1.0 Jun 2013
  */
 
-function ponerPlaceholder( idObjeto , txtMensaje ){	
-	if( YAHOO.util.Dom.inDocument( idObjeto ) == true ){
-		if( ! soportaPlaceHolder() ){
-			addicionarPlaceholder( idObjeto , txtMensaje );
-		}
-	}
+function ponerPlaceholder(idObjeto, txtMensaje) {
+    if (YAHOO.util.Dom.inDocument(idObjeto) == true) {
+        if (!soportaPlaceHolder()) {
+            addicionarPlaceholder(idObjeto, txtMensaje);
+        }
+    }
 }
 
 /**
@@ -6371,27 +6395,27 @@ function soportaPlaceHolder() {
  * @author Jaison Ospina
  * @version 1.0 Jun 2013 
  */
-function addicionarPlaceholder( idObjeto , txtMensaje ) {
+function addicionarPlaceholder(idObjeto, txtMensaje) {
 
-    var objContenedor = YAHOO.util.Dom.get( idObjeto );
-    
+    var objContenedor = YAHOO.util.Dom.get(idObjeto);
+
     objContenedor.placeholder = txtMensaje;
-    objContenedor.onfocus = function() {
-    	if (this.value == this.placeholder) {
+    objContenedor.onfocus = function () {
+        if (this.value == this.placeholder) {
             this.value = '';
             objContenedor.style.color = '#000000';
-            objContenedor.style.backgroundColor = '#ADD8E6'; 
+            objContenedor.style.backgroundColor = '#ADD8E6';
         }
     };
 
-    objContenedor.onblur = function(){
-        if (this.value.length == 0){        	
-        	objContenedor.style.color = '#999999';
-        	objContenedor.style.backgroundColor = '#FFFFFF';
-        	this.value = this.placeholder;
-        }	
+    objContenedor.onblur = function () {
+        if (this.value.length == 0) {
+            objContenedor.style.color = '#999999';
+            objContenedor.style.backgroundColor = '#FFFFFF';
+            this.value = this.placeholder;
+        }
     };
-    
+
     objContenedor.onblur();
 }
 
@@ -6432,67 +6456,67 @@ function tieneSisben(valor) {
  
  */
 /*
-function MuestraOculta(id) {
-    var prySolucion = document.getElementById('proyectoSolucion');
-    if (id == 3) {
-        prySolucion.style.display = "";
-    } else {
-        prySolucion.style.display = 'none';
-        if (document.getElementById('seleccionado').value == 'selected') {
-            document.getElementById('txtNombreVendedor').value = '';
-            document.getElementById('txtDireccionInmueble').value = '';
-            document.getElementById('txtBarrio').value = '';
-            document.getElementById('txtEscritura').value = '';
-            document.getElementById('fchEscritura').value = '';
-            document.getElementById('numNotaria').value = '';
-            //document.getElementById('txtCiudad').value = '';
-
-        }
-    }
-}
-*/
+ function MuestraOculta(id) {
+ var prySolucion = document.getElementById('proyectoSolucion');
+ if (id == 3) {
+ prySolucion.style.display = "";
+ } else {
+ prySolucion.style.display = 'none';
+ if (document.getElementById('seleccionado').value == 'selected') {
+ document.getElementById('txtNombreVendedor').value = '';
+ document.getElementById('txtDireccionInmueble').value = '';
+ document.getElementById('txtBarrio').value = '';
+ document.getElementById('txtEscritura').value = '';
+ document.getElementById('fchEscritura').value = '';
+ document.getElementById('numNotaria').value = '';
+ //document.getElementById('txtCiudad').value = '';
+ 
+ }
+ }
+ }
+ */
 
 /*
  *funcion que llena los campos con la informacion del proyecto seleccionado
  *en el selector de proyecto
  *
  
-function obtenerProyectoSolucion(objProyecto) {
-
-    document.getElementById('seleccionado').value = 'selected';
-    document.getElementById("NombreVendedor").innerHTML = "";
-    document.getElementById("DireccionInmueble").innerHTML = "";
-    document.getElementById("Barrio").innerHTML = "";
-
-    cargarContenido(
-            'NombreVendedor',
-            './contenidos/subsidios/datosProyectoSolucion.php',
-            'dato=NombreVendedor&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
-            true
-            );
-
-    cargarContenido(
-            'DireccionInmueble',
-            './contenidos/subsidios/datosProyectoSolucion.php',
-            'dato=DireccionInmueble&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
-            true
-            );
-
-    cargarContenido(
-            'Barrio',
-            './contenidos/subsidios/datosProyectoSolucion.php',
-            'dato=Barrio&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
-            true
-            );
-
-    cargarContenido(
-            'Escritura_ga',
-            './contenidos/subsidios/datosProyectoSolucion.php',
-            'dato=Escritura&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
-            true
-            );
-}
-**/
+ function obtenerProyectoSolucion(objProyecto) {
+ 
+ document.getElementById('seleccionado').value = 'selected';
+ document.getElementById("NombreVendedor").innerHTML = "";
+ document.getElementById("DireccionInmueble").innerHTML = "";
+ document.getElementById("Barrio").innerHTML = "";
+ 
+ cargarContenido(
+ 'NombreVendedor',
+ './contenidos/subsidios/datosProyectoSolucion.php',
+ 'dato=NombreVendedor&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
+ true
+ );
+ 
+ cargarContenido(
+ 'DireccionInmueble',
+ './contenidos/subsidios/datosProyectoSolucion.php',
+ 'dato=DireccionInmueble&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
+ true
+ );
+ 
+ cargarContenido(
+ 'Barrio',
+ './contenidos/subsidios/datosProyectoSolucion.php',
+ 'dato=Barrio&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
+ true
+ );
+ 
+ cargarContenido(
+ 'Escritura_ga',
+ './contenidos/subsidios/datosProyectoSolucion.php',
+ 'dato=Escritura&proyecto=' + objProyecto.options[ objProyecto.selectedIndex ].value,
+ true
+ );
+ }
+ **/
 
 // Muestra el campo 'Tipo victima' si el campo 'victima' es 'SI' en Inscripción
 /*function escondeTipoVictima() {
@@ -6503,34 +6527,34 @@ function obtenerProyectoSolucion(objProyecto) {
  }
  }*/
 
-   function cambiaTipoSegunHecho() {
-      
-      var objTipoVictima = YAHOO.util.Dom.get( "seqTipoVictima" );
-      var objDesplazado  = YAHOO.util.Dom.get( "bolDesplazado" );
-      
-      if( objTipoVictima.options[ objTipoVictima.selectedIndex ].value == 2  ){
-         objDesplazado.selectedIndex = 1;
-      }else{
-         objDesplazado.selectedIndex = 0;
-      }
-      
-   }
+function cambiaTipoSegunHecho() {
 
-   // Muestra el campo 'Grupo LGTBI' si el campo 'LGTBI' es 'SI' en inscripcion
-   function cambiaLgtbi() {
-      
-      var objGrupoLgbti = YAHOO.util.Dom.get( "seqGrupoLgtbi" );
-      var objLgbti      = YAHOO.util.Dom.get( "bolLgtb" );
-      
-      if( objGrupoLgbti.options[ objGrupoLgbti.selectedIndex ].value == 0 ){
-         objLgbti.selectedIndex = 0;
-	  }else if( objGrupoLgbti.options[ objGrupoLgbti.selectedIndex ].value == "" ){
-         objLgbti.selectedIndex = 0;
-      }else{
-         objLgbti.selectedIndex = 1;
-      }
-      
-   }
+    var objTipoVictima = YAHOO.util.Dom.get("seqTipoVictima");
+    var objDesplazado = YAHOO.util.Dom.get("bolDesplazado");
+
+    if (objTipoVictima.options[ objTipoVictima.selectedIndex ].value == 2) {
+        objDesplazado.selectedIndex = 1;
+    } else {
+        objDesplazado.selectedIndex = 0;
+    }
+
+}
+
+// Muestra el campo 'Grupo LGTBI' si el campo 'LGTBI' es 'SI' en inscripcion
+function cambiaLgtbi() {
+
+    var objGrupoLgbti = YAHOO.util.Dom.get("seqGrupoLgtbi");
+    var objLgbti = YAHOO.util.Dom.get("bolLgtb");
+
+    if (objGrupoLgbti.options[ objGrupoLgbti.selectedIndex ].value == 0) {
+        objLgbti.selectedIndex = 0;
+    } else if (objGrupoLgbti.options[ objGrupoLgbti.selectedIndex ].value == "") {
+        objLgbti.selectedIndex = 0;
+    } else {
+        objLgbti.selectedIndex = 1;
+    }
+
+}
 
 // Muestra el campo 'Grupo LGTBI' si el campo 'LGTBI' es 'SI'
 function escondeGrupoLgtbi() {
@@ -6586,90 +6610,90 @@ function formatoSeparadores(input) {
     }
 }
 
-function espia(){
-   var objMensajes = YAHOO.util.Dom.get("mensajes");
-   var datosFormulario = $( "#frmInscripcion" ).serialize();
-    var ok = function( o ){
-       objMensajes.innerHTML = o.responseText;
-       return true;
+function espia() {
+    var objMensajes = YAHOO.util.Dom.get("mensajes");
+    var datosFormulario = $("#frmInscripcion").serialize();
+    var ok = function (o) {
+        objMensajes.innerHTML = o.responseText;
+        return true;
     }
-    var er = function( o ){
-       return true;
+    var er = function (o) {
+        return true;
     }
     var cb = {
-       success: ok,
-       failure: er
+        success: ok,
+        failure: er
     }
-    YAHOO.util.Connect.asyncRequest("POST", "./espia.php", cb, datosFormulario );
+    YAHOO.util.Connect.asyncRequest("POST", "./espia.php", cb, datosFormulario);
 }
 
-   /**
-    * Funcion que pregunta si desea adelantar el grupo familiar
-    * @author Jaison Ospina
-    * @author Jose Camilo Bernal
-    * @author Bernardo Zerad
-    * @version 1.0 Jul 2013 
-    * @version 1.1 Ene 2014
-    */
+/**
+ * Funcion que pregunta si desea adelantar el grupo familiar
+ * @author Jaison Ospina
+ * @author Jose Camilo Bernal
+ * @author Bernardo Zerad
+ * @version 1.0 Jul 2013 
+ * @version 1.1 Ene 2014
+ */
 
-   function preguntarGrupoFamiliar() {
+function preguntarGrupoFamiliar() {
 
-      var objFormulario = YAHOO.util.Dom.get( "frmInscripcion" );
-      var objEstadoProceso = YAHOO.util.Dom.get( "seqEstadoProceso" );
+    var objFormulario = YAHOO.util.Dom.get("frmInscripcion");
+    var objEstadoProceso = YAHOO.util.Dom.get("seqEstadoProceso");
 
-      espia();
+    espia();
 
-      var txtMensaje = "<div style='text-align:left'>";
-      txtMensaje += "<span class='msgError' style='font-size:12px';>Desea Adelantar la actualizacón del Hogar?</span>";
-      txtMensaje += "</div>";
+    var txtMensaje = "<div style='text-align:left'>";
+    txtMensaje += "<span class='msgError' style='font-size:12px';>Desea Adelantar la actualizacón del Hogar?</span>";
+    txtMensaje += "</div>";
 
-      // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
-      var handleYes = function() {
+    // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
+    var handleYes = function () {
         objEstadoProceso.value = 36; // nscripcion - Hogar Actualizado
-        pedirConfirmacion('mensajes',objFormulario,'./contenidos/subsidios/pedirConfirmacion.php'); 
+        pedirConfirmacion('mensajes', objFormulario, './contenidos/subsidios/pedirConfirmacion.php');
         this.cancel();
-      }
+    }
 
-      // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
-      var handleNo = function() {
-        pedirConfirmacion('mensajes',objFormulario,'./contenidos/subsidios/pedirConfirmacion.php'); 
+    // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
+    var handleNo = function () {
+        pedirConfirmacion('mensajes', objFormulario, './contenidos/subsidios/pedirConfirmacion.php');
         this.cancel();
-      }
+    }
 
-      var objAtributos = {
-          width: "330px",
-          effect: {
-              effect: YAHOO.widget.ContainerEffect.FADE,
-              duration: 0.75
-          },
-          fixedcenter: true,
-          zIndex: 1,
-          visible: false,
-          modal: true,
-          draggable: true,
-          close: false,
-          text: txtMensaje,
-          buttons: [
-              {
-                  text: "Actualizar",
-                  handler: handleYes
-              },
-              {
-                  text: "No Actualizar",
-                  handler: handleNo,
-                  isDefault: true
-              }
-          ]
-      }
+    var objAtributos = {
+        width: "330px",
+        effect: {
+            effect: YAHOO.widget.ContainerEffect.FADE,
+            duration: 0.75
+        },
+        fixedcenter: true,
+        zIndex: 1,
+        visible: false,
+        modal: true,
+        draggable: true,
+        close: false,
+        text: txtMensaje,
+        buttons: [
+            {
+                text: "Actualizar",
+                handler: handleYes
+            },
+            {
+                text: "No Actualizar",
+                handler: handleNo,
+                isDefault: true
+            }
+        ]
+    }
 
-       // INSTANCIA EL OBJETO DIALOGO
-      var objDialogo1 = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
+    // INSTANCIA EL OBJETO DIALOGO
+    var objDialogo1 = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
 
-      // Muestra el cuadro de dialogo
-      objDialogo1.setHeader("Actualización del Hogar");
-      objDialogo1.render(document.body);
-      objDialogo1.show();
-   }
+    // Muestra el cuadro de dialogo
+    objDialogo1.setHeader("Actualización del Hogar");
+    objDialogo1.render(document.body);
+    objDialogo1.show();
+}
 
 /* *************************************************************************************
  * Funciones que contralan los combos dependientes de Ciudad, Barrio, Localidad y  UPZ *
@@ -6688,7 +6712,7 @@ function obtenerCiudad(objLocalidad) {
 
     YAHOO.util.Event.onContentReady(
             "seqCiudad",
-            function() {
+            function () {
                 document.getElementById("seqCiudad").focus();
             }
     );
@@ -6705,7 +6729,7 @@ function obtenerBarrio(objLocalidad) {
 
     YAHOO.util.Event.onContentReady(
             "seqBarrio",
-            function() {
+            function () {
                 document.getElementById("seqBarrio").focus();
             }
     );
@@ -6722,44 +6746,44 @@ function obtenerBarrioProyecto(objLocalidad) {
 
     YAHOO.util.Event.onContentReady(
             "seqBarrio",
-            function() {
+            function () {
                 document.getElementById("seqBarrio").focus();
             }
     );
 }
 
-function obtenerUpz( objBarrio ) {
-      document.getElementById("tdupz").innerHTML = "";
-      cargarContenido(
-              'tdupz',
-              './contenidos/subsidios/barrioUpz.php',
-              'seqBarrio=' + objBarrio.options[ objBarrio.selectedIndex ].value,
-              true
-              );
-      YAHOO.util.Event.onContentReady(
-              "seqUpz",
-              function() {
-                 document.getElementById( "seqBarrio" ).focus();
-              }
-      );
-   }
-
-   function cambiarCiudad(objCiudad){
-      cargarContenido('tdlocalidad','./contenidos/subsidios/cambiarLocalidad.php','ciudad=' + objCiudad.options[ objCiudad.selectedIndex ].value , true);
-      YAHOO.util.Event.onContentReady(
-         "seqLocalidad",
-         function(){
-            var objLocalidad = YAHOO.util.Dom.get( "seqLocalidad" );
-            cargarContenido(
-               'tdBarrio',
-               './contenidos/subsidios/localidadBarrio.php',
-               'seqLocalidad=' + objLocalidad.options[ objLocalidad.selectedIndex ].value,
-               true
+function obtenerUpz(objBarrio) {
+    document.getElementById("tdupz").innerHTML = "";
+    cargarContenido(
+            'tdupz',
+            './contenidos/subsidios/barrioUpz.php',
+            'seqBarrio=' + objBarrio.options[ objBarrio.selectedIndex ].value,
+            true
             );
-            document.getElementById( "seqLocalidad" ).focus();
-         }
-      );
-   }
+    YAHOO.util.Event.onContentReady(
+            "seqUpz",
+            function () {
+                document.getElementById("seqBarrio").focus();
+            }
+    );
+}
+
+function cambiarCiudad(objCiudad) {
+    cargarContenido('tdlocalidad', './contenidos/subsidios/cambiarLocalidad.php', 'ciudad=' + objCiudad.options[ objCiudad.selectedIndex ].value, true);
+    YAHOO.util.Event.onContentReady(
+            "seqLocalidad",
+            function () {
+                var objLocalidad = YAHOO.util.Dom.get("seqLocalidad");
+                cargarContenido(
+                        'tdBarrio',
+                        './contenidos/subsidios/localidadBarrio.php',
+                        'seqLocalidad=' + objLocalidad.options[ objLocalidad.selectedIndex ].value,
+                        true
+                        );
+                document.getElementById("seqLocalidad").focus();
+            }
+    );
+}
 
 
 function upzFueradebogota(localidad) {
@@ -6774,7 +6798,7 @@ function upzFueradebogota(localidad) {
                 );
         YAHOO.util.Event.onContentReady(
                 "seqBarrio",
-                function() {
+                function () {
                     document.getElementById("seqBarrio").focus();
                 }
         );
@@ -6796,640 +6820,650 @@ function obtenerBarrioPostulacion(Localidad) {
 
     YAHOO.util.Event.onContentReady(
             "seqBarrio",
-            function() {
+            function () {
                 document.getElementById("seqBarrio").focus();
             }
     );
 }
 /******* FIN FUNCIONES COMBOS DEPENDIENTES **********************/
 
-    /**
-     * CARGA LAS PANTALLAS DE PLANTILLAS 
-     * DE LA PANTALLA DE CASA EN MANO
-     * @param string txtArchivo
-     * @param string txtParametros
-     * @returns void
-     */
+/**
+ * CARGA LAS PANTALLAS DE PLANTILLAS 
+ * DE LA PANTALLA DE CASA EN MANO
+ * @param string txtArchivo
+ * @param string txtParametros
+ * @returns void
+ */
 
-    function cambioCEM( txtArchivo , txtParametros ){
-		if(document.getElementById("bolVisita")){
-			if ( document.getElementById("bolVisita").checked ) { 
-				var visita = 1;
-			} else {
-				var visita = 0;
-			}
-		}
-        var objRegresar  = YAHOO.util.Dom.get('regresar');
-        var objControles = YAHOO.util.Dom.get('controles');
-
-        if( objRegresar.hidden === true ){
-            objRegresar.hidden = false;
+function cambioCEM(txtArchivo, txtParametros) {
+    if (document.getElementById("bolVisita")) {
+        if (document.getElementById("bolVisita").checked) {
+            var visita = 1;
         } else {
-            objRegresar.hidden = true;
-        }   
+            var visita = 0;
+        }
+    }
+    var objRegresar = YAHOO.util.Dom.get('regresar');
+    var objControles = YAHOO.util.Dom.get('controles');
 
-        if( objControles.hidden === true ){
-            objControles.hidden = false;
+    if (objRegresar.hidden === true) {
+        objRegresar.hidden = false;
+    } else {
+        objRegresar.hidden = true;
+    }
+
+    if (objControles.hidden === true) {
+        objControles.hidden = false;
+    } else {
+        objControles.hidden = true;
+    }
+    txtParametros += "&bolVisita=" + visita;
+    cargarContenido('cem', txtArchivo, txtParametros, true);
+
+}
+
+function seleccionarCheck(idFormulario, idCheck) {
+    var objFormulario = YAHOO.util.Dom.get(idFormulario);
+    var objCheck = YAHOO.util.Dom.get(idCheck);
+    var arrCheck = YAHOO.util.Dom.getElementsBy(function () {
+        return true;
+    }, 'input', objFormulario);
+    var objMostrar = YAHOO.util.Dom.get('seleccionados');
+    if (arrCheck.length > 1) {
+        if (objCheck.id == '0') {
+            for (numIndice in arrCheck) {
+                if (arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].id != "seqCruce") {
+                    arrCheck[ numIndice ].checked = objCheck.checked;
+                }
+            }
+        }
+        var numSeleccionados = 0;
+        var numTotal = 0;
+        for (numIndice in arrCheck) {
+            if (arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true) {
+                numSeleccionados++;
+            }
+            if (arrCheck[ numIndice ].id != "seqCruce") {
+                numTotal++;
+            }
+        }
+        objMostrar.innerHTML = numTotal + " Hogares Listados " + numSeleccionados + " Seleccionados";
+        var objCheck = YAHOO.util.Dom.get('0');
+        objCheck.indeterminate = false;
+        if (numTotal == numSeleccionados) {
+            objCheck.checked = true;
         } else {
-            objControles.hidden = true;
+            if (numSeleccionados == 0) {
+                objCheck.checked = false;
+            } else {
+                objCheck.indeterminate = true;
+            }
         }
-		txtParametros += "&bolVisita=" + visita;
-        cargarContenido('cem', txtArchivo, txtParametros , true );
+    }
+}
 
-    }
-    
-    function seleccionarCheck( idFormulario , idCheck ){
-        var objFormulario = YAHOO.util.Dom.get( idFormulario );
-        var objCheck = YAHOO.util.Dom.get( idCheck );
-        var arrCheck =  YAHOO.util.Dom.getElementsBy( function(){ return true; }, 'input', objFormulario );
-        var objMostrar = YAHOO.util.Dom.get( 'seleccionados' );
-        if( arrCheck.length > 1 ){
-            if( objCheck.id == '0' ){
-                for( numIndice in arrCheck ){
-                    if( arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].id != "seqCruce" ){
-                        arrCheck[ numIndice ].checked = objCheck.checked;
-                    }
-                }
-            }
-            var numSeleccionados = 0;
-            var numTotal = 0;
-            for( numIndice in arrCheck ){
-                if ( arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true ){
-                    numSeleccionados++;
-                }
-                if( arrCheck[ numIndice ].id != "seqCruce" ){
-                    numTotal++;
-                }
-            }
-            objMostrar.innerHTML = numTotal + " Hogares Listados " + numSeleccionados + " Seleccionados";
-            var objCheck = YAHOO.util.Dom.get( '0' );
-            objCheck.indeterminate = false;
-            if( numTotal == numSeleccionados ){
-                objCheck.checked = true;
-            } else { 
-                if( numSeleccionados == 0 ){
-                    objCheck.checked = false;
-                }else{
-                    objCheck.indeterminate = true;
+function seleccionarCheckUnidades(idUnidadProyecto, idCheck) {
+    var objUnidadProyecto = YAHOO.util.Dom.get(idUnidadProyecto);
+    var objCheck = YAHOO.util.Dom.get(idCheck);
+    var arrCheck = YAHOO.util.Dom.getElementsBy(function () {
+        return true;
+    }, 'input', objUnidadProyecto);
+    var objMostrar = YAHOO.util.Dom.get('seleccionadas');
+    if (arrCheck.length > 1) {
+        if (objCheck.id == '0') {
+            for (numIndice in arrCheck) {
+                if (arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].id != "seqProyecto") {
+                    arrCheck[ numIndice ].checked = objCheck.checked;
                 }
             }
         }
-    }
-
-    function seleccionarCheckUnidades( idUnidadProyecto , idCheck ){
-		var objUnidadProyecto = YAHOO.util.Dom.get( idUnidadProyecto );
-        var objCheck = YAHOO.util.Dom.get( idCheck );
-        var arrCheck =  YAHOO.util.Dom.getElementsBy( function(){ return true; }, 'input', objUnidadProyecto );
-        var objMostrar = YAHOO.util.Dom.get( 'seleccionadas' );
-        if( arrCheck.length > 1 ){
-            if( objCheck.id == '0' ){
-                for( numIndice in arrCheck ){
-                    if( arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].id != "seqProyecto" ){
-                        arrCheck[ numIndice ].checked = objCheck.checked;
-                    }
-                }
-            }
-            var numSeleccionados = 0;
-            var numTotal = 0;
-            for( numIndice in arrCheck ){
-                if ( arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true ){
-                    numSeleccionados++;
-                }
-                if( arrCheck[ numIndice ].id != "seqProyecto" ){
-                    numTotal++;
-                }
-            }
-            objMostrar.innerHTML = numTotal + " Unidades de proyecto listadas " + numSeleccionados + " seleccionadas";
-            var objCheck = YAHOO.util.Dom.get( '0' );
-            objCheck.indeterminate = false;
-            if( numTotal == numSeleccionados ){
-                objCheck.checked = true;
-            } else { 
-                if( numSeleccionados == 0 ){
-                    objCheck.checked = false;
-                }else{
-                    objCheck.indeterminate = true;
-                }
-            }
-        }
-    }
-    
-    function exportarInhabilidadesExcel( idFormulario ){
-        
-        var objFormulario = YAHOO.util.Dom.get( idFormulario );
-        var arrCheck =  YAHOO.util.Dom.getElementsBy( function(){ return true; }, 'input', objFormulario );
-        
         var numSeleccionados = 0;
-        if( arrCheck.length > 1 ){
-            for( numIndice in arrCheck ){
-                if ( arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true ){
-                    numSeleccionados++;
-                }
-        
+        var numTotal = 0;
+        for (numIndice in arrCheck) {
+            if (arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true) {
+                numSeleccionados++;
+            }
+            if (arrCheck[ numIndice ].id != "seqProyecto") {
+                numTotal++;
             }
         }
-        
-        if( numSeleccionados > 0 ){
-            someterFormulario( 'mensajes' , objFormulario , './contenidos/cruces/exportarInhabilidades.php' , true , false );
-        }else{
-            
-            // Objeto que contiene los atributos del cuadro de dialogo
-            var objAtributos = {
-                width: "300px",
-                effect: {
-                    effect: YAHOO.widget.ContainerEffect.FADE,
-                    duration: 0.25
-                },
-                fixedcenter: true,
-                modal: true,
-                draggable: true,
-                close: true
+        objMostrar.innerHTML = numTotal + " Unidades de proyecto listadas " + numSeleccionados + " seleccionadas";
+        var objCheck = YAHOO.util.Dom.get('0');
+        objCheck.indeterminate = false;
+        if (numTotal == numSeleccionados) {
+            objCheck.checked = true;
+        } else {
+            if (numSeleccionados == 0) {
+                objCheck.checked = false;
+            } else {
+                objCheck.indeterminate = true;
             }
-
-            // INSTANCIA EL OBJETO DIALOGO
-            var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
-
-            objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
-            objDialogo.setBody("Debe seleccionar al menos un registro, no hay nada que exportar"); // texto que se muestra en el cuerpo (formato html)
-            objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
-            objDialogo.render( document.body );
-            objDialogo.show();
-        }
-        
-        
-    }
-
-	function exportarUnidadesProyectoExcel( idUnidadProyecto ){
-        var objFormulario = YAHOO.util.Dom.get( idUnidadProyecto );
-		var arrCheck =  YAHOO.util.Dom.getElementsBy( function(){ return true; }, 'input', objFormulario );
-        
-        var numSeleccionados = 0;
-        if( arrCheck.length > 1 ){
-            for( numIndice in arrCheck ){
-                if ( arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true ){
-                    numSeleccionados++;
-                }
-        
-            }
-        }
-        
-        if( numSeleccionados > 0 ){
-            someterFormulario( 'mensajes' , objFormulario , './contenidos/unidadProyecto/exportarUnidadesProyecto.php' , true , false );
-        }else{
-            
-            // Objeto que contiene los atributos del cuadro de dialogo
-            var objAtributos = {
-                width: "300px",
-                effect: {
-                    effect: YAHOO.widget.ContainerEffect.FADE,
-                    duration: 0.25
-                },
-                fixedcenter: true,
-                modal: true,
-                draggable: true,
-                close: true
-            }
-
-            // INSTANCIA EL OBJETO DIALOGO
-            var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
-
-            objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
-            objDialogo.setBody("Debe seleccionar al menos un registro, no hay nada que exportar"); // texto que se muestra en el cuerpo (formato html)
-            objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
-            objDialogo.render( document.body );
-            objDialogo.show();
         }
     }
-	
-    function cargarCruce(){
-        
-        var objDiv = YAHOO.util.Dom.get('dlgCargaCruces');
-            objDiv.hidden = false;
-        
-        var handleSubmit = function exito( o ){
-            var objFormulario  = YAHOO.util.Dom.get( 'frmCargaCruces' );
-            someterFormulario('mensajes',objFormulario,'./contenidos/cruces/salvarCruces.php',true,true);
-            this.cancel(); 
-        }
-        
-        var handleCancel = function falla( o ){
-            this.cancel();
-        }
-        
-        var handleSuccess = function(o) {
-            var response = o.responseText;
-            response = response.split("<!")[0];
-            document.getElementById("mensajes").innerHTML = response;
-        };
+}
 
-        var handleFailure = function(o) {
-            alert("Submission failed: " + o.status);
-        };
+function exportarInhabilidadesExcel(idFormulario) {
 
-        
-        var objDialogo = new YAHOO.widget.Dialog("dlgCargaCruces", 
-			{ width : "600px",
-			  fixedcenter : true,
-			  visible : false, 
-              zIndex: 1,
-			  constraintoviewport : true,
-			  buttons : [ { text:"Aceptar", handler:handleSubmit, isDefault:true },
-						  { text:"Cancelar", handler:handleCancel } ]
-			 } );
-    
-        objDialogo.callback = { success: handleSuccess, failure: handleFailure };
-        objDialogo.render();
+    var objFormulario = YAHOO.util.Dom.get(idFormulario);
+    var arrCheck = YAHOO.util.Dom.getElementsBy(function () {
+        return true;
+    }, 'input', objFormulario);
+
+    var numSeleccionados = 0;
+    if (arrCheck.length > 1) {
+        for (numIndice in arrCheck) {
+            if (arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true) {
+                numSeleccionados++;
+            }
+
+        }
+    }
+
+    if (numSeleccionados > 0) {
+        someterFormulario('mensajes', objFormulario, './contenidos/cruces/exportarInhabilidades.php', true, false);
+    } else {
+
+        // Objeto que contiene los atributos del cuadro de dialogo
+        var objAtributos = {
+            width: "300px",
+            effect: {
+                effect: YAHOO.widget.ContainerEffect.FADE,
+                duration: 0.25
+            },
+            fixedcenter: true,
+            modal: true,
+            draggable: true,
+            close: true
+        }
+
+        // INSTANCIA EL OBJETO DIALOGO
+        var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
+
+        objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
+        objDialogo.setBody("Debe seleccionar al menos un registro, no hay nada que exportar"); // texto que se muestra en el cuerpo (formato html)
+        objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
+        objDialogo.render(document.body);
         objDialogo.show();
     }
 
-	function cargarUnidadesProyecto(){
-        
-        var objDiv = YAHOO.util.Dom.get('dlgCargaUnidades');
-            objDiv.hidden = false;
-        
-        var handleSubmit = function exito( o ){
-            var objFormulario  = YAHOO.util.Dom.get( 'frmCargaUnidades' );
-            someterFormulario('mensajes',objFormulario,'./contenidos/unidadProyecto/salvarUnidades.php?seqProyecto=3',true,true);
-            this.cancel(); 
-        }
-        
-        var handleCancel = function falla( o ){
-            this.cancel();
-        }
-        
-        var handleSuccess = function(o) {
-            var response = o.responseText;
-            response = response.split("<!")[0];
-            document.getElementById("mensajes").innerHTML = response;
-        };
 
-        var handleFailure = function(o) {
-            alert("Submission failed: " + o.status);
-        };
+}
 
-        
-        var objDialogo = new YAHOO.widget.Dialog("dlgCargaUnidades", 
-			{ width : "600px",
-			  fixedcenter : true,
-			  visible : false, 
-              zIndex: 1,
-			  constraintoviewport : true,
-			  buttons : [ { text:"Aceptar", handler:handleSubmit, isDefault:true },
-						  { text:"Cancelar", handler:handleCancel } ]
-			 } );
-    
-        objDialogo.callback = { success: handleSuccess, failure: handleFailure };
-        objDialogo.render();
+function exportarUnidadesProyectoExcel(idUnidadProyecto) {
+    var objFormulario = YAHOO.util.Dom.get(idUnidadProyecto);
+    var arrCheck = YAHOO.util.Dom.getElementsBy(function () {
+        return true;
+    }, 'input', objFormulario);
+
+    var numSeleccionados = 0;
+    if (arrCheck.length > 1) {
+        for (numIndice in arrCheck) {
+            if (arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true) {
+                numSeleccionados++;
+            }
+
+        }
+    }
+
+    if (numSeleccionados > 0) {
+        someterFormulario('mensajes', objFormulario, './contenidos/unidadProyecto/exportarUnidadesProyecto.php', true, false);
+    } else {
+
+        // Objeto que contiene los atributos del cuadro de dialogo
+        var objAtributos = {
+            width: "300px",
+            effect: {
+                effect: YAHOO.widget.ContainerEffect.FADE,
+                duration: 0.25
+            },
+            fixedcenter: true,
+            modal: true,
+            draggable: true,
+            close: true
+        }
+
+        // INSTANCIA EL OBJETO DIALOGO
+        var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
+
+        objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
+        objDialogo.setBody("Debe seleccionar al menos un registro, no hay nada que exportar"); // texto que se muestra en el cuerpo (formato html)
+        objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
+        objDialogo.render(document.body);
+        objDialogo.show();
+    }
+}
+
+function cargarCruce() {
+
+    var objDiv = YAHOO.util.Dom.get('dlgCargaCruces');
+    objDiv.hidden = false;
+
+    var handleSubmit = function exito(o) {
+        var objFormulario = YAHOO.util.Dom.get('frmCargaCruces');
+        someterFormulario('mensajes', objFormulario, './contenidos/cruces/salvarCruces.php', true, true);
+        this.cancel();
+    }
+
+    var handleCancel = function falla(o) {
+        this.cancel();
+    }
+
+    var handleSuccess = function (o) {
+        var response = o.responseText;
+        response = response.split("<!")[0];
+        document.getElementById("mensajes").innerHTML = response;
+    };
+
+    var handleFailure = function (o) {
+        alert("Submission failed: " + o.status);
+    };
+
+
+    var objDialogo = new YAHOO.widget.Dialog("dlgCargaCruces",
+            {width: "600px",
+                fixedcenter: true,
+                visible: false,
+                zIndex: 1,
+                constraintoviewport: true,
+                buttons: [{text: "Aceptar", handler: handleSubmit, isDefault: true},
+                    {text: "Cancelar", handler: handleCancel}]
+            });
+
+    objDialogo.callback = {success: handleSuccess, failure: handleFailure};
+    objDialogo.render();
+    objDialogo.show();
+}
+
+function cargarUnidadesProyecto() {
+
+    var objDiv = YAHOO.util.Dom.get('dlgCargaUnidades');
+    objDiv.hidden = false;
+
+    var handleSubmit = function exito(o) {
+        var objFormulario = YAHOO.util.Dom.get('frmCargaUnidades');
+        someterFormulario('mensajes', objFormulario, './contenidos/unidadProyecto/salvarUnidades.php?seqProyecto=3', true, true);
+        this.cancel();
+    }
+
+    var handleCancel = function falla(o) {
+        this.cancel();
+    }
+
+    var handleSuccess = function (o) {
+        var response = o.responseText;
+        response = response.split("<!")[0];
+        document.getElementById("mensajes").innerHTML = response;
+    };
+
+    var handleFailure = function (o) {
+        alert("Submission failed: " + o.status);
+    };
+
+
+    var objDialogo = new YAHOO.widget.Dialog("dlgCargaUnidades",
+            {width: "600px",
+                fixedcenter: true,
+                visible: false,
+                zIndex: 1,
+                constraintoviewport: true,
+                buttons: [{text: "Aceptar", handler: handleSubmit, isDefault: true},
+                    {text: "Cancelar", handler: handleCancel}]
+            });
+
+    objDialogo.callback = {success: handleSuccess, failure: handleFailure};
+    objDialogo.render();
+    objDialogo.show();
+}
+
+function exportarInhabilidadesPdf(idFormulario) {
+
+    // OBTIENE EL FORMULARIO QUE VA A SER SOMETIDO
+    var objFormulario = YAHOO.util.Dom.get(idFormulario);
+    var objHidden = YAHOO.util.Dom.get('seqCruce');
+
+    var txtFormularios = "";
+
+    // OBTIENE LOS CHECKBOX DEL FORMULARIO
+    var arrCheck = YAHOO.util.Dom.getElementsBy(function () {
+        return true;
+    }, 'input', objFormulario);
+
+    // VERIFICA QUE HAYA ALGUN CHECK SELECCIONADO
+    var numSeleccionados = 0;
+    if (arrCheck.length > 1) {
+        for (numIndice in arrCheck) {
+            if (arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true) {
+                numSeleccionados++;
+                txtFormularios += "exportar[]=" + arrCheck[ numIndice ].value + "&";
+
+            }
+        }
+    }
+
+    // VERIFICA QUE HAYAN CHECK SELECCIONADOS
+    if (numSeleccionados > 0) {
+
+        // llamar funcion
+        popUpPdfCasaMano('exportarPdf.php', txtFormularios, objHidden.value);
+
+    } else { // SE MUESTRA CUANDO NO HAY CHECK SELECCIONADOS
+
+        // Objeto que contiene los atributos del cuadro de dialogo
+        var objAtributos = {
+            width: "300px",
+            effect: {
+                effect: YAHOO.widget.ContainerEffect.FADE,
+                duration: 0.25
+            },
+            fixedcenter: true,
+            modal: true,
+            draggable: true,
+            close: true
+        }
+
+        // INSTANCIA EL OBJETO DIALOGO
+        var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
+
+        objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
+        objDialogo.setBody("Debe seleccionar al menos un registro, no hay nada que exportar"); // texto que se muestra en el cuerpo (formato html)
+        objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
+        objDialogo.render(document.body);
         objDialogo.show();
     }
 
-    function exportarInhabilidadesPdf( idFormulario ){
-        
-        // OBTIENE EL FORMULARIO QUE VA A SER SOMETIDO
-        var objFormulario = YAHOO.util.Dom.get( idFormulario );
-        var objHidden = YAHOO.util.Dom.get( 'seqCruce' );
-        
-        var txtFormularios = "";
-        
-        // OBTIENE LOS CHECKBOX DEL FORMULARIO
-        var arrCheck =  YAHOO.util.Dom.getElementsBy( function(){ return true; }, 'input', objFormulario );
-        
-        // VERIFICA QUE HAYA ALGUN CHECK SELECCIONADO
-        var numSeleccionados = 0;
-        if( arrCheck.length > 1 ){
-            for( numIndice in arrCheck ){
-                if ( arrCheck[ numIndice ].id != "0" && arrCheck[ numIndice ].checked == true ){
-                    numSeleccionados++;
-                    txtFormularios += "exportar[]=" + arrCheck[ numIndice ].value + "&";
-                    
-                }
-            }
+}
+
+/**
+ * UNA FUNCION PARA HACER EL AUTOCOMPLETAR EN CUALQUIER CAMPO
+ * @author Bernardo Zerda
+ */
+function autocompletar(txtInput, txtContenedor, txtArchivo, txtParametros) {
+
+    // Use an XHRDataSource
+    var objDataSource = new YAHOO.util.XHRDataSource(txtArchivo);
+    objDataSource.responseType = YAHOO.util.XHRDataSource.TYPE_TEXT;
+    objDataSource.responseSchema = {recordDelim: "\n", fieldDelim: "\t"};
+    objDataSource.maxCacheEntries = 0;
+    objDataSource.flushCache();
+
+    // Instantiate the AutoComplete
+    var objAutocomplete = new YAHOO.widget.AutoComplete(txtInput, txtContenedor, objDataSource);
+    objAutocomplete.maxResultsDisplayed = 10;
+    objAutocomplete.minQueryLength = 1;
+    objAutocomplete.autoHighlight = true;
+    objAutocomplete.useShadow = true;
+    objAutocomplete.forceSelection = true;
+    objAutocomplete.allowBrowserAutocomplete = false;
+    objAutocomplete.queryDelay = 0.3;
+
+    return {
+        oDS: objDataSource,
+        oAC: objAutocomplete
+    };
+
+}
+
+function popUpPdfCasaMano(txtArchivo, txtFormularios, seqCruce) {
+
+    var wndFormato = null;
+    try {
+        var numAlto = YAHOO.util.Dom.getDocumentHeight() - 200;
+        var txtUrl = "./contenidos/cruces/" + txtArchivo;
+        txtUrl += "?seqCruce=" + seqCruce + "&" + txtFormularios;
+        var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=" + numAlto + ",left=100,top=10,titlebar=0";
+        if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
+            throw "ErrorPopUp";
         }
-        
-        // VERIFICA QUE HAYAN CHECK SELECCIONADOS
-        if( numSeleccionados > 0 ){
-            
-            // llamar funcion
-            popUpPdfCasaMano( 'exportarPdf.php' , txtFormularios , objHidden.value );
-            
-        }else{ // SE MUESTRA CUANDO NO HAY CHECK SELECCIONADOS
-            
-            // Objeto que contiene los atributos del cuadro de dialogo
-            var objAtributos = {
-                width: "300px",
-                effect: {
-                    effect: YAHOO.widget.ContainerEffect.FADE,
-                    duration: 0.25
-                },
-                fixedcenter: true,
-                modal: true,
-                draggable: true,
-                close: true
-            }
-
-            // INSTANCIA EL OBJETO DIALOGO
-            var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
-
-            objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
-            objDialogo.setBody("Debe seleccionar al menos un registro, no hay nada que exportar"); // texto que se muestra en el cuerpo (formato html)
-            objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
-            objDialogo.render( document.body );
-            objDialogo.show();
+    } catch (objError) {
+        if (objError == "ErrorPopUp") {
+            alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
         }
-        
     }
-    
-    /**
-     * UNA FUNCION PARA HACER EL AUTOCOMPLETAR EN CUALQUIER CAMPO
-     * @author Bernardo Zerda
-     */
-    function autocompletar( txtInput , txtContenedor , txtArchivo , txtParametros ){
-        
-        // Use an XHRDataSource
-        var objDataSource = new YAHOO.util.XHRDataSource( txtArchivo );
-            objDataSource.responseType 		= YAHOO.util.XHRDataSource.TYPE_TEXT;
-            objDataSource.responseSchema 	= { recordDelim: "\n", fieldDelim: "\t" };
-            objDataSource.maxCacheEntries 	= 0;
-            objDataSource.flushCache();
-        
-        // Instantiate the AutoComplete
-        var objAutocomplete = new YAHOO.widget.AutoComplete( txtInput , txtContenedor , objDataSource );
-            objAutocomplete.maxResultsDisplayed 	= 10; 
-	    	objAutocomplete.minQueryLength 			= 1;
-	    	objAutocomplete.autoHighlight 			= true;  
-	    	objAutocomplete.useShadow 				= true; 
-	    	objAutocomplete.forceSelection 			= true;
-	    	objAutocomplete.allowBrowserAutocomplete = false;
-	    	objAutocomplete.queryDelay = 0.3;
 
-        return {
-            oDS: objDataSource,
-            oAC: objAutocomplete
-        };
-       
-    }
-    
-    function popUpPdfCasaMano( txtArchivo , txtFormularios , seqCruce ){
-        
-        var wndFormato = null;
-            try {
-                var numAlto  = YAHOO.util.Dom.getDocumentHeight() - 200;
-                var txtUrl = "./contenidos/cruces/" + txtArchivo;
-                    txtUrl += "?seqCruce=" + seqCruce + "&" + txtFormularios;
-                var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height="+numAlto+",left=100,top=10,titlebar=0";
-                if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
-                    throw "ErrorPopUp";
-                }
-            } catch (objError) {
-                if (objError == "ErrorPopUp") {
-                    alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
-                }
-            }
-        
-    }
-    
-    function mostrarTooltip( objDestino , $txtMostrar ) {
-        var objConfiguracion = {
-            context: objDestino,
-            text: $txtMostrar,
-            width: 400
-        }
-        var objToolTip = new YAHOO.widget.Tooltip("tooltip", objConfiguracion );
-        objToolTip.render( objDestino );
-        objToolTip.show();
-    }
-    
-    
-    function imprimirPostulacionCEM( objFormulario , txtArchivo ) {
-        
-        someterFormulario('mensajes', objFormulario, txtArchivo , true , true);
+}
 
-        YAHOO.util.Event.onContentReady(
-                "tablaMensajes",
-                function() {
-                    var objTablaMensajes = document.getElementById("tablaMensajes");
-                    var arrFilas = objTablaMensajes.getElementsByTagName("td");
-                    if (arrFilas[ 0 ].className != "msgError") {
-                        var wndPostulacion;
-                        try {
-                            var seqFormulario = document.getElementById("seqFormulario").value;
-                            wndPostulacion = window.open("./contenidos/subsidios/formatoPostulacionImprimir.php?seqFormulario=" + seqFormulario,
-                                    "_blank",
-                                    "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100"
-                                    );
-                            if (!wndPostulacion) {
-                                throw "ErrorPopUp";
-                            }
-                        } catch (objError) {
-                            if (objError == "ErrorPopUp") {
-                                alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
-                            }
+function mostrarTooltip(objDestino, $txtMostrar) {
+    var objConfiguracion = {
+        context: objDestino,
+        text: $txtMostrar,
+        width: 400
+    }
+    var objToolTip = new YAHOO.widget.Tooltip("tooltip", objConfiguracion);
+    objToolTip.render(objDestino);
+    objToolTip.show();
+}
+
+
+function imprimirPostulacionCEM(objFormulario, txtArchivo) {
+
+    someterFormulario('mensajes', objFormulario, txtArchivo, true, true);
+
+    YAHOO.util.Event.onContentReady(
+            "tablaMensajes",
+            function () {
+                var objTablaMensajes = document.getElementById("tablaMensajes");
+                var arrFilas = objTablaMensajes.getElementsByTagName("td");
+                if (arrFilas[ 0 ].className != "msgError") {
+                    var wndPostulacion;
+                    try {
+                        var seqFormulario = document.getElementById("seqFormulario").value;
+                        wndPostulacion = window.open("./contenidos/subsidios/formatoPostulacionImprimir.php?seqFormulario=" + seqFormulario,
+                                "_blank",
+                                "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100"
+                                );
+                        if (!wndPostulacion) {
+                            throw "ErrorPopUp";
+                        }
+                    } catch (objError) {
+                        if (objError == "ErrorPopUp") {
+                            alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
                         }
                     }
                 }
-        );
+            }
+    );
 
-    }
+}
 
 /* *************************************************************************************
-* FUNCIONES DE MODULO DE PROYECTOS
-***************************************************************************************/
+ * FUNCIONES DE MODULO DE PROYECTOS
+ ***************************************************************************************/
 
 function buscarProyecto(txtNombreArchivo) {
-	//alert (txtNombreArchivo);
-	var objSeq = document.getElementById("myHidden").value;
-	//alert (objSeq);
-	//var objNitConfirmacion = document.getElementById("buscaNitConfirmacion");
-	var objMensajes = document.getElementById("mensajes");
+    //alert (txtNombreArchivo);
+    var objSeq = document.getElementById("myHidden").value;
+    //alert (objSeq);
+    //var objNitConfirmacion = document.getElementById("buscaNitConfirmacion");
+    var objMensajes = document.getElementById("mensajes");
 
-	// Limpia los mensajes de la barra de mensajes
-	objMensajes.innerHTML = "";
+    // Limpia los mensajes de la barra de mensajes
+    objMensajes.innerHTML = "";
 
-	// Valida que el campo NIT tenga algo
-	/*if (objNit.value == "") {
-		objMensajes.innerHTML += "<li>Digite un n" + String.fromCharCode(250) + "mero de Nit v" + String.fromCharCode(225) + "lido";
-	}*/
+    // Valida que el campo NIT tenga algo
+    /*if (objNit.value == "") {
+     objMensajes.innerHTML += "<li>Digite un n" + String.fromCharCode(250) + "mero de Nit v" + String.fromCharCode(225) + "lido";
+     }*/
 
-	// Valida que haya algo en la confirmacion
-	/*if (objNitConfirmacion.value == "") {
-		objMensajes.innerHTML += "<li>Debe confirmar el valor digitado</li>";
-	}*/
+    // Valida que haya algo en la confirmacion
+    /*if (objNitConfirmacion.value == "") {
+     objMensajes.innerHTML += "<li>Debe confirmar el valor digitado</li>";
+     }*/
 
-	// Valida que ambos valores sean iguales
-	/*if (objNit.value != objNitConfirmacion.value) {
-		objMensajes.innerHTML += "<li>No coinciden los documentos digitados, verifique los datos</li>";
-	}*/
+    // Valida que ambos valores sean iguales
+    /*if (objNit.value != objNitConfirmacion.value) {
+     objMensajes.innerHTML += "<li>No coinciden los documentos digitados, verifique los datos</li>";
+     }*/
 
-	if (objMensajes.innerHTML == "") {
-		cargarContenido("formulario", "contenidos/" + txtNombreArchivo + ".php", "nit=" + objSeq, true);
-		//alert ("formulario, contenidos/" + txtNombreArchivo + ".php, nit=" + objSeq + "true");
-	} else {
-		objMensajes.className = "msgError";
-	}
+    if (objMensajes.innerHTML == "") {
+        cargarContenido("formulario", "contenidos/" + txtNombreArchivo + ".php", "nit=" + objSeq, true);
+        //alert ("formulario, contenidos/" + txtNombreArchivo + ".php, nit=" + objSeq + "true");
+    } else {
+        objMensajes.className = "msgError";
+    }
 }
 
 // Muestra los campos "Nombre" y "NIT de OPV" si selecciona el tipo de Organización "OPV"
 function escondeLineaOpv() {
-	if (document.getElementById("seqTipoEsquema").value == 2) {
-		document.getElementById("lineaOpv").style.display = "table-row";
-	} else {
-		document.getElementById("lineaOpv").style.display = "none";
-		document.getElementById("seqOpv").value = "0";
-	}
+    if (document.getElementById("seqTipoEsquema").value == 2) {
+        document.getElementById("lineaOpv").style.display = "table-row";
+    } else {
+        document.getElementById("lineaOpv").style.display = "none";
+        document.getElementById("seqOpv").value = "0";
+    }
 }
 
 // Muestra el campo "Operador" si el esquema seleccionado es "Territorial dirigido"
 function escondeTerritorialDirigido() {
-	if (document.getElementById("seqTipoEsquema").value == 4) { // Esquema Territorial Dirigido
-		// Operador y Objeto
-		document.getElementById("lineaTDirigida").style.display = "table-row";
-		// Plan Parcial
-		document.getElementById("idTituloPlanParcial").style.display = "none";
-		document.getElementById("idCampoPlanParcial").style.display = "none";
-		document.getElementById("txtNombrePlanParcial").value = "";
-		// Tipo Proyecto y Tipo Urbanizacion
-		document.getElementById("idLineaProyectoUrbanizacion").style.display = "none";
-		document.getElementById("seqTipoProyecto").value = "0";
-		document.getElementById("seqTipoUrbanizacion").value = "0";
-		// Tipo Solucion y Descripcion
-		document.getElementById("idLineaTipoSolucionDescripcion").style.display = "none";
-		document.getElementById("seqTipoSolucion").value = "0";
-		document.getElementById("txtDescripcionProyecto").value = "";
-		// Direccion
-		document.getElementById("idLineaDireccion").style.display = "none";
-		document.getElementById("bolDireccion").value = "0";
-		document.getElementById("txtDireccion").value = "";
-		// Torres
-		document.getElementById("idLineaTorres").style.display = "none";
-		document.getElementById("valTorres").value = "";
-		// Area Lote y Area Construida
-		document.getElementById("idLineaAreaLoteConstruida").style.display = "none";
-		document.getElementById("valAreaLote").value = "";
-		document.getElementById("valAreaConstruida").value = "";
-		// Chip Lote y Matricula Inmobiliaria
-		document.getElementById("idLineaChipLoteMatricula").style.display = "none";
-		document.getElementById("txtChipLote").value = "";
-		document.getElementById("txtMatriculaInmobiliariaLote").value = "";
-		// Registro y Fecha de Enajenacion
-		document.getElementById("idLineaRegistroFechaEnajenacion").style.display = "none";
-		document.getElementById("txtRegistroEnajenacion").value = "";
-		document.getElementById("fchRegistroEnajenacion").value = "";
-		// Equipamiento Comunal
-		document.getElementById("idLineaEquipamientoComunal").style.display = "none";
-		document.getElementById("bolEquipamientoComunal").value = "0";
-		document.getElementById("txtDescEquipamientoComunal").value = "";
-		// Licencia Urbanismo
-		document.getElementById("idLineaLicenciaUrbanismo1").style.display = "none";
-		document.getElementById("idLineaLicenciaUrbanismo2").style.display = "none";
-		document.getElementById("idLineaLicenciaUrbanismo3").style.display = "none";
-		document.getElementById("lineaProrrogaUrbanismo").style.display = "none";
-		document.getElementById("idLineaLicenciaUrbanismo4").style.display = "none";
-		// Licencia Construccion
-		document.getElementById("idLineaLicenciaConstruccion1").style.display = "none";
-		document.getElementById("idLineaLicenciaConstruccion2").style.display = "none";
-		document.getElementById("idLineaLicenciaConstruccion3").style.display = "none";
-		document.getElementById("lineaProrrogaConstruccion").style.display = "none";
-	} else { // Otros Esquemas
-		document.getElementById("lineaTDirigida").style.display = "none";
-		document.getElementById("txtNombreOperador").value = "";
-		document.getElementById("txtObjetoProyecto").value = "";
-		// Plan Parcial
-		document.getElementById("idTituloPlanParcial").style.display = "table-row";
-		document.getElementById("idCampoPlanParcial").style.display = "table-row";
-		// Tipo Proyecto y Tipo Urbanizacion
-		document.getElementById("idLineaProyectoUrbanizacion").style.display = "table-row";
-		// Tipo Solucion y Descripcion
-		document.getElementById("idLineaTipoSolucionDescripcion").style.display = "table-row";
-		// Direccion
-		document.getElementById("idLineaDireccion").style.display = "table-row";
-		// Torres
-		document.getElementById("idLineaTorres").style.display = "table-row";
-		// Area Lote y Area Construida
-		document.getElementById("idLineaAreaLoteConstruida").style.display = "table-row";
-		// Chip Lote y Matricula Inmobiliaria
-		document.getElementById("idLineaChipLoteMatricula").style.display = "table-row";
-		// Registro y Fecha de Enajenacion
-		document.getElementById("idLineaRegistroFechaEnajenacion").style.display = "table-row";
-		// Equipamiento Comunal
-		document.getElementById("idLineaEquipamientoComunal").style.display = "table-row";
-		// Licencia Urbanismo
-		document.getElementById("idLineaLicenciaUrbanismo1").style.display = "table-row";
-		document.getElementById("idLineaLicenciaUrbanismo2").style.display = "table-row";
-		document.getElementById("idLineaLicenciaUrbanismo3").style.display = "table-row";
-		document.getElementById("lineaProrrogaUrbanismo").style.display = "table-row";
-		document.getElementById("idLineaLicenciaUrbanismo4").style.display = "table-row";
-		// Licencia Construccion
-		document.getElementById("idLineaLicenciaConstruccion1").style.display = "table-row";
-		document.getElementById("idLineaLicenciaConstruccion2").style.display = "table-row";
-		document.getElementById("idLineaLicenciaConstruccion3").style.display = "table-row";
-		document.getElementById("lineaProrrogaConstruccion").style.display = "table-row";
-	}
+    if (document.getElementById("seqTipoEsquema").value == 4) { // Esquema Territorial Dirigido
+        // Operador y Objeto
+        document.getElementById("lineaTDirigida").style.display = "table-row";
+        // Plan Parcial
+        document.getElementById("idTituloPlanParcial").style.display = "none";
+        document.getElementById("idCampoPlanParcial").style.display = "none";
+        document.getElementById("txtNombrePlanParcial").value = "";
+        // Tipo Proyecto y Tipo Urbanizacion
+        document.getElementById("idLineaProyectoUrbanizacion").style.display = "none";
+        document.getElementById("seqTipoProyecto").value = "0";
+        document.getElementById("seqTipoUrbanizacion").value = "0";
+        // Tipo Solucion y Descripcion
+        document.getElementById("idLineaTipoSolucionDescripcion").style.display = "none";
+        document.getElementById("seqTipoSolucion").value = "0";
+        document.getElementById("txtDescripcionProyecto").value = "";
+        // Direccion
+        document.getElementById("idLineaDireccion").style.display = "none";
+        document.getElementById("bolDireccion").value = "0";
+        document.getElementById("txtDireccion").value = "";
+        // Torres
+        document.getElementById("idLineaTorres").style.display = "none";
+        document.getElementById("valTorres").value = "";
+        // Area Lote y Area Construida
+        document.getElementById("idLineaAreaLoteConstruida").style.display = "none";
+        document.getElementById("valAreaLote").value = "";
+        document.getElementById("valAreaConstruida").value = "";
+        // Chip Lote y Matricula Inmobiliaria
+        document.getElementById("idLineaChipLoteMatricula").style.display = "none";
+        document.getElementById("txtChipLote").value = "";
+        document.getElementById("txtMatriculaInmobiliariaLote").value = "";
+        // Registro y Fecha de Enajenacion
+        document.getElementById("idLineaRegistroFechaEnajenacion").style.display = "none";
+        document.getElementById("txtRegistroEnajenacion").value = "";
+        document.getElementById("fchRegistroEnajenacion").value = "";
+        // Equipamiento Comunal
+        document.getElementById("idLineaEquipamientoComunal").style.display = "none";
+        document.getElementById("bolEquipamientoComunal").value = "0";
+        document.getElementById("txtDescEquipamientoComunal").value = "";
+        // Licencia Urbanismo
+        document.getElementById("idLineaLicenciaUrbanismo1").style.display = "none";
+        document.getElementById("idLineaLicenciaUrbanismo2").style.display = "none";
+        document.getElementById("idLineaLicenciaUrbanismo3").style.display = "none";
+        document.getElementById("lineaProrrogaUrbanismo").style.display = "none";
+        document.getElementById("idLineaLicenciaUrbanismo4").style.display = "none";
+        // Licencia Construccion
+        document.getElementById("idLineaLicenciaConstruccion1").style.display = "none";
+        document.getElementById("idLineaLicenciaConstruccion2").style.display = "none";
+        document.getElementById("idLineaLicenciaConstruccion3").style.display = "none";
+        document.getElementById("lineaProrrogaConstruccion").style.display = "none";
+    } else { // Otros Esquemas
+        document.getElementById("lineaTDirigida").style.display = "none";
+        document.getElementById("txtNombreOperador").value = "";
+        document.getElementById("txtObjetoProyecto").value = "";
+        // Plan Parcial
+        document.getElementById("idTituloPlanParcial").style.display = "table-row";
+        document.getElementById("idCampoPlanParcial").style.display = "table-row";
+        // Tipo Proyecto y Tipo Urbanizacion
+        document.getElementById("idLineaProyectoUrbanizacion").style.display = "table-row";
+        // Tipo Solucion y Descripcion
+        document.getElementById("idLineaTipoSolucionDescripcion").style.display = "table-row";
+        // Direccion
+        document.getElementById("idLineaDireccion").style.display = "table-row";
+        // Torres
+        document.getElementById("idLineaTorres").style.display = "table-row";
+        // Area Lote y Area Construida
+        document.getElementById("idLineaAreaLoteConstruida").style.display = "table-row";
+        // Chip Lote y Matricula Inmobiliaria
+        document.getElementById("idLineaChipLoteMatricula").style.display = "table-row";
+        // Registro y Fecha de Enajenacion
+        document.getElementById("idLineaRegistroFechaEnajenacion").style.display = "table-row";
+        // Equipamiento Comunal
+        document.getElementById("idLineaEquipamientoComunal").style.display = "table-row";
+        // Licencia Urbanismo
+        document.getElementById("idLineaLicenciaUrbanismo1").style.display = "table-row";
+        document.getElementById("idLineaLicenciaUrbanismo2").style.display = "table-row";
+        document.getElementById("idLineaLicenciaUrbanismo3").style.display = "table-row";
+        document.getElementById("lineaProrrogaUrbanismo").style.display = "table-row";
+        document.getElementById("idLineaLicenciaUrbanismo4").style.display = "table-row";
+        // Licencia Construccion
+        document.getElementById("idLineaLicenciaConstruccion1").style.display = "table-row";
+        document.getElementById("idLineaLicenciaConstruccion2").style.display = "table-row";
+        document.getElementById("idLineaLicenciaConstruccion3").style.display = "table-row";
+        document.getElementById("lineaProrrogaConstruccion").style.display = "table-row";
+    }
 }
 
 // Muestra el campo 'Dirección' si el campo booleano 'Se conoce la dirección?' es 'Si'
 function escondetxtDireccion() {
-	if (document.getElementById("bolDireccion").checked == 1) {
-		document.getElementById("lineaTituloDireccion").style.display = "table-row";
-		document.getElementById("lineaCampoDireccion").style.display = "table-row";
-	} else {
-		document.getElementById("lineaTituloDireccion").style.display = "none";
-		document.getElementById("lineaCampoDireccion").style.display = "none";
-		document.getElementById("txtDireccion").value = '';
-	}
+    if (document.getElementById("bolDireccion").checked == 1) {
+        document.getElementById("lineaTituloDireccion").style.display = "table-row";
+        document.getElementById("lineaCampoDireccion").style.display = "table-row";
+    } else {
+        document.getElementById("lineaTituloDireccion").style.display = "none";
+        document.getElementById("lineaCampoDireccion").style.display = "none";
+        document.getElementById("txtDireccion").value = '';
+    }
 }
 
 // Muestra el campo 'Descripción Equipamiento Comunal' si el campo booleano 'Equipamiento Comunal' es 'Si'
 function escondetxtDescEquipamientoComunal() {
-	if (document.getElementById("bolEquipamientoComunal").checked == 1) {
-		document.getElementById("idTituloDescEquipamientoComunal").style.display = "table-row";
-		document.getElementById("lineaDescEquipamientoComunal").style.display = "table-row";
-	} else {
-		document.getElementById("idTituloDescEquipamientoComunal").style.display = "none";
-		document.getElementById("lineaDescEquipamientoComunal").style.display = "none";
-		document.getElementById("txtDescEquipamientoComunal").value = '';
-	}
+    if (document.getElementById("bolEquipamientoComunal").checked == 1) {
+        document.getElementById("idTituloDescEquipamientoComunal").style.display = "table-row";
+        document.getElementById("lineaDescEquipamientoComunal").style.display = "table-row";
+    } else {
+        document.getElementById("idTituloDescEquipamientoComunal").style.display = "none";
+        document.getElementById("lineaDescEquipamientoComunal").style.display = "none";
+        document.getElementById("txtDescEquipamientoComunal").value = '';
+    }
 }
 
 // Muestra 'Cedula' y 'Tarjeta Profesional' si el Tipo de Persona es 'Natural' o muestra el 'NIT' si es 'Juridica'
 function escondeCamposTipoPersona() {
-	if (document.getElementById("bolTipoPersonaInterventor").checked == 1) {
-		document.getElementById("lineaPersonaNatural").style.display = "table-row";
-		document.getElementById("lineaPersonaJuridica").style.display = "none";
-		document.getElementById("lineaPersonaJuridica2").style.display = "none";
-		document.getElementById("lineaPersonaJuridica3").style.display = "none";
-		document.getElementById("lineaTituloInterventor").style.display = "none";
-		document.getElementById("numNitInterventor").value = '';
-		document.getElementById("txtNombreRepLegalInterventor").value = '';
-		document.getElementById("txtDireccionRepLegalInterventor").value = '';
-		document.getElementById("numTelefonoRepLegalInterventor").value = '';
-		document.getElementById("txtCorreoRepLegalInterventor").value = '';
-	} else {
-		document.getElementById("lineaPersonaNatural").style.display = "none";
-		document.getElementById("lineaPersonaJuridica").style.display = "table-row";
-		document.getElementById("lineaPersonaJuridica2").style.display = "table-row";
-		document.getElementById("lineaPersonaJuridica3").style.display = "table-row";
-		document.getElementById("lineaTituloInterventor").style.display = "table-row";
-		document.getElementById("numCedulaInterventor").value = '';
-		document.getElementById("numTProfesionalInterventor").value = '';
-	}
+    if (document.getElementById("bolTipoPersonaInterventor").checked == 1) {
+        document.getElementById("lineaPersonaNatural").style.display = "table-row";
+        document.getElementById("lineaPersonaJuridica").style.display = "none";
+        document.getElementById("lineaPersonaJuridica2").style.display = "none";
+        document.getElementById("lineaPersonaJuridica3").style.display = "none";
+        document.getElementById("lineaTituloInterventor").style.display = "none";
+        document.getElementById("numNitInterventor").value = '';
+        document.getElementById("txtNombreRepLegalInterventor").value = '';
+        document.getElementById("txtDireccionRepLegalInterventor").value = '';
+        document.getElementById("numTelefonoRepLegalInterventor").value = '';
+        document.getElementById("txtCorreoRepLegalInterventor").value = '';
+    } else {
+        document.getElementById("lineaPersonaNatural").style.display = "none";
+        document.getElementById("lineaPersonaJuridica").style.display = "table-row";
+        document.getElementById("lineaPersonaJuridica2").style.display = "table-row";
+        document.getElementById("lineaPersonaJuridica3").style.display = "table-row";
+        document.getElementById("lineaTituloInterventor").style.display = "table-row";
+        document.getElementById("numCedulaInterventor").value = '';
+        document.getElementById("numTProfesionalInterventor").value = '';
+    }
 }
 
 // Muestra el tr "LineaConstructor" si "bolConstructor" es "SI"
 function escondeLineaConstructor() {
-	if (document.getElementById("bolConstructor").checked == 0) {
-		document.getElementById("idTituloConstructor").style.display = "table-row";
-		document.getElementById("idComboConstructor").style.display = "table-row";
-	} else {
-		document.getElementById("idTituloConstructor").style.display = "none";
-		document.getElementById("idComboConstructor").style.display = "none";
-		document.getElementById("seqConstructor").value = '0';
-	}
+    if (document.getElementById("bolConstructor").checked == 0) {
+        document.getElementById("idTituloConstructor").style.display = "table-row";
+        document.getElementById("idComboConstructor").style.display = "table-row";
+    } else {
+        document.getElementById("idTituloConstructor").style.display = "none";
+        document.getElementById("idComboConstructor").style.display = "none";
+        document.getElementById("seqConstructor").value = '0';
+    }
 }
 
 // Calcula el valor del subsidio dependiendo del numero de soluciones
 function calculaSubsidioProyecto() {
-	document.getElementById("valSDVE").value = ((document.getElementById("valNumeroSoluciones").value) * (document.getElementById("valSalarioMinimo").value) * 26);
-	sumaTotalRecursos();
+    document.getElementById("valSDVE").value = ((document.getElementById("valNumeroSoluciones").value) * (document.getElementById("valSalarioMinimo").value) * 26);
+    sumaTotalRecursos();
 }
 
 /**
@@ -7438,29 +7472,29 @@ function calculaSubsidioProyecto() {
  * @version 1.0 Septiembre 2013 
  */
 
- function preguntarGuardarProyecto() {
-	var txtMensaje = "<div style='text-align:left'>";
+function preguntarGuardarProyecto() {
+    var txtMensaje = "<div style='text-align:left'>";
     txtMensaje += "<span class='msgError' style='font-size:12px';>Desea guardar el proyecto?</span>";
     txtMensaje += "</div>";
 
     // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
-    var handleYes = function() {
-		//alert('Seleccionó SI');
-		/*var x = 1;
-		document.getElementById("seqPryEstadoProceso").value = x;*/
-		var objFormularioProyecto = YAHOO.util.Dom.get('frmInscripcionProyecto');
-		pedirConfirmacion('mensajes',objFormularioProyecto,'./contenidos/proyectos/pedirConfirmacion.php');
-		this.cancel();
+    var handleYes = function () {
+        //alert('Seleccionó SI');
+        /*var x = 1;
+         document.getElementById("seqPryEstadoProceso").value = x;*/
+        var objFormularioProyecto = YAHOO.util.Dom.get('frmInscripcionProyecto');
+        pedirConfirmacion('mensajes', objFormularioProyecto, './contenidos/proyectos/pedirConfirmacion.php');
+        this.cancel();
     }
 
     // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
-    var handleNo = function() {
-		//alert('Seleccionó NO');
-		var x = document.getElementById("seqPryEstadoProceso").value;
-		document.getElementById("seqPryEstadoProceso").value = x;
-		var objFormularioProyecto = YAHOO.util.Dom.get('frmInscripcionProyecto');
-		pedirConfirmacion('mensajes',objFormularioProyecto,'./contenidos/proyectos/pedirConfirmacion.php'); 
-		this.cancel();
+    var handleNo = function () {
+        //alert('Seleccionó NO');
+        var x = document.getElementById("seqPryEstadoProceso").value;
+        document.getElementById("seqPryEstadoProceso").value = x;
+        var objFormularioProyecto = YAHOO.util.Dom.get('frmInscripcionProyecto');
+        pedirConfirmacion('mensajes', objFormularioProyecto, './contenidos/proyectos/pedirConfirmacion.php');
+        this.cancel();
     }
 
     var objAtributos = {
@@ -7470,7 +7504,7 @@ function calculaSubsidioProyecto() {
             duration: 0.75
         },
         fixedcenter: true,
-		zIndex: 1,
+        zIndex: 1,
         visible: false,
         modal: true,
         draggable: true,
@@ -7491,9 +7525,9 @@ function calculaSubsidioProyecto() {
 
     // INSTANCIA EL OBJETO DIALOGO
     var objDialogo1 = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
-    
-	// Muestra el cuadro de dialogo
-	objDialogo1.setHeader("Guardar Proyecto");
+
+    // Muestra el cuadro de dialogo
+    objDialogo1.setHeader("Guardar Proyecto");
     objDialogo1.render(document.body);
     objDialogo1.show();
 }
@@ -7508,9 +7542,9 @@ function obtenerModalidad(objEsquema) {
             true
             );
 
-	YAHOO.util.Event.onContentReady(
-			"seqTipoEsquema",
-            function() {
+    YAHOO.util.Event.onContentReady(
+            "seqTipoEsquema",
+            function () {
                 document.getElementById("seqTipoEsquema").focus();
             }
     );
@@ -7518,254 +7552,254 @@ function obtenerModalidad(objEsquema) {
 
 // COMITE DE ELEGIBILIDAD - Muestra los datos de aprobación si el campo 'bolAprobacion' está checkeado
 function escondeSeccionAprobacion() {
-	if (document.getElementById("bolAprobacion").checked) {
-		document.getElementById("tblSeccionAprobacion").style.display = "table-row";
-	} else {
-		document.getElementById("tblSeccionAprobacion").style.display = "none";
-		document.getElementById("numActaAprobacion").value = '';
-		document.getElementById("fchActaAprobacion").value = '';
-		document.getElementById("numResolucionAprobacion").value = '';
-		document.getElementById("fchResolucionAprobacion").value = '';
-		document.getElementById("txtActaResuelve").value = '';
-		//document.getElementById("txtObservacionAprobacion").value = '';
-		document.getElementById("txtCondicionAprobacion").value = '';
-	}
+    if (document.getElementById("bolAprobacion").checked) {
+        document.getElementById("tblSeccionAprobacion").style.display = "table-row";
+    } else {
+        document.getElementById("tblSeccionAprobacion").style.display = "none";
+        document.getElementById("numActaAprobacion").value = '';
+        document.getElementById("fchActaAprobacion").value = '';
+        document.getElementById("numResolucionAprobacion").value = '';
+        document.getElementById("fchResolucionAprobacion").value = '';
+        document.getElementById("txtActaResuelve").value = '';
+        //document.getElementById("txtObservacionAprobacion").value = '';
+        document.getElementById("txtCondicionAprobacion").value = '';
+    }
 }
 
 // Si bolCondiciones
 function muestraCondicionAprobacion() {
-	if (document.getElementById("bolCondicionAprobacion").checked){
-		document.getElementById("tblSeccionCondicionado").style.display = "table-row";
-	} else {
-		document.getElementById("tblSeccionCondicionado").style.display = "none";
-		document.getElementById("txtCondicionAprobacion").value = '';
-	}
-	//alert(document.getElementById("bolCondicionAprobaciondisabled").disable);
+    if (document.getElementById("bolCondicionAprobacion").checked) {
+        document.getElementById("tblSeccionCondicionado").style.display = "table-row";
+    } else {
+        document.getElementById("tblSeccionCondicionado").style.display = "none";
+        document.getElementById("txtCondicionAprobacion").value = '';
+    }
+    //alert(document.getElementById("bolCondicionAprobaciondisabled").disable);
 }
 
 // DESEMBOLSOS - Muestra el campo Fiduciaria si selecciona la modalidad de desembolso Encargo Fiduciario
 function escondeDatosSegunTipoDesembolso() {
-	if (document.getElementById("seqTipoModalidadDesembolso").value == 1) { // Encargo Fiduciario
-		document.getElementById("tituloFiduciaria").style.display = "table-row";
-		document.getElementById("campoFiduciaria").style.display = "table-row";
-		document.getElementById("lineaFiduciario1").style.display = "table-row";
-		document.getElementById("lineaFiduciario2").style.display = "table-row";
-		document.getElementById("lineaBancario1").style.display = "none";
-		document.getElementById("lineaFideicomiso1").style.display = "none";
-		document.getElementById("lineaFideicomiso2").style.display = "none";
-		document.getElementById("lineaFideicomiso3").style.display = "none";
-		document.getElementById("lineaFideicomiso4").style.display = "none";
-		document.getElementById("lineaFiduciarioFideicomiso").style.display = "table-row";
-		document.getElementById("chkDocDesemEntidad3").value = 0;
-		document.getElementById("txtDocDesemEntidad3").value = "";
-		document.getElementById("chkDocDesemEntidad4").value = 0;
-		document.getElementById("txtDocDesemEntidad4").value = "";
-		document.getElementById("chkDocDesemEntidad5").value = 0;
-		document.getElementById("txtDocDesemEntidad5").value = "";
-		document.getElementById("chkDocDesemEntidad6").value = 0;
-		document.getElementById("txtDocDesemEntidad6").value = "";
-		document.getElementById("chkDocDesemEntidad7").value = 0;
-		document.getElementById("txtDocDesemEntidad7").value = "";
-	} else if (document.getElementById("seqTipoModalidadDesembolso").value == 2) { // Fideicomiso Admon Inmobiliaria
-		document.getElementById("tituloFiduciaria").style.display = "none";
-		document.getElementById("campoFiduciaria").style.display = "none";
-		document.getElementById("seqFiduciaria").value = 0;
-		document.getElementById("lineaFiduciario1").style.display = "none";
-		document.getElementById("lineaFiduciario2").style.display = "none";
-		document.getElementById("lineaBancario1").style.display = "none";
-		document.getElementById("lineaFideicomiso1").style.display = "table-row";
-		document.getElementById("lineaFideicomiso2").style.display = "table-row";
-		document.getElementById("lineaFideicomiso3").style.display = "table-row";
-		document.getElementById("lineaFideicomiso4").style.display = "table-row";
-		document.getElementById("lineaFiduciarioFideicomiso").style.display = "table-row";
-		document.getElementById("chkDocDesemEntidad1").value = 0;
-		document.getElementById("txtDocDesemEntidad1").value = "";
-		document.getElementById("chkDocDesemEntidad2").value = 0;
-		document.getElementById("txtDocDesemEntidad2").value = "";
-		document.getElementById("chkDocDesemEntidad3").value = 0;
-		document.getElementById("txtDocDesemEntidad3").value = "";
-		document.getElementById("chkDocDesemEntidad8").value = 0;
-		document.getElementById("txtDocDesemEntidad8").value = "";
-	} else if (document.getElementById("seqTipoModalidadDesembolso").value == 3) { // Aval Bancario
-		document.getElementById("tituloFiduciaria").style.display = "none";
-		document.getElementById("campoFiduciaria").style.display = "none";
-		document.getElementById("seqFiduciaria").value = 0;
-		document.getElementById("lineaFiduciario1").style.display = "none";
-		document.getElementById("lineaFiduciario2").style.display = "none";
-		document.getElementById("lineaBancario1").style.display = "table-row";
-		document.getElementById("lineaFideicomiso1").style.display = "none";
-		document.getElementById("lineaFideicomiso2").style.display = "none";
-		document.getElementById("lineaFideicomiso3").style.display = "none";
-		document.getElementById("lineaFideicomiso4").style.display = "none";
-		document.getElementById("lineaFiduciarioFideicomiso").style.display = "none";
-		document.getElementById("chkDocDesemEntidad1").value = 0;
-		document.getElementById("txtDocDesemEntidad1").value = "";
-		document.getElementById("chkDocDesemEntidad2").value = 0;
-		document.getElementById("txtDocDesemEntidad2").value = "";
-		document.getElementById("chkDocDesemEntidad4").value = 0;
-		document.getElementById("txtDocDesemEntidad4").value = "";
-		document.getElementById("chkDocDesemEntidad5").value = 0;
-		document.getElementById("txtDocDesemEntidad5").value = "";
-		document.getElementById("chkDocDesemEntidad6").value = 0;
-		document.getElementById("txtDocDesemEntidad6").value = "";
-		document.getElementById("chkDocDesemEntidad7").value = 0;
-		document.getElementById("txtDocDesemEntidad7").value = "";
-		document.getElementById("chkDocDesemEntidad8").value = 0;
-		document.getElementById("txtDocDesemEntidad8").value = "";
-	} else { // Ninguno
-		document.getElementById("tituloFiduciaria").style.display = "none";
-		document.getElementById("campoFiduciaria").style.display = "none";
-		document.getElementById("campoFiduciaria").value = 0;
-		document.getElementById("lineaFiduciario1").style.display = "none";
-		document.getElementById("lineaFiduciario2").style.display = "none";
-		document.getElementById("lineaBancario1").style.display = "none";
-		document.getElementById("lineaFideicomiso1").style.display = "none";
-		document.getElementById("lineaFideicomiso2").style.display = "none";
-		document.getElementById("lineaFideicomiso3").style.display = "none";
-		document.getElementById("lineaFideicomiso4").style.display = "none";
-		document.getElementById("lineaFiduciarioFideicomiso").style.display = "none";
-		document.getElementById("lineaGenericaDocEntidadFinanciera").style.display = "none";
-		document.getElementById("chkDocDesemEntidad1").value = 0;
-		document.getElementById("txtDocDesemEntidad1").value = "";
-		document.getElementById("chkDocDesemEntidad2").value = 0;
-		document.getElementById("txtDocDesemEntidad2").value = "";
-		document.getElementById("chkDocDesemEntidad3").value = 0;
-		document.getElementById("txtDocDesemEntidad3").value = "";
-		document.getElementById("chkDocDesemEntidad4").value = 0;
-		document.getElementById("txtDocDesemEntidad4").value = "";
-		document.getElementById("chkDocDesemEntidad5").value = 0;
-		document.getElementById("txtDocDesemEntidad5").value = "";
-		document.getElementById("chkDocDesemEntidad6").value = 0;
-		document.getElementById("txtDocDesemEntidad6").value = "";
-		document.getElementById("chkDocDesemEntidad7").value = 0;
-		document.getElementById("txtDocDesemEntidad7").value = "";
-		document.getElementById("chkDocDesemEntidad8").value = 0;
-		document.getElementById("txtDocDesemEntidad8").value = "";
-		document.getElementById("chkDocDesemEntidad9").value = 0;
-		document.getElementById("txtDocDesemEntidad9").value = "";
-	}
+    if (document.getElementById("seqTipoModalidadDesembolso").value == 1) { // Encargo Fiduciario
+        document.getElementById("tituloFiduciaria").style.display = "table-row";
+        document.getElementById("campoFiduciaria").style.display = "table-row";
+        document.getElementById("lineaFiduciario1").style.display = "table-row";
+        document.getElementById("lineaFiduciario2").style.display = "table-row";
+        document.getElementById("lineaBancario1").style.display = "none";
+        document.getElementById("lineaFideicomiso1").style.display = "none";
+        document.getElementById("lineaFideicomiso2").style.display = "none";
+        document.getElementById("lineaFideicomiso3").style.display = "none";
+        document.getElementById("lineaFideicomiso4").style.display = "none";
+        document.getElementById("lineaFiduciarioFideicomiso").style.display = "table-row";
+        document.getElementById("chkDocDesemEntidad3").value = 0;
+        document.getElementById("txtDocDesemEntidad3").value = "";
+        document.getElementById("chkDocDesemEntidad4").value = 0;
+        document.getElementById("txtDocDesemEntidad4").value = "";
+        document.getElementById("chkDocDesemEntidad5").value = 0;
+        document.getElementById("txtDocDesemEntidad5").value = "";
+        document.getElementById("chkDocDesemEntidad6").value = 0;
+        document.getElementById("txtDocDesemEntidad6").value = "";
+        document.getElementById("chkDocDesemEntidad7").value = 0;
+        document.getElementById("txtDocDesemEntidad7").value = "";
+    } else if (document.getElementById("seqTipoModalidadDesembolso").value == 2) { // Fideicomiso Admon Inmobiliaria
+        document.getElementById("tituloFiduciaria").style.display = "none";
+        document.getElementById("campoFiduciaria").style.display = "none";
+        document.getElementById("seqFiduciaria").value = 0;
+        document.getElementById("lineaFiduciario1").style.display = "none";
+        document.getElementById("lineaFiduciario2").style.display = "none";
+        document.getElementById("lineaBancario1").style.display = "none";
+        document.getElementById("lineaFideicomiso1").style.display = "table-row";
+        document.getElementById("lineaFideicomiso2").style.display = "table-row";
+        document.getElementById("lineaFideicomiso3").style.display = "table-row";
+        document.getElementById("lineaFideicomiso4").style.display = "table-row";
+        document.getElementById("lineaFiduciarioFideicomiso").style.display = "table-row";
+        document.getElementById("chkDocDesemEntidad1").value = 0;
+        document.getElementById("txtDocDesemEntidad1").value = "";
+        document.getElementById("chkDocDesemEntidad2").value = 0;
+        document.getElementById("txtDocDesemEntidad2").value = "";
+        document.getElementById("chkDocDesemEntidad3").value = 0;
+        document.getElementById("txtDocDesemEntidad3").value = "";
+        document.getElementById("chkDocDesemEntidad8").value = 0;
+        document.getElementById("txtDocDesemEntidad8").value = "";
+    } else if (document.getElementById("seqTipoModalidadDesembolso").value == 3) { // Aval Bancario
+        document.getElementById("tituloFiduciaria").style.display = "none";
+        document.getElementById("campoFiduciaria").style.display = "none";
+        document.getElementById("seqFiduciaria").value = 0;
+        document.getElementById("lineaFiduciario1").style.display = "none";
+        document.getElementById("lineaFiduciario2").style.display = "none";
+        document.getElementById("lineaBancario1").style.display = "table-row";
+        document.getElementById("lineaFideicomiso1").style.display = "none";
+        document.getElementById("lineaFideicomiso2").style.display = "none";
+        document.getElementById("lineaFideicomiso3").style.display = "none";
+        document.getElementById("lineaFideicomiso4").style.display = "none";
+        document.getElementById("lineaFiduciarioFideicomiso").style.display = "none";
+        document.getElementById("chkDocDesemEntidad1").value = 0;
+        document.getElementById("txtDocDesemEntidad1").value = "";
+        document.getElementById("chkDocDesemEntidad2").value = 0;
+        document.getElementById("txtDocDesemEntidad2").value = "";
+        document.getElementById("chkDocDesemEntidad4").value = 0;
+        document.getElementById("txtDocDesemEntidad4").value = "";
+        document.getElementById("chkDocDesemEntidad5").value = 0;
+        document.getElementById("txtDocDesemEntidad5").value = "";
+        document.getElementById("chkDocDesemEntidad6").value = 0;
+        document.getElementById("txtDocDesemEntidad6").value = "";
+        document.getElementById("chkDocDesemEntidad7").value = 0;
+        document.getElementById("txtDocDesemEntidad7").value = "";
+        document.getElementById("chkDocDesemEntidad8").value = 0;
+        document.getElementById("txtDocDesemEntidad8").value = "";
+    } else { // Ninguno
+        document.getElementById("tituloFiduciaria").style.display = "none";
+        document.getElementById("campoFiduciaria").style.display = "none";
+        document.getElementById("campoFiduciaria").value = 0;
+        document.getElementById("lineaFiduciario1").style.display = "none";
+        document.getElementById("lineaFiduciario2").style.display = "none";
+        document.getElementById("lineaBancario1").style.display = "none";
+        document.getElementById("lineaFideicomiso1").style.display = "none";
+        document.getElementById("lineaFideicomiso2").style.display = "none";
+        document.getElementById("lineaFideicomiso3").style.display = "none";
+        document.getElementById("lineaFideicomiso4").style.display = "none";
+        document.getElementById("lineaFiduciarioFideicomiso").style.display = "none";
+        document.getElementById("lineaGenericaDocEntidadFinanciera").style.display = "none";
+        document.getElementById("chkDocDesemEntidad1").value = 0;
+        document.getElementById("txtDocDesemEntidad1").value = "";
+        document.getElementById("chkDocDesemEntidad2").value = 0;
+        document.getElementById("txtDocDesemEntidad2").value = "";
+        document.getElementById("chkDocDesemEntidad3").value = 0;
+        document.getElementById("txtDocDesemEntidad3").value = "";
+        document.getElementById("chkDocDesemEntidad4").value = 0;
+        document.getElementById("txtDocDesemEntidad4").value = "";
+        document.getElementById("chkDocDesemEntidad5").value = 0;
+        document.getElementById("txtDocDesemEntidad5").value = "";
+        document.getElementById("chkDocDesemEntidad6").value = 0;
+        document.getElementById("txtDocDesemEntidad6").value = "";
+        document.getElementById("chkDocDesemEntidad7").value = 0;
+        document.getElementById("txtDocDesemEntidad7").value = "";
+        document.getElementById("chkDocDesemEntidad8").value = 0;
+        document.getElementById("txtDocDesemEntidad8").value = "";
+        document.getElementById("chkDocDesemEntidad9").value = 0;
+        document.getElementById("txtDocDesemEntidad9").value = "";
+    }
 }
 
 ///////////////////////////////////////// FIN FUNCIONES MODULO DE PROYECTOS
 
-   function popUpAyuda( ){
-      
+function popUpAyuda( ) {
+
 //      var numAlto  = YAHOO.util.Dom.getDocumentHeight() - 200;
 //      var numAncho = YAHOO.util.Dom.getDocumentWidth() - 100;
-      
-      var numAlto  = YAHOO.util.Dom.getDocumentHeight() - 200;
-      var numAncho = 400;         
-      
-      var x = YAHOO.util.Dom.getX("ayuda") - ( numAncho - 25 );
-      var y = YAHOO.util.Dom.getY("ayuda") + 10;
-      
-      var fncExito = function( o ){
-      
-         // Instancia un objeto panel
-          var objAyuda = new YAHOO.widget.Panel(
-                  "wait",
-                  {
-                      width: numAncho,
-                      height: numAlto,
-                      fixedcenter: false,
-                      close: true,
-                      draggable: false,
-                      modal: false,
-                      visible: false,
-                      x:x,
-                      y:y
-                  }
-          );
 
-          // Encabezado
-          objAyuda.setHeader("Ayuda SDVE");
+    var numAlto = YAHOO.util.Dom.getDocumentHeight() - 200;
+    var numAncho = 400;
 
-          // cuerpo del panel
-          objAyuda.setBody( o.responseText );
+    var x = YAHOO.util.Dom.getX("ayuda") - (numAncho - 25);
+    var y = YAHOO.util.Dom.getY("ayuda") + 10;
 
-          // El objeto se despliega sobre el cuerpo del documento html
-          objAyuda.render( document.body );
+    var fncExito = function (o) {
 
-          objAyuda.show();
-          
-      }
-      
-      var fncFalla = function (o){
-         alert( "Falta el archivo de ayuda" );
-      }
-      
-      var callback = {
-         success: fncExito,
-         failure: fncFalla
-      }
-      
-      YAHOO.util.Connect.asyncRequest(
-              "POST", 
-               "./contenidos/ayuda/ayuda.php", 
-               callback, 
-               "alto=" + numAlto
-      );
-      
-   }
+        // Instancia un objeto panel
+        var objAyuda = new YAHOO.widget.Panel(
+                "wait",
+                {
+                    width: numAncho,
+                    height: numAlto,
+                    fixedcenter: false,
+                    close: true,
+                    draggable: false,
+                    modal: false,
+                    visible: false,
+                    x: x,
+                    y: y
+                }
+        );
 
- function eliminarInscripcion( objFormulario ) {
+        // Encabezado
+        objAyuda.setHeader("Ayuda SDVE");
 
-      // Objeto que contiene los atributos del cuadro de dialogo
-      var objAtributos = {
-          width: "350px",
-          effect: {
-              effect: YAHOO.widget.ContainerEffect.FADE,
-              duration: 0.75
-          },
-          fixedcenter: true,
-          modal: true,
-          draggable: true,
-          close: false
-      }
+        // cuerpo del panel
+        objAyuda.setBody(o.responseText);
 
-      // INSTANCIA EL OBJETO DIALOGO
-      var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
+        // El objeto se despliega sobre el cuerpo del documento html
+        objAyuda.render(document.body);
 
-      objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
-      objDialogo.setBody( "<span class='msgError'>¿Desea eliminar el registro de la base de datos?</span>" );			   // texto que se muestra en el cuerpo (formato html)
-      objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
+        objAyuda.show();
 
-      // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
-      var handleYes = function() {
+    }
 
-          // Envia los datos el archivo que contesta la peticion de borrado
-          someterFormulario( 'mensajes', objFormulario, './contenidos/subsidios/eliminarInscripcion.php', false, true );
+    var fncFalla = function (o) {
+        alert("Falta el archivo de ayuda");
+    }
 
-          this.hide(); // oculta el objeto de confirmacion
-      }
+    var callback = {
+        success: fncExito,
+        failure: fncFalla
+    }
 
-      // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
-      var handleNo = function() {
-          document.getElementById("mensajes").innerHTML = "";
-          this.hide();
-      }
+    YAHOO.util.Connect.asyncRequest(
+            "POST",
+            "./contenidos/ayuda/ayuda.php",
+            callback,
+            "alto=" + numAlto
+            );
 
-      // Botones para aÃ±adir al cuadro de dialogo
-      // No poner esto antes de la declartacion de los manejadores
-      var arrBotones = [
-          {
-              text: "Eliminar",
-              handler: handleYes
-          },
-          {
-              text: "Cancelar",
-              handler: handleNo,
-              isDefault: true
-          }
-      ];
+}
 
-      objDialogo.cfg.queueProperty("buttons", arrBotones);
+function eliminarInscripcion(objFormulario) {
 
-      // Muestra el cuadro de dialogo
-      objDialogo.render(document.body);
-      objDialogo.show();
+    // Objeto que contiene los atributos del cuadro de dialogo
+    var objAtributos = {
+        width: "350px",
+        effect: {
+            effect: YAHOO.widget.ContainerEffect.FADE,
+            duration: 0.75
+        },
+        fixedcenter: true,
+        modal: true,
+        draggable: true,
+        close: false
+    }
 
-  }
+    // INSTANCIA EL OBJETO DIALOGO
+    var objDialogo = new YAHOO.widget.SimpleDialog("dlg", objAtributos);
+
+    objDialogo.setHeader("Atencion Requerida !!"); // encabezado del objeto
+    objDialogo.setBody("<span class='msgError'>¿Desea eliminar el registro de la base de datos?</span>");			   // texto que se muestra en el cuerpo (formato html)
+    objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
+
+    // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
+    var handleYes = function () {
+
+        // Envia los datos el archivo que contesta la peticion de borrado
+        someterFormulario('mensajes', objFormulario, './contenidos/subsidios/eliminarInscripcion.php', false, true);
+
+        this.hide(); // oculta el objeto de confirmacion
+    }
+
+    // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
+    var handleNo = function () {
+        document.getElementById("mensajes").innerHTML = "";
+        this.hide();
+    }
+
+    // Botones para aÃ±adir al cuadro de dialogo
+    // No poner esto antes de la declartacion de los manejadores
+    var arrBotones = [
+        {
+            text: "Eliminar",
+            handler: handleYes
+        },
+        {
+            text: "Cancelar",
+            handler: handleNo,
+            isDefault: true
+        }
+    ];
+
+    objDialogo.cfg.queueProperty("buttons", arrBotones);
+
+    // Muestra el cuadro de dialogo
+    objDialogo.render(document.body);
+    objDialogo.show();
+
+}
 
 
 //   function cartasAsignacion( numActo , fchActo , numDocumento ){
@@ -7787,1611 +7821,1611 @@ function escondeDatosSegunTipoDesembolso() {
 //      
 //   }
 
-function autocompletar2( txtInput , txtContenedor , txtArchivo , txtParametros ){
-        
-        // Use an XHRDataSource
-        var objDataSource = new YAHOO.util.XHRDataSource( txtArchivo );
-            objDataSource.responseType 		= YAHOO.util.XHRDataSource.TYPE_JSON;
-            objDataSource.responseSchema = { fields: ["nombre", "seqProyecto"]}; 
-            objDataSource.maxCacheEntries 	= 0;
-            objDataSource.flushCache();
-        
-        // Instantiate the AutoComplete
-        var objAutocomplete = new YAHOO.widget.AutoComplete( txtInput , txtContenedor , objDataSource );
-            objAutocomplete.maxResultsDisplayed 	= 10; 
-	    	objAutocomplete.minQueryLength 			= 1;
-	    	objAutocomplete.autoHighlight 			= true;  
-	    	objAutocomplete.useShadow 				= true; 
-	    	objAutocomplete.forceSelection 			= true;
-	    	objAutocomplete.allowBrowserAutocomplete = false;
-	    	objAutocomplete.queryDelay = 0.3;
+function autocompletar2(txtInput, txtContenedor, txtArchivo, txtParametros) {
 
-	    // Define an event handler to populate a hidden form field 
-	    // when an item gets selected 
-	    var myHiddenField = YAHOO.util.Dom.get("myHidden"); 
-	    var myHandler = function(sType, aArgs) { 
-	        var myAC = aArgs[0]; // reference back to the AC instance 
-	        var elLI = aArgs[1]; // reference to the selected LI element 
-	        var oData = aArgs[2]; // object literal of selected item's result data 
-	         
-	        // update hidden form field with the selected item's ID 
-	        myHiddenField.value = oData.seqProyecto; 
-	    }; 
-	    oAC.itemSelectEvent.subscribe(myHandler); 
+    // Use an XHRDataSource
+    var objDataSource = new YAHOO.util.XHRDataSource(txtArchivo);
+    objDataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
+    objDataSource.responseSchema = {fields: ["nombre", "seqProyecto"]};
+    objDataSource.maxCacheEntries = 0;
+    objDataSource.flushCache();
 
-        return {
-            oDS: objDataSource,
-            oAC: objAutocomplete
-        };
-       
-    }
+    // Instantiate the AutoComplete
+    var objAutocomplete = new YAHOO.widget.AutoComplete(txtInput, txtContenedor, objDataSource);
+    objAutocomplete.maxResultsDisplayed = 10;
+    objAutocomplete.minQueryLength = 1;
+    objAutocomplete.autoHighlight = true;
+    objAutocomplete.useShadow = true;
+    objAutocomplete.forceSelection = true;
+    objAutocomplete.allowBrowserAutocomplete = false;
+    objAutocomplete.queryDelay = 0.3;
+
+    // Define an event handler to populate a hidden form field 
+    // when an item gets selected 
+    var myHiddenField = YAHOO.util.Dom.get("myHidden");
+    var myHandler = function (sType, aArgs) {
+        var myAC = aArgs[0]; // reference back to the AC instance 
+        var elLI = aArgs[1]; // reference to the selected LI element 
+        var oData = aArgs[2]; // object literal of selected item's result data 
+
+        // update hidden form field with the selected item's ID 
+        myHiddenField.value = oData.seqProyecto;
+    };
+    oAC.itemSelectEvent.subscribe(myHandler);
+
+    return {
+        oDS: objDataSource,
+        oAC: objAutocomplete
+    };
+
+}
 // FUNCITONES PARA MOSULO DE CARTAS DE ASIGNACION
 
-   var objTablaCA = null;
-   var fncDataTableCartasAsignacion = function( bolEstado ){
-      
-      if( typeof( bolEstado ) == "undefined" ){
-         bolEstado = "";
-      } else {
-         bolEstado = "1";
-      }
+var objTablaCA = null;
+var fncDataTableCartasAsignacion = function (bolEstado) {
 
-      if( YAHOO.util.Dom.get("listenerTablaCiudadanos") != null ){
-         eliminarObjeto("listenerTablaCiudadanos");
-         YAHOO.util.Event.onContentReady( "listenerTablaCiudadanos" , fncDataTableCartasAsignacion );
-      } 
+    if (typeof (bolEstado) == "undefined") {
+        bolEstado = "";
+    } else {
+        bolEstado = "1";
+    }
 
-      var objFormulario = YAHOO.util.Dom.get("frmFiltros");
-      var objMensajes = YAHOO.util.Dom.get("mensajes");
+    if (YAHOO.util.Dom.get("listenerTablaCiudadanos") != null) {
+        eliminarObjeto("listenerTablaCiudadanos");
+        YAHOO.util.Event.onContentReady("listenerTablaCiudadanos", fncDataTableCartasAsignacion);
+    }
 
-      var fncOk = function( objRespuesta ){
+    var objFormulario = YAHOO.util.Dom.get("frmFiltros");
+    var objMensajes = YAHOO.util.Dom.get("mensajes");
 
-         txtParametro = objRespuesta.responseText;
-         txtParametro = txtParametro.replace("#" , "&" );
+    var fncOk = function (objRespuesta) {
 
-         var txtSeparador = "|";
-         var txtSalto = "\n";
+        txtParametro = objRespuesta.responseText;
+        txtParametro = txtParametro.replace("#", "&");
 
-         var objColumnas = [
+        var txtSeparador = "|";
+        var txtSalto = "\n";
+
+        var objColumnas = [
             {
-               key:"bolCarta",
-               label:"&nbsp;",
-               width:30, 
-               formatter: "checkbox"
+                key: "bolCarta",
+                label: "&nbsp;",
+                width: 30,
+                formatter: "checkbox"
             },
             {
-               key:"seqFormularioActo", 
-               label: "Id",
-               width:30, 
-               sortable:true, 
-               formatter:YAHOO.widget.DataTable.formatNumber
+                key: "seqFormularioActo",
+                label: "Id",
+                width: 30,
+                sortable: true,
+                formatter: YAHOO.widget.DataTable.formatNumber
             },
             {
-               key:"numActo", 
-               label: "No",
-               width:30, 
-               sortable:true, 
-               formatter:YAHOO.widget.DataTable.formatNumber
+                key: "numActo",
+                label: "No",
+                width: 30,
+                sortable: true,
+                formatter: YAHOO.widget.DataTable.formatNumber
             },
             {
-               key:"fchActo", 
-               label: "Fecha Res",
-               width:70, 
-               sortable:true
+                key: "fchActo",
+                label: "Fecha Res",
+                width: 70,
+                sortable: true
             },
             {
-               key:"numDocumento", 
-               label: "Documento",
-               sortable:true,
-               width:100, 
-               formatter:YAHOO.widget.DataTable.formatNumber
+                key: "numDocumento",
+                label: "Documento",
+                sortable: true,
+                width: 100,
+                formatter: YAHOO.widget.DataTable.formatNumber
             },
             {
-               key:"txtNombre", 
-               label: "Nombre",
-               width:270, 
-               sortable:true
+                key: "txtNombre",
+                label: "Nombre",
+                width: 270,
+                sortable: true
             },
             {
-               key:"txtEstadoProceso", 
-               label: "Estado",
-               width:200, 
-               sortable:true
+                key: "txtEstadoProceso",
+                label: "Estado",
+                width: 200,
+                sortable: true
             }
-         ];           
+        ];
 
-         var objFuente = new YAHOO.util.DataSource("./contenidos/asignacion/listadoCiudadanos.php");
-         objFuente.responseType = YAHOO.util.DataSource.TYPE_TEXT; // retorno tipo texto
-         objFuente.connMethodPost = true; // conexion por post
-         objFuente.responseSchema = {
+        var objFuente = new YAHOO.util.DataSource("./contenidos/asignacion/listadoCiudadanos.php");
+        objFuente.responseType = YAHOO.util.DataSource.TYPE_TEXT; // retorno tipo texto
+        objFuente.connMethodPost = true; // conexion por post
+        objFuente.responseSchema = {
             recordDelim: txtSalto,
             fieldDelim: txtSeparador,
             fields: [
-               "bolCarta",
-               {
-                  key:"seqFormularioActo",
-                  parser:"number"
-               },
-               {
-                  key:"numActo",
-                  parser:"number"
-               },
-               "fchActo",
-               {
-                  key:"numDocumento",
-                  parser:"number"
-               },
-               "txtNombre",
-               "txtEstadoProceso"
+                "bolCarta",
+                {
+                    key: "seqFormularioActo",
+                    parser: "number"
+                },
+                {
+                    key: "numActo",
+                    parser: "number"
+                },
+                "fchActo",
+                {
+                    key: "numDocumento",
+                    parser: "number"
+                },
+                "txtNombre",
+                "txtEstadoProceso"
             ]
-         };
+        };
 
-         // configuracion del paginador
-         var objConfiguracionPaginador = {
+        // configuracion del paginador
+        var objConfiguracionPaginador = {
             rowsPerPage: 10,
-            template: YAHOO.widget.Paginator.TEMPLATE_ROWS_PER_PAGE, 
-            rowsPerPageOptions: [10,25,50,100], 
+            template: YAHOO.widget.Paginator.TEMPLATE_ROWS_PER_PAGE,
+            rowsPerPageOptions: [10, 25, 50, 100],
             pageLinks: 5,
-            firstPageLinkLabel:"Primero",
-            lastPageLinkLabel:"Último",
-            nextPageLinkLabel:"Siguiente",
-            previousPageLinkLabel:"Anterior"
-         };
+            firstPageLinkLabel: "Primero",
+            lastPageLinkLabel: "Último",
+            nextPageLinkLabel: "Siguiente",
+            previousPageLinkLabel: "Anterior"
+        };
 
-         // paginador
-         var objPaginador = new YAHOO.widget.Paginator( objConfiguracionPaginador );
+        // paginador
+        var objPaginador = new YAHOO.widget.Paginator(objConfiguracionPaginador);
 
-         //objMensajes.innerHTML = "salto=" + txtSalto + "&separador=" + txtSeparador + "&" + txtParametro;
+        //objMensajes.innerHTML = "salto=" + txtSalto + "&separador=" + txtSeparador + "&" + txtParametro;
 
-         // DataTable configuration 
-         var objConfiguracion = {
+        // DataTable configuration 
+        var objConfiguracion = {
             initialRequest: "bolEstado=" + bolEstado + "&salto=" + txtSalto + "&separador=" + txtSeparador + "&" + txtParametro,
-            height:"272px",
-            width:"100%",
+            height: "272px",
+            width: "100%",
             paginator: objPaginador
-         }; 
+        };
 
-         objTablaCA = new YAHOO.widget.ScrollingDataTable(
-               "tablaCiudadanos", 
-               objColumnas,
-               objFuente,
-               objConfiguracion
-          );
+        objTablaCA = new YAHOO.widget.ScrollingDataTable(
+                "tablaCiudadanos",
+                objColumnas,
+                objFuente,
+                objConfiguracion
+                );
 
-         var fncSeleccionado = function( objParametro ){
+        var fncSeleccionado = function (objParametro) {
             var objCheckbox = objParametro.target;
-            var objRegistro = this.getRecord( objCheckbox );
-            objRegistro.setData( "bolCarta", objCheckbox.checked );
-         };
-         
-         objTablaCA.subscribe("rowMouseoverEvent", objTablaCA.onEventHighlightRow);
-         objTablaCA.subscribe("rowMouseoutEvent", objTablaCA.onEventUnhighlightRow);
-         objTablaCA.subscribe("checkboxClickEvent", fncSeleccionado );
-         objTablaCA.subscribe("cellClickEvent", objTablaCA.onEventShowCellEditor); 
+            var objRegistro = this.getRecord(objCheckbox);
+            objRegistro.setData("bolCarta", objCheckbox.checked);
+        };
 
-         return {
-             oDS: objFuente,
-             oDT: objTablaCA
-         };         
-         
-      }
+        objTablaCA.subscribe("rowMouseoverEvent", objTablaCA.onEventHighlightRow);
+        objTablaCA.subscribe("rowMouseoutEvent", objTablaCA.onEventUnhighlightRow);
+        objTablaCA.subscribe("checkboxClickEvent", fncSeleccionado);
+        objTablaCA.subscribe("cellClickEvent", objTablaCA.onEventShowCellEditor);
 
-      var fncEr = function( objRespuesta ){
-         alert( objRespuesta.status + ": " + objRespuesta.statusText );
-      }
+        return {
+            oDS: objFuente,
+            oDT: objTablaCA
+        };
 
-      var fncRetorno = {
-         sucsess: fncOk,
-         failure: fncEr,
-         upload: fncOk
-      }
+    }
 
-      YAHOO.util.Connect.setForm(objFormulario, true, true);
-      YAHOO.util.Connect.asyncRequest('POST', "./contenidos/asignacion/serializarFormularioCartasAsignacion.php", fncRetorno);
+    var fncEr = function (objRespuesta) {
+        alert(objRespuesta.status + ": " + objRespuesta.statusText);
+    }
 
-   }
-   YAHOO.util.Event.onContentReady( "listenerTablaCiudadanos" , fncDataTableCartasAsignacion );
-   
-   function frmResetCarasAsignacion( objFormulario ){
-      objFormulario.reset();
-      fncDataTableCartasAsignacion();
-   }
-   
-   function exportarCartasAsignacion(){
-      
-      var i = 0;
-      var numLimite = 200;
-      var numSeleccionados = 0;
-      var objTextoCarta = YAHOO.util.Dom.get("textoCarta");
-      var objEstado = objTablaCA.getState();
-      var objRegistro = null;
-      var txtParametros = "{";
-      for( i = 0 ; i < objEstado.totalRecords ; i++ ){
-         objRegistro = objTablaCA.getRecord( i );
-         if( objRegistro.getData("bolCarta") ){
-            if( numSeleccionados < numLimite ){
-               txtParametros += "\"" + i + "\":\"" + objRegistro.getData("seqFormularioActo") + "\",";
+    var fncRetorno = {
+        sucsess: fncOk,
+        failure: fncEr,
+        upload: fncOk
+    }
+
+    YAHOO.util.Connect.setForm(objFormulario, true, true);
+    YAHOO.util.Connect.asyncRequest('POST', "./contenidos/asignacion/serializarFormularioCartasAsignacion.php", fncRetorno);
+
+}
+YAHOO.util.Event.onContentReady("listenerTablaCiudadanos", fncDataTableCartasAsignacion);
+
+function frmResetCarasAsignacion(objFormulario) {
+    objFormulario.reset();
+    fncDataTableCartasAsignacion();
+}
+
+function exportarCartasAsignacion() {
+
+    var i = 0;
+    var numLimite = 200;
+    var numSeleccionados = 0;
+    var objTextoCarta = YAHOO.util.Dom.get("textoCarta");
+    var objEstado = objTablaCA.getState();
+    var objRegistro = null;
+    var txtParametros = "{";
+    for (i = 0; i < objEstado.totalRecords; i++) {
+        objRegistro = objTablaCA.getRecord(i);
+        if (objRegistro.getData("bolCarta")) {
+            if (numSeleccionados < numLimite) {
+                txtParametros += "\"" + i + "\":\"" + objRegistro.getData("seqFormularioActo") + "\",";
             }
             numSeleccionados++;
-         }
-      }
-      txtParametros += "\"texto\":\"" + objTextoCarta.value + "\"}";
-      
-      if( numSeleccionados > numLimite ){
-         alert( "Usted seleccionado mas registros de lo permitido, el máximo que puede seleccionar es de " + numLimite + " registros" );
-      } else {
-         if( numSeleccionados == 0 ){
-            alert( "Atención: Seleccione al menos un registro" );
-         }
-      }
-      
-      if( numSeleccionados != 0 ){
+        }
+    }
+    txtParametros += "\"texto\":\"" + objTextoCarta.value + "\"}";
+
+    if (numSeleccionados > numLimite) {
+        alert("Usted seleccionado mas registros de lo permitido, el máximo que puede seleccionar es de " + numLimite + " registros");
+    } else {
+        if (numSeleccionados == 0) {
+            alert("Atención: Seleccione al menos un registro");
+        }
+    }
+
+    if (numSeleccionados != 0) {
         var wndFormato = null;
-         try {
-             var numAlto  = YAHOO.util.Dom.getDocumentHeight() - 200;
-             var txtUrl = "./contenidos/asignacion/exportarCartasAsignacion.php";
-                 txtUrl += "?parametro=" + txtParametros;
-             var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height="+numAlto+",left=100,top=10,titlebar=0";
-             if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
-                 throw "ErrorPopUp";
-             }
-         } catch (objError) {
-             if (objError == "ErrorPopUp") {
-                 alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
-             }
-         }   
-      }
-      
-   }
+        try {
+            var numAlto = YAHOO.util.Dom.getDocumentHeight() - 200;
+            var txtUrl = "./contenidos/asignacion/exportarCartasAsignacion.php";
+            txtUrl += "?parametro=" + txtParametros;
+            var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=" + numAlto + ",left=100,top=10,titlebar=0";
+            if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
+                throw "ErrorPopUp";
+            }
+        } catch (objError) {
+            if (objError == "ErrorPopUp") {
+                alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
+            }
+        }
+    }
+
+}
 
 // FIN FUNCIONES PARA MOSULO DE CARTAS DE ASIGNACION
 
 // FUNCIONES PARA EL NUEVO MODULO DE ACTOS ADMINISTRATIVOS
 
-   fncTabActoAdministrativo = function (){
-      
-      eliminarObjeto("listenerTabActoAdministrativo");
-      YAHOO.util.Event.onContentReady( "listenerTabActoAdministrativo" , fncTabActoAdministrativo );
-      
-      var objTabView = new YAHOO.widget.TabView('tabActoAdministrativo'); 
-      
-   }
-   YAHOO.util.Event.onContentReady( "listenerTabActoAdministrativo" , fncTabActoAdministrativo );
+fncTabActoAdministrativo = function () {
 
-	// ADICIONAR LINEAS A LAS RESOLUCIONES DE UN PROYECTO
-	var indiceFilaFormulario = 1;
-	function addResolucionProyecto(){
-		myNewRow = document.getElementById("tablaFormularioRes").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' id='numResolucionProyecto' name='numResolucionProyecto["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:70px; text-align:center' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchResolucionProyecto["+indiceFilaFormulario+"]' type='text' id='fchResolucionProyecto["+indiceFilaFormulario+"]' size='12' readonly /> <a href='#' onClick='javascript: calendarioPopUp( \"fchResolucionProyecto["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><textarea id='txtResuelve' name='txtResuelve["+indiceFilaFormulario+"]' cols='102' rows='4' ></textarea></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+    eliminarObjeto("listenerTabActoAdministrativo");
+    YAHOO.util.Event.onContentReady("listenerTabActoAdministrativo", fncTabActoAdministrativo);
 
-	// ADICIONAR LINEAS A LAS ACTAS DE UN PROYECTO
-	var indiceFilaFormulario = 1;
-	function addActaProyecto(){
-		myNewRow = document.getElementById("tablaFormularioActas").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' id='numActaProyecto' name='numActaProyecto["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:70px; text-align:center' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchActaProyecto["+indiceFilaFormulario+"]' type='text' id='fchActaProyecto["+indiceFilaFormulario+"]' size='12' readonly /> <a href='#' onClick='javascript: calendarioPopUp( \"fchActaProyecto["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><textarea id='txtEpigrafe' name='txtEpigrafe["+indiceFilaFormulario+"]' cols='102' rows='4' ></textarea></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+    var objTabView = new YAHOO.widget.TabView('tabActoAdministrativo');
 
-	// ADICIONAR LINEAS A LOS SEGUIMIENTOS DE DOCUMENTOS (JURIDICA)
-	var indiceFilaFormulario = 1;
-	function addSeguimientoDocumento(opcionesDocumentos){
-		//opcionesDocumentos = opcionesDocumentos.replace(',\");
-		myNewRow = document.getElementById("tablaFormularioDocumentos").insertRow(0);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		//myNewCell.setAttribute("style", "padding:6px");
-		var contenido = "<td><table border='0' cellspacing='2' cellpadding='0' width='100%'>";
-		contenido += "<tr><td width='35%' class='tituloTabla' colspan='2' valign='top'>Nuevo Seguimiento<input type='hidden' id='unicoSegDocum' name='unicoSegDocum["+indiceFilaFormulario+"]' value='"+indiceFilaFormulario+"'></td></tr>";
-		contenido += "<tr><td valign='top'><select id='seqDocumento' name='seqDocumento["+indiceFilaFormulario+"]' style='width:260px;' >"+opcionesDocumentos+"</select></td><td width='65%' rowspan='3' valign='top' rows='6'><textarea name='txtObservaciones["+indiceFilaFormulario+"]' id='txtObservaciones' style='width:500px'></textarea></td></tr>";
-		contenido += "</table></td>";
-		myNewCell.innerHTML = contenido;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+}
+YAHOO.util.Event.onContentReady("listenerTabActoAdministrativo", fncTabActoAdministrativo);
 
-	// ADICIONAR LINEAS AL CRONOGRAMA DE OBRAS
-	var indiceFilaFormulario = 1;
-	function addActividadCronogramaProyecto(){
-		myNewRow = document.getElementById("tablaFormularioCronograma").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtNombreActividad["+indiceFilaFormulario+"]' id='txtNombreActividad' onBlur='sinCaracteresEspeciales( this );' style='width:260px' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchInicialActividad["+indiceFilaFormulario+"]' type='text' id='fchInicialActividad["+indiceFilaFormulario+"]' size='12' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialActividad["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchFinalActividad["+indiceFilaFormulario+"]' type='text' id='fchFinalActividad["+indiceFilaFormulario+"]' size='12' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalActividad["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><textarea name='txtDescripcionActividad["+indiceFilaFormulario+"]' id='txtDescripcionActividad' style='width:260px'></textarea></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtResponsableActividad["+indiceFilaFormulario+"]' id='txtResponsableActividad' onBlur='sinCaracteresEspeciales( this );' style='width:225px' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+// ADICIONAR LINEAS A LAS RESOLUCIONES DE UN PROYECTO
+var indiceFilaFormulario = 1;
+function addResolucionProyecto() {
+    myNewRow = document.getElementById("tablaFormularioRes").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' id='numResolucionProyecto' name='numResolucionProyecto[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:70px; text-align:center' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchResolucionProyecto[" + indiceFilaFormulario + "]' type='text' id='fchResolucionProyecto[" + indiceFilaFormulario + "]' size='12' readonly /> <a href='#' onClick='javascript: calendarioPopUp( \"fchResolucionProyecto[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><textarea id='txtResuelve' name='txtResuelve[" + indiceFilaFormulario + "]' cols='102' rows='4' ></textarea></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
 
-	// ADICIONAR LINEAS AL CRONOGRAMA (FECHAS)
-	var indiceFilaFormulario = 1;
-	function addCronogramaFechas(){
-		myNewRow = document.getElementById("tablaFormularioFechas").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td>Num. <input name='numActaDescriptiva["+indiceFilaFormulario+"]' type='text' id='numActaDescriptiva["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' size='5' style='text-align:center'/> A&ntilde;o <input name='numAnoActaDescriptiva["+indiceFilaFormulario+"]' type='text' id='numAnoActaDescriptiva["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' size='5' style='text-align:center'/></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchInicialProyecto["+indiceFilaFormulario+"]' type='text' id='fchInicialProyecto["+indiceFilaFormulario+"]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialProyecto["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchFinalProyecto["+indiceFilaFormulario+"]' type='text' id='fchFinalProyecto["+indiceFilaFormulario+"]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalProyecto["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input name='valPlazoEjecucion["+indiceFilaFormulario+"]' type='text' id='valPlazoEjecucion["+indiceFilaFormulario+"]' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='text-align:center'/></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchInicialEntrega["+indiceFilaFormulario+"]' type='text' id='fchInicialEntrega["+indiceFilaFormulario+"]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialEntrega["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchFinalEntrega["+indiceFilaFormulario+"]' type='text' id='fchFinalEntrega["+indiceFilaFormulario+"]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalEntrega["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchInicialEscrituracion["+indiceFilaFormulario+"]' type='text' id='fchInicialEscrituracion["+indiceFilaFormulario+"]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialEscrituracion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:3px");
-		myNewCell.innerHTML="<td><input name='fchFinalEscrituracion["+indiceFilaFormulario+"]' type='text' id='fchFinalEscrituracion["+indiceFilaFormulario+"]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalEscrituracion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
-	
-	// ADICIONAR LINEAS AL TIPO DE VIVIENDA (ESTRUCTURA DEL PROYECTO)
-	var indiceFilaFormulario = 1;
-	function addTipoVivienda(){
-		myNewRow = document.getElementById("tablaTipoVivienda").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtNombreTipoVivienda["+indiceFilaFormulario+"]' id='txtNombreTipoVivienda' onBlur='sinCaracteresEspeciales( this );' style='width:150px' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='numCantidad["+indiceFilaFormulario+"]' id='numCantidad_"+indiceFilaFormulario+"' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); sumaVentas();' style='width:50px; text-align:right' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='numArea["+indiceFilaFormulario+"]' id='numArea' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:50px; text-align:right' >&nbsp;m²</td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='numAnoVenta["+indiceFilaFormulario+"]' id='numAnoVenta' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:50px; text-align:right' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td>$ <input type='text' name='valPrecioVenta["+indiceFilaFormulario+"]' id='valPrecioVenta_"+indiceFilaFormulario+"' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); sumaVentas();' style='width:80px; text-align:right' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><textarea name='txtDescripcion["+indiceFilaFormulario+"]' id='txtDescripcion' style='width:260px'></textarea></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td>$ <input type='text' name='valCierre["+indiceFilaFormulario+"]' id='valCierre' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:80px; text-align:right' ></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+// ADICIONAR LINEAS A LAS ACTAS DE UN PROYECTO
+var indiceFilaFormulario = 1;
+function addActaProyecto() {
+    myNewRow = document.getElementById("tablaFormularioActas").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' id='numActaProyecto' name='numActaProyecto[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:70px; text-align:center' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchActaProyecto[" + indiceFilaFormulario + "]' type='text' id='fchActaProyecto[" + indiceFilaFormulario + "]' size='12' readonly /> <a href='#' onClick='javascript: calendarioPopUp( \"fchActaProyecto[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><textarea id='txtEpigrafe' name='txtEpigrafe[" + indiceFilaFormulario + "]' cols='102' rows='4' ></textarea></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
 
-	// ADICIONAR LINEAS AL CONJUNTO RESIDENCIAL (SUBPROYECTOS)
-	var indiceFilaFormulario = 1;
-	function addConjuntoResidencial(){
-		myNewRow = document.getElementById("tablaConjuntoResidencial").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtNombreProyectoHijo["+indiceFilaFormulario+"]' id='txtNombreProyectoHijo' onBlur='sinCaracteresEspeciales( this );' size='28' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtNombreComercialHijo["+indiceFilaFormulario+"]' id='txtNombreComercialHijo' onBlur='sinCaracteresEspeciales( this );' size='28' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><a href='#' onClick='recogerDireccion( \"txtDireccionHijo["+indiceFilaFormulario+"]\", \"objDireccionOculto\" )'><img src='recursos/imagenes/icono_lupa.gif'></a>&nbsp;<input type='text' name='txtDireccionHijo["+indiceFilaFormulario+"]' id='txtDireccionHijo["+indiceFilaFormulario+"]' size='20' style='background-color:#E4E4E4;' readonly /></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='valNumeroSolucionesHijo["+indiceFilaFormulario+"]' id='valNumeroSolucionesHijo' onBlur='sinCaracteresEspeciales( this );' size='6' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtChipLoteHijo["+indiceFilaFormulario+"]' id='txtChipLoteHijo' onBlur='sinCaracteresEspeciales( this );' size='13' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtMatriculaInmobiliariaLoteHijo["+indiceFilaFormulario+"]' id='txtMatriculaInmobiliariaLoteHijo' onBlur='sinCaracteresEspeciales( this );' size='13' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtLicenciaUrbanismoHijo["+indiceFilaFormulario+"]' id='txtLicenciaUrbanismoHijo' onBlur='sinCaracteresEspeciales( this );' size='18' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input name='fchLicenciaUrbanismo1Hijo["+indiceFilaFormulario+"]' type='text' id='fchLicenciaUrbanismo1Hijo["+indiceFilaFormulario+"]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchLicenciaUrbanismo1Hijo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input name='fchVigenciaLicenciaUrbanismoHijo["+indiceFilaFormulario+"]' type='text' id='fchVigenciaLicenciaUrbanismoHijo["+indiceFilaFormulario+"]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchVigenciaLicenciaUrbanismoHijo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtExpideLicenciaUrbanismoHijo["+indiceFilaFormulario+"]' id='txtExpideLicenciaUrbanismoHijo' onBlur='sinCaracteresEspeciales( this );' size='13' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtLicenciaConstruccionHijo["+indiceFilaFormulario+"]' id='txtLicenciaConstruccionHijo' onBlur='sinCaracteresEspeciales( this );' size='18' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input name='fchLicenciaConstruccion1Hijo["+indiceFilaFormulario+"]' type='text' id='fchLicenciaConstruccion1Hijo["+indiceFilaFormulario+"]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchLicenciaConstruccion1Hijo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input name='fchVigenciaLicenciaConstruccionHijo["+indiceFilaFormulario+"]' type='text' id='fchVigenciaLicenciaConstruccionHijo["+indiceFilaFormulario+"]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchVigenciaLicenciaConstruccionHijo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtNombreVendedorHijo["+indiceFilaFormulario+"]' id='txtNombreVendedorHijo' onBlur='sinCaracteresEspeciales( this );' size='20' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='numNitVendedorHijo["+indiceFilaFormulario+"]' id='numNitVendedorHijo' onBlur='sinCaracteresEspeciales( this );' size='12' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtCedulaCatastralHijo["+indiceFilaFormulario+"]' id='txtCedulaCatastralHijo' onBlur='sinCaracteresEspeciales( this );' size='22' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='txtEscrituraHijo["+indiceFilaFormulario+"]' id='txtEscrituraHijo' onBlur='sinCaracteresEspeciales( this );' size='12' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input name='fchEscrituraHijo["+indiceFilaFormulario+"]' type='text' id='fchEscrituraHijo["+indiceFilaFormulario+"]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchEscrituraHijo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "left");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='text' name='numNotariaHijo["+indiceFilaFormulario+"]' id='numNotariaHijo' onBlur='sinCaracteresEspeciales( this );' size='12' ></td>";
-		//
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.align = "center";
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+// ADICIONAR LINEAS A LOS SEGUIMIENTOS DE DOCUMENTOS (JURIDICA)
+var indiceFilaFormulario = 1;
+function addSeguimientoDocumento(opcionesDocumentos) {
+    //opcionesDocumentos = opcionesDocumentos.replace(',\");
+    myNewRow = document.getElementById("tablaFormularioDocumentos").insertRow(0);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    //myNewCell.setAttribute("style", "padding:6px");
+    var contenido = "<td><table border='0' cellspacing='2' cellpadding='0' width='100%'>";
+    contenido += "<tr><td width='35%' class='tituloTabla' colspan='2' valign='top'>Nuevo Seguimiento<input type='hidden' id='unicoSegDocum' name='unicoSegDocum[" + indiceFilaFormulario + "]' value='" + indiceFilaFormulario + "'></td></tr>";
+    contenido += "<tr><td valign='top'><select id='seqDocumento' name='seqDocumento[" + indiceFilaFormulario + "]' style='width:260px;' >" + opcionesDocumentos + "</select></td><td width='65%' rowspan='3' valign='top' rows='6'><textarea name='txtObservaciones[" + indiceFilaFormulario + "]' id='txtObservaciones' style='width:500px'></textarea></td></tr>";
+    contenido += "</table></td>";
+    myNewCell.innerHTML = contenido;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
 
-	// ADICIONAR LINEAS A SEGUIMIENTOS A OBRAS (SI SE VA A GUARDAR EL SEGUIMIENTO ESCOGIENDO LA ACTIVIDAD)
-	var indiceFilaFormulario = 1;
-	function addSeguimientoActividad(opcionesActividadesCronograma, opcionesEstadosActividades){
-		myNewRow = document.getElementById("tablaSeguimientoActividades").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='hidden' id='unico' name='unico["+indiceFilaFormulario+"]' value='"+indiceFilaFormulario+"'></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding-top:6px");
-		myNewCell.innerHTML="<td><select id='seqSeguimientoActividad' name='seqSeguimientoActividad["+indiceFilaFormulario+"]' style='width:185px;' ><option value='0'>ACTIVIDAD</option>"+opcionesActividadesCronograma+"</select></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding-top:6px");
-		myNewCell.innerHTML="<td><textarea id='txtDescripcionSeguimiento' name='txtDescripcionSeguimiento["+indiceFilaFormulario+"]' style='width:220px' ></textarea></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><select id='seqEstadoActividad' name='seqEstadoActividad["+indiceFilaFormulario+"]' style='width:95px;' ><option value='0'>ESTADO</option>"+opcionesEstadosActividades+"</select></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td></td>";
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+// ADICIONAR LINEAS AL CRONOGRAMA DE OBRAS
+var indiceFilaFormulario = 1;
+function addActividadCronogramaProyecto() {
+    myNewRow = document.getElementById("tablaFormularioCronograma").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtNombreActividad[" + indiceFilaFormulario + "]' id='txtNombreActividad' onBlur='sinCaracteresEspeciales( this );' style='width:260px' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchInicialActividad[" + indiceFilaFormulario + "]' type='text' id='fchInicialActividad[" + indiceFilaFormulario + "]' size='12' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialActividad[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchFinalActividad[" + indiceFilaFormulario + "]' type='text' id='fchFinalActividad[" + indiceFilaFormulario + "]' size='12' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalActividad[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><textarea name='txtDescripcionActividad[" + indiceFilaFormulario + "]' id='txtDescripcionActividad' style='width:260px'></textarea></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtResponsableActividad[" + indiceFilaFormulario + "]' id='txtResponsableActividad' onBlur='sinCaracteresEspeciales( this );' style='width:225px' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
 
-	// ADICIONAR LINEAS A DESEMBOLSOS
-	var indiceFilaFormulario = 1;
-	function addGiroDesembolsos(costoProyecto, numeroSoluciones, optModalidadDesembolso, optTipoCuenta, optBanco){
-		myNewRow = document.getElementById("tablaGiroDesembolsos").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", 'center');
-		myNewCell.setAttribute("style", "padding:6px");
-		var contenido = "<td><div class='accordionItem'><h2>Nuevo Desembolso</h2><div style='background-color:#FFFFFF'><table border='0' cellspacing='2' cellpadding='0' width='100%'>";
-		contenido += "<tr><td class='tituloTabla' colspan='9'>BENEFICIARIO DEL GIRO ANTICIPADO</td></tr>";
-		contenido += "<tr><td width='25%'>Nombre del Vendedor</td><td width='25%'><input name='txtNombreVendedor["+indiceFilaFormulario+"]' type='text' id='txtNombreVendedor["+indiceFilaFormulario+"]' onBlur='soloLetras( this ); sinCaracteresEspeciales( this );'  style='width:200px;' /></td><td width='25%'>NIT del Vendedor</td><td width='25%'><input name='numNitVendedor["+indiceFilaFormulario+"]' type='text' id='numNitVendedor["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:190px;' /></td></tr>";
-		contenido += "<tr><td>Tel&eacute;fono del Vendedor</td><td><input name='numTelefonoVendedor["+indiceFilaFormulario+"]' type='text' id='numTelefonoVendedor["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:200px;' /></td><td>Correo Electr&oacute;nico del Vendedor</td><td><input name='txtCorreoVendedor["+indiceFilaFormulario+"]' type='text' id='txtCorreoVendedor["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this )' style='width:190px;' /></td></tr>";
-		contenido += "<tr><td>Beneficiario del Giro</td><td><input name='txtNombreBeneficiarioGiro["+indiceFilaFormulario+"]' type='text' id='txtNombreBeneficiarioGiro["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this );'  style='width:200px;' /></td><td>NIT del Beneficiario del Giro</td><td><input name='numNitBeneficiarioGiro["+indiceFilaFormulario+"]' type='text' id='numNitBeneficiarioGiro["+indiceFilaFormulario+"]'  onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:190px;' /></td></tr>";
-		contenido += "<tr><td>Costo del Proyecto</td><td>$ "+costoProyecto+"</td><td>N&uacute;mero Soluciones</td><td>"+numeroSoluciones+"</td></tr>";
-		contenido += "<tr><td>Valor del Desembolso</td><td>$ <input name='valDesembolso["+indiceFilaFormulario+"]' type='text' id='valDesembolso["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:90px;' /></td><td	colspan='2'></td></tr>";
-		contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
-		contenido += "<tr><td class='tituloTabla' colspan='4' align='center'>INFORMACI&Oacute;N DEL GIRO ANTICIPADO</td></tr>";
-		contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
-		contenido += "<tr><td width='25%'>Modalidad del Desembolso</td><td width='25%'><select name='seqTipoModalidadDesembolso["+indiceFilaFormulario+"]' id='seqTipoModalidadDesembolso["+indiceFilaFormulario+"]' style='width:200px' onChange='escondeDatosSegunTipoDesembolso();' ><option value='0'>Seleccione una opción</option>"+optModalidadDesembolso+"</select></td><td colspan='2'></td></tr>";
-		contenido += "<tr><td>No. de Contrato Suscrito</td><td><input name='numContratoSuscrito["+indiceFilaFormulario+"]' type='text' id='numContratoSuscrito["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this );' style='width:200px;' /></td><td>Fecha Contrato Suscrito</td><td><input name='fchContratoSuscrito["+indiceFilaFormulario+"]' type='text' id='fchContratoSuscrito["+indiceFilaFormulario+"]' size='12' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchContratoSuscrito["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td></tr>";
-		contenido += "<tr><td>Entidad Financiera</td><td><input name='txtNombreEntidadFinanciera["+indiceFilaFormulario+"]' type='text' id='txtNombreEntidadFinanciera["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this );' style='width:200px;' /></td><td>Nit Entidad Financiera</td><td><input name='numNitEntidadFinanciera["+indiceFilaFormulario+"]' type='text' id='numNitEntidadFinanciera["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:200px;' /></td></tr>";
-		contenido += "<tr><td>No. de Cuenta</td><td><input name='numCuenta["+indiceFilaFormulario+"]' type='text' id='numCuenta["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:200px;' /></td><td>Tipo de Cuenta</td><td><select name='seqTipoCuenta["+indiceFilaFormulario+"]' id='seqTipoCuenta["+indiceFilaFormulario+"]' style='width:190px' ><option value='0'>Seleccione una opción</option>"+optTipoCuenta+"</select></td></tr>";
-		contenido += "<tr><td>Banco de la Cuenta</td><td><select name='seqBancoCuenta["+indiceFilaFormulario+"]' id='seqBancoCuenta["+indiceFilaFormulario+"]' style='width:200px' ><option value='0'>Seleccione una opción</option>"+optBanco+"</select></td><td	colspan='2'></td></tr>";
-		contenido += "<tr><td>Valor Total Giro Anticipado</td><td>$ <input name='valTotalGiroAnticipado["+indiceFilaFormulario+"]' type='text' id='valTotalGiroAnticipado["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:90px;' /></td><td	colspan='2'></td></tr>";
-		contenido += "<tr><td>Saldo Por Girar</td><td>$ <input name='valSaldoGiro["+indiceFilaFormulario+"]' type='text' id='valSaldoGiro["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:90px;' /></td><td>N&uacute;mero del Pago</td><td><input name='valNumeroPago["+indiceFilaFormulario+"]' type='text' id='valNumeroPago["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:190px;' /></td></tr>";
-		//contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
-		//contenido += "<tr><td class='tituloTabla' colspan='4' align='center'>ADJUNTO UNIDADES</td></tr>";
-		//contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
-		//contenido += "<tr><td colspan='2'><b>Seleccione el archivo:</b><br>En el archivo plano debe ir la lista de los documentos sin encabezado </td><td valign='middle' colspan='2'><input type='file' name='fileDocumentos["+indiceFilaFormulario+"]' /></td></tr>";
-		contenido += "</table></div></div></td>";
-		myNewCell.innerHTML = contenido;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", 'center');
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
+// ADICIONAR LINEAS AL CRONOGRAMA (FECHAS)
+var indiceFilaFormulario = 1;
+function addCronogramaFechas() {
+    myNewRow = document.getElementById("tablaFormularioFechas").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td>Num. <input name='numActaDescriptiva[" + indiceFilaFormulario + "]' type='text' id='numActaDescriptiva[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' size='5' style='text-align:center'/> A&ntilde;o <input name='numAnoActaDescriptiva[" + indiceFilaFormulario + "]' type='text' id='numAnoActaDescriptiva[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' size='5' style='text-align:center'/></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchInicialProyecto[" + indiceFilaFormulario + "]' type='text' id='fchInicialProyecto[" + indiceFilaFormulario + "]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialProyecto[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchFinalProyecto[" + indiceFilaFormulario + "]' type='text' id='fchFinalProyecto[" + indiceFilaFormulario + "]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalProyecto[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input name='valPlazoEjecucion[" + indiceFilaFormulario + "]' type='text' id='valPlazoEjecucion[" + indiceFilaFormulario + "]' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='text-align:center'/></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchInicialEntrega[" + indiceFilaFormulario + "]' type='text' id='fchInicialEntrega[" + indiceFilaFormulario + "]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialEntrega[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchFinalEntrega[" + indiceFilaFormulario + "]' type='text' id='fchFinalEntrega[" + indiceFilaFormulario + "]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalEntrega[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchInicialEscrituracion[" + indiceFilaFormulario + "]' type='text' id='fchInicialEscrituracion[" + indiceFilaFormulario + "]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchInicialEscrituracion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:3px");
+    myNewCell.innerHTML = "<td><input name='fchFinalEscrituracion[" + indiceFilaFormulario + "]' type='text' id='fchFinalEscrituracion[" + indiceFilaFormulario + "]' size='12' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchFinalEscrituracion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
 
-	// DIFERENCIA DE FECHAS
-	function diferenciaFechaDias(actual, inicial, campo){
-		var vlrInicial = inicial.value;
-		var vlrActual = actual.value;
-		if (vlrActual.substr(6,1) == "-"){
-			var Parte1 = vlrActual.substr(0,5);
-			var Parte2 = "0"
-			var Parte3 = vlrActual.substr(5,5);
-			var vlrActualNuevo = Parte1 + Parte2 + Parte3;
-		} else {
-			var vlrActualNuevo = vlrActual;
-		}
-		var vlrActualFrm	= Date.parse(vlrActualNuevo);
-		var vlrInicialFrm	= Date.parse(vlrInicial);
-		var diff =  Math.floor(( Date.parse(vlrActualNuevo) - Date.parse(vlrInicial) ) / 86400000);
-		// Si es valor de la resta es válido coloque el valor, de lo contrario coloque 0
-		if (isNaN(diff)){
-			document.getElementById(campo).value = 0;
-		} else {
-			document.getElementById(campo).value = diff;
-		}
-	}
-	
-	// DIFERENCIA DE VALORES
-	function diferenciaValores(actual, inicial, campo){
-		var vlrInicial = inicial.value;
-		var vlrActual = actual.value;
-		var diff =  vlrActual - vlrInicial;
-		// Si es valor de la resta es válido coloque el valor, de lo contrario coloque 0
-		if (isNaN(diff)){
-			document.getElementById(campo).value = 0;
-		} else {
-			document.getElementById(campo).value = diff;
-		}
-	}
+// ADICIONAR LINEAS AL TIPO DE VIVIENDA (ESTRUCTURA DEL PROYECTO)
+var indiceFilaFormulario = 1;
+function addTipoVivienda() {
+    myNewRow = document.getElementById("tablaTipoVivienda").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtNombreTipoVivienda[" + indiceFilaFormulario + "]' id='txtNombreTipoVivienda' onBlur='sinCaracteresEspeciales( this );' style='width:150px' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='numCantidad[" + indiceFilaFormulario + "]' id='numCantidad_" + indiceFilaFormulario + "' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); sumaVentas();' style='width:50px; text-align:right' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='numArea[" + indiceFilaFormulario + "]' id='numArea' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:50px; text-align:right' >&nbsp;m²</td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='numAnoVenta[" + indiceFilaFormulario + "]' id='numAnoVenta' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:50px; text-align:right' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td>$ <input type='text' name='valPrecioVenta[" + indiceFilaFormulario + "]' id='valPrecioVenta_" + indiceFilaFormulario + "' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); sumaVentas();' style='width:80px; text-align:right' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><textarea name='txtDescripcion[" + indiceFilaFormulario + "]' id='txtDescripcion' style='width:260px'></textarea></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td>$ <input type='text' name='valCierre[" + indiceFilaFormulario + "]' id='valCierre' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:80px; text-align:right' ></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
 
-	// VALOR ACTIVIDAD EJECUTADO SEGUN EL PORCENTAJE INCIDENCIA EJECUTADO
-	function valorActividadEjecutado(porcentaje, campo){
-		var valorCosto = document.getElementById("valTotalCostos").value;
-		var valorPorcentaje = porcentaje.value;
-		var valorActividadExe = valorPorcentaje * valorCosto / 100;
-		document.getElementById(campo).value = valorActividadExe;
-	}
+// ADICIONAR LINEAS AL CONJUNTO RESIDENCIAL (SUBPROYECTOS)
+var indiceFilaFormulario = 1;
+function addConjuntoResidencial() {
+    myNewRow = document.getElementById("tablaConjuntoResidencial").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtNombreProyectoHijo[" + indiceFilaFormulario + "]' id='txtNombreProyectoHijo' onBlur='sinCaracteresEspeciales( this );' size='28' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtNombreComercialHijo[" + indiceFilaFormulario + "]' id='txtNombreComercialHijo' onBlur='sinCaracteresEspeciales( this );' size='28' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><a href='#' onClick='recogerDireccion( \"txtDireccionHijo[" + indiceFilaFormulario + "]\", \"objDireccionOculto\" )'><img src='recursos/imagenes/icono_lupa.gif'></a>&nbsp;<input type='text' name='txtDireccionHijo[" + indiceFilaFormulario + "]' id='txtDireccionHijo[" + indiceFilaFormulario + "]' size='20' style='background-color:#E4E4E4;' readonly /></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='valNumeroSolucionesHijo[" + indiceFilaFormulario + "]' id='valNumeroSolucionesHijo' onBlur='sinCaracteresEspeciales( this );' size='6' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtChipLoteHijo[" + indiceFilaFormulario + "]' id='txtChipLoteHijo' onBlur='sinCaracteresEspeciales( this );' size='13' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtMatriculaInmobiliariaLoteHijo[" + indiceFilaFormulario + "]' id='txtMatriculaInmobiliariaLoteHijo' onBlur='sinCaracteresEspeciales( this );' size='13' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtLicenciaUrbanismoHijo[" + indiceFilaFormulario + "]' id='txtLicenciaUrbanismoHijo' onBlur='sinCaracteresEspeciales( this );' size='18' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input name='fchLicenciaUrbanismo1Hijo[" + indiceFilaFormulario + "]' type='text' id='fchLicenciaUrbanismo1Hijo[" + indiceFilaFormulario + "]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchLicenciaUrbanismo1Hijo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input name='fchVigenciaLicenciaUrbanismoHijo[" + indiceFilaFormulario + "]' type='text' id='fchVigenciaLicenciaUrbanismoHijo[" + indiceFilaFormulario + "]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchVigenciaLicenciaUrbanismoHijo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtExpideLicenciaUrbanismoHijo[" + indiceFilaFormulario + "]' id='txtExpideLicenciaUrbanismoHijo' onBlur='sinCaracteresEspeciales( this );' size='13' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtLicenciaConstruccionHijo[" + indiceFilaFormulario + "]' id='txtLicenciaConstruccionHijo' onBlur='sinCaracteresEspeciales( this );' size='18' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input name='fchLicenciaConstruccion1Hijo[" + indiceFilaFormulario + "]' type='text' id='fchLicenciaConstruccion1Hijo[" + indiceFilaFormulario + "]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchLicenciaConstruccion1Hijo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input name='fchVigenciaLicenciaConstruccionHijo[" + indiceFilaFormulario + "]' type='text' id='fchVigenciaLicenciaConstruccionHijo[" + indiceFilaFormulario + "]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchVigenciaLicenciaConstruccionHijo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtNombreVendedorHijo[" + indiceFilaFormulario + "]' id='txtNombreVendedorHijo' onBlur='sinCaracteresEspeciales( this );' size='20' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='numNitVendedorHijo[" + indiceFilaFormulario + "]' id='numNitVendedorHijo' onBlur='sinCaracteresEspeciales( this );' size='12' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtCedulaCatastralHijo[" + indiceFilaFormulario + "]' id='txtCedulaCatastralHijo' onBlur='sinCaracteresEspeciales( this );' size='22' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='txtEscrituraHijo[" + indiceFilaFormulario + "]' id='txtEscrituraHijo' onBlur='sinCaracteresEspeciales( this );' size='12' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input name='fchEscrituraHijo[" + indiceFilaFormulario + "]' type='text' id='fchEscrituraHijo[" + indiceFilaFormulario + "]' size='8' style='text-align:center; background-color:#E4E4E4' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchEscrituraHijo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "left");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='text' name='numNotariaHijo[" + indiceFilaFormulario + "]' id='numNotariaHijo' onBlur='sinCaracteresEspeciales( this );' size='12' ></td>";
+    //
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.align = "center";
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onClick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
+
+// ADICIONAR LINEAS A SEGUIMIENTOS A OBRAS (SI SE VA A GUARDAR EL SEGUIMIENTO ESCOGIENDO LA ACTIVIDAD)
+var indiceFilaFormulario = 1;
+function addSeguimientoActividad(opcionesActividadesCronograma, opcionesEstadosActividades) {
+    myNewRow = document.getElementById("tablaSeguimientoActividades").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='hidden' id='unico' name='unico[" + indiceFilaFormulario + "]' value='" + indiceFilaFormulario + "'></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding-top:6px");
+    myNewCell.innerHTML = "<td><select id='seqSeguimientoActividad' name='seqSeguimientoActividad[" + indiceFilaFormulario + "]' style='width:185px;' ><option value='0'>ACTIVIDAD</option>" + opcionesActividadesCronograma + "</select></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding-top:6px");
+    myNewCell.innerHTML = "<td><textarea id='txtDescripcionSeguimiento' name='txtDescripcionSeguimiento[" + indiceFilaFormulario + "]' style='width:220px' ></textarea></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><select id='seqEstadoActividad' name='seqEstadoActividad[" + indiceFilaFormulario + "]' style='width:95px;' ><option value='0'>ESTADO</option>" + opcionesEstadosActividades + "</select></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td></td>";
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
+
+// ADICIONAR LINEAS A DESEMBOLSOS
+var indiceFilaFormulario = 1;
+function addGiroDesembolsos(costoProyecto, numeroSoluciones, optModalidadDesembolso, optTipoCuenta, optBanco) {
+    myNewRow = document.getElementById("tablaGiroDesembolsos").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", 'center');
+    myNewCell.setAttribute("style", "padding:6px");
+    var contenido = "<td><div class='accordionItem'><h2>Nuevo Desembolso</h2><div style='background-color:#FFFFFF'><table border='0' cellspacing='2' cellpadding='0' width='100%'>";
+    contenido += "<tr><td class='tituloTabla' colspan='9'>BENEFICIARIO DEL GIRO ANTICIPADO</td></tr>";
+    contenido += "<tr><td width='25%'>Nombre del Vendedor</td><td width='25%'><input name='txtNombreVendedor[" + indiceFilaFormulario + "]' type='text' id='txtNombreVendedor[" + indiceFilaFormulario + "]' onBlur='soloLetras( this ); sinCaracteresEspeciales( this );'  style='width:200px;' /></td><td width='25%'>NIT del Vendedor</td><td width='25%'><input name='numNitVendedor[" + indiceFilaFormulario + "]' type='text' id='numNitVendedor[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:190px;' /></td></tr>";
+    contenido += "<tr><td>Tel&eacute;fono del Vendedor</td><td><input name='numTelefonoVendedor[" + indiceFilaFormulario + "]' type='text' id='numTelefonoVendedor[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:200px;' /></td><td>Correo Electr&oacute;nico del Vendedor</td><td><input name='txtCorreoVendedor[" + indiceFilaFormulario + "]' type='text' id='txtCorreoVendedor[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this )' style='width:190px;' /></td></tr>";
+    contenido += "<tr><td>Beneficiario del Giro</td><td><input name='txtNombreBeneficiarioGiro[" + indiceFilaFormulario + "]' type='text' id='txtNombreBeneficiarioGiro[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this );'  style='width:200px;' /></td><td>NIT del Beneficiario del Giro</td><td><input name='numNitBeneficiarioGiro[" + indiceFilaFormulario + "]' type='text' id='numNitBeneficiarioGiro[" + indiceFilaFormulario + "]'  onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:190px;' /></td></tr>";
+    contenido += "<tr><td>Costo del Proyecto</td><td>$ " + costoProyecto + "</td><td>N&uacute;mero Soluciones</td><td>" + numeroSoluciones + "</td></tr>";
+    contenido += "<tr><td>Valor del Desembolso</td><td>$ <input name='valDesembolso[" + indiceFilaFormulario + "]' type='text' id='valDesembolso[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:90px;' /></td><td	colspan='2'></td></tr>";
+    contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
+    contenido += "<tr><td class='tituloTabla' colspan='4' align='center'>INFORMACI&Oacute;N DEL GIRO ANTICIPADO</td></tr>";
+    contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
+    contenido += "<tr><td width='25%'>Modalidad del Desembolso</td><td width='25%'><select name='seqTipoModalidadDesembolso[" + indiceFilaFormulario + "]' id='seqTipoModalidadDesembolso[" + indiceFilaFormulario + "]' style='width:200px' onChange='escondeDatosSegunTipoDesembolso();' ><option value='0'>Seleccione una opción</option>" + optModalidadDesembolso + "</select></td><td colspan='2'></td></tr>";
+    contenido += "<tr><td>No. de Contrato Suscrito</td><td><input name='numContratoSuscrito[" + indiceFilaFormulario + "]' type='text' id='numContratoSuscrito[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this );' style='width:200px;' /></td><td>Fecha Contrato Suscrito</td><td><input name='fchContratoSuscrito[" + indiceFilaFormulario + "]' type='text' id='fchContratoSuscrito[" + indiceFilaFormulario + "]' size='12' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchContratoSuscrito[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td></tr>";
+    contenido += "<tr><td>Entidad Financiera</td><td><input name='txtNombreEntidadFinanciera[" + indiceFilaFormulario + "]' type='text' id='txtNombreEntidadFinanciera[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this );' style='width:200px;' /></td><td>Nit Entidad Financiera</td><td><input name='numNitEntidadFinanciera[" + indiceFilaFormulario + "]' type='text' id='numNitEntidadFinanciera[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:200px;' /></td></tr>";
+    contenido += "<tr><td>No. de Cuenta</td><td><input name='numCuenta[" + indiceFilaFormulario + "]' type='text' id='numCuenta[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:200px;' /></td><td>Tipo de Cuenta</td><td><select name='seqTipoCuenta[" + indiceFilaFormulario + "]' id='seqTipoCuenta[" + indiceFilaFormulario + "]' style='width:190px' ><option value='0'>Seleccione una opción</option>" + optTipoCuenta + "</select></td></tr>";
+    contenido += "<tr><td>Banco de la Cuenta</td><td><select name='seqBancoCuenta[" + indiceFilaFormulario + "]' id='seqBancoCuenta[" + indiceFilaFormulario + "]' style='width:200px' ><option value='0'>Seleccione una opción</option>" + optBanco + "</select></td><td	colspan='2'></td></tr>";
+    contenido += "<tr><td>Valor Total Giro Anticipado</td><td>$ <input name='valTotalGiroAnticipado[" + indiceFilaFormulario + "]' type='text' id='valTotalGiroAnticipado[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:90px;' /></td><td	colspan='2'></td></tr>";
+    contenido += "<tr><td>Saldo Por Girar</td><td>$ <input name='valSaldoGiro[" + indiceFilaFormulario + "]' type='text' id='valSaldoGiro[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:90px;' /></td><td>N&uacute;mero del Pago</td><td><input name='valNumeroPago[" + indiceFilaFormulario + "]' type='text' id='valNumeroPago[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this );' style='width:190px;' /></td></tr>";
+    //contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
+    //contenido += "<tr><td class='tituloTabla' colspan='4' align='center'>ADJUNTO UNIDADES</td></tr>";
+    //contenido += "<tr colspan='4' style='height:5px'><td></td></tr>";
+    //contenido += "<tr><td colspan='2'><b>Seleccione el archivo:</b><br>En el archivo plano debe ir la lista de los documentos sin encabezado </td><td valign='middle' colspan='2'><input type='file' name='fileDocumentos["+indiceFilaFormulario+"]' /></td></tr>";
+    contenido += "</table></div></div></td>";
+    myNewCell.innerHTML = contenido;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", 'center');
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
+
+// DIFERENCIA DE FECHAS
+function diferenciaFechaDias(actual, inicial, campo) {
+    var vlrInicial = inicial.value;
+    var vlrActual = actual.value;
+    if (vlrActual.substr(6, 1) == "-") {
+        var Parte1 = vlrActual.substr(0, 5);
+        var Parte2 = "0"
+        var Parte3 = vlrActual.substr(5, 5);
+        var vlrActualNuevo = Parte1 + Parte2 + Parte3;
+    } else {
+        var vlrActualNuevo = vlrActual;
+    }
+    var vlrActualFrm = Date.parse(vlrActualNuevo);
+    var vlrInicialFrm = Date.parse(vlrInicial);
+    var diff = Math.floor((Date.parse(vlrActualNuevo) - Date.parse(vlrInicial)) / 86400000);
+    // Si es valor de la resta es válido coloque el valor, de lo contrario coloque 0
+    if (isNaN(diff)) {
+        document.getElementById(campo).value = 0;
+    } else {
+        document.getElementById(campo).value = diff;
+    }
+}
+
+// DIFERENCIA DE VALORES
+function diferenciaValores(actual, inicial, campo) {
+    var vlrInicial = inicial.value;
+    var vlrActual = actual.value;
+    var diff = vlrActual - vlrInicial;
+    // Si es valor de la resta es válido coloque el valor, de lo contrario coloque 0
+    if (isNaN(diff)) {
+        document.getElementById(campo).value = 0;
+    } else {
+        document.getElementById(campo).value = diff;
+    }
+}
+
+// VALOR ACTIVIDAD EJECUTADO SEGUN EL PORCENTAJE INCIDENCIA EJECUTADO
+function valorActividadEjecutado(porcentaje, campo) {
+    var valorCosto = document.getElementById("valTotalCostos").value;
+    var valorPorcentaje = porcentaje.value;
+    var valorActividadExe = valorPorcentaje * valorCosto / 100;
+    document.getElementById(campo).value = valorActividadExe;
+}
 
 // ADICIONAR LINEAS A SEGUIMIENTOS A OBRAS (SI SE VA A CARGAR TODA LA PLANTILLA DE ACTIVIDADES)
-	var indiceFilaFormulario = 1;
-	function addSeguimientoObras(fchInicialTerreno, fchFinalTerreno, porcIncTerreno, valActTerreno, fchInicialPreliminarConstruccion, fchFinalPreliminarConstruccion, porcIncPreliminarConstruccion, valActPreliminarConstruccion, fchInicialCimentacionConstruccion, fchFinalCimentacionConstruccion, porcIncCimentacionConstruccion, valActCimentacionConstruccion, fchInicialDesaguesConstruccion, fchFinalDesaguesConstruccion, porcIncDesaguesConstruccion, valActDesaguesConstruccion, fchInicialEstructuraConstruccion, fchFinalEstructuraConstruccion, porcIncEstructuraConstruccion, valActEstructuraConstruccion, fchInicialMamposteriaConstruccion, fchFinalMamposteriaConstruccion, porcIncMamposteriaConstruccion, valActMamposteriaConstruccion, fchInicialPanetesConstruccion, fchFinalPanetesConstruccion, porcIncPanetesConstruccion, valActPanetesConstruccion, fchInicialHidrosanitariasConstruccion, fchFinalHidrosanitariasConstruccion, porcIncHidrosanitariasConstruccion, valActHidrosanitariasConstruccion, fchInicialElectricasConstruccion, fchFinalElectricasConstruccion, porcIncElectricasConstruccion, valActElectricasConstruccion, fchInicialCubiertaConstruccion, fchFinalCubiertaConstruccion, porcIncCubiertaConstruccion, valActCubiertaConstruccion, fchInicialCarpinteriaConstruccion, fchFinalCarpinteriaConstruccion, porcIncCarpinteriaConstruccion, valActCarpinteriaConstruccion, fchInicialPisosConstruccion, fchFinalPisosConstruccion, porcIncPisosConstruccion, valActPisosConstruccion, fchInicialSanitariosConstruccion, fchFinalSanitariosConstruccion, porcIncSanitariosConstruccion, valActSanitariosConstruccion, fchInicialExterioresConstruccion, fchFinalExterioresConstruccion, porcIncExterioresConstruccion, valActExterioresConstruccion, fchInicialAseoConstruccion, fchFinalAseoConstruccion, porcIncAseoConstruccion, valActAseoConstruccion, fchInicialPreliminarUrbanismo, fchFinalPreliminarUrbanismo, porcIncPreliminarUrbanismo, valActPreliminarUrbanismo, fchInicialCimentacionUrbanismo, fchFinalCimentacionUrbanismo, porcIncCimentacionUrbanismo, valActCimentacionUrbanismo, fchInicialDesaguesUrbanismo, fchFinalDesaguesUrbanismo, porcIncDesaguesUrbanismo, valActDesaguesUrbanismo, fchInicialViasUrbanismo, fchFinalViasUrbanismo, porcIncViasUrbanismo, valActViasUrbanismo, fchInicialParquesUrbanismo, fchFinalParquesUrbanismo, porcIncParquesUrbanismo, valActParquesUrbanismo, fchInicialAseoUrbanismo, fchFinalAseoUrbanismo, porcIncAseoUrbanismo, valActAseoUrbanismo){
-		myNewRow = document.getElementById("tablaSeguimientoObras").insertRow(-1);
-		myNewRow.id=indiceFilaFormulario;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("style", "padding:6px");
-		var contenido = "<td><div class='accordionItem'><h2>Visita <input name='fchVisita["+indiceFilaFormulario+"]' type='text' id='fchVisita["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchVisita["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></h2><div><table border='0' cellspacing='2' cellpadding='0' width='100%'>";
-		contenido += "<tr class='tituloTabla'>";
-		contenido += "<th align='center' style='padding:3px;' rowspan='2' width='12%'>Actividad</th>";
-		contenido += "<th align='center' style='padding:3px;' colspan='3'>Fecha Inicial Actividad</th>";
-		contenido += "<th align='center' style='padding:3px;' colspan='3'>Fecha Final Actividad</th>";
-		contenido += "<th align='center' style='padding:3px;' colspan='3'>% Incidencia</th>";
-		contenido += "<th align='center' style='padding:3px;' colspan='3'>Valor Actividad</th></tr>";
-		contenido += "<tr class='tituloTabla'>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectada</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutada</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase (D&iacute;as)</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectada</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutada</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase (D&iacute;as)</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectado</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutado</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectado</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutado</th>";
-		contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase</th>";
-		//////////////////////////////////////////////////// TERRENO ///////////////////////////////////////////////////////////
-		contenido += "<tr><td class='tituloNivel0' colspan='9'>Terreno</td></tr>";
-		// TERRENO (TERRENO)
-		contenido += "<tr class='fila_0'>";
-		contenido += "<td class='tituloNivel1'>Terreno</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialTerrenoPry["+indiceFilaFormulario+"]' id='fchInicialTerrenoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialTerreno+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialTerrenoSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialTerrenoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialTerrenoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialTerrenoPry["+indiceFilaFormulario+"]\"), \"difFchInicialTerreno["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialTerreno["+indiceFilaFormulario+"]' id='difFchInicialTerreno["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalTerrenoPry["+indiceFilaFormulario+"]' id='fchFinalTerrenoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalTerreno+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalTerrenoSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalTerrenoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalTerrenoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalTerrenoPry["+indiceFilaFormulario+"]\"), \"difFchFinalTerreno["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalTerreno["+indiceFilaFormulario+"]' id='difFchFinalTerreno["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncTerrenoPry["+indiceFilaFormulario+"]' id='porcIncTerrenoPry["+indiceFilaFormulario+"]' value='"+porcIncTerreno+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncTerrenoSeg["+indiceFilaFormulario+"]' id='porcIncTerrenoSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncTerrenoPry["+indiceFilaFormulario+"]\"), \"difPorcIncTerreno["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActTerrenoSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncTerreno["+indiceFilaFormulario+"]' id='difPorcIncTerreno["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActTerrenoPry["+indiceFilaFormulario+"]' id='valActTerrenoPry["+indiceFilaFormulario+"]' value='"+valActTerreno+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActTerrenoSeg["+indiceFilaFormulario+"]' id='valActTerrenoSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActTerrenoPry["+indiceFilaFormulario+"]\"), \"difValActTerreno["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActTerreno["+indiceFilaFormulario+"]' id='difValActTerreno["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		///////////////////////////////////////////// CONSTRUCCION ///////////////////////////////////////////////////////////////
-		contenido += "<tr><td class='tituloNivel0' colspan='9'>Construcci&oacute;n</td></tr>";
-		// PRELIMINARES (CONSTRUCCION)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Preliminares</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPreliminarConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialPreliminarConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialPreliminarConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialPreliminarConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialPreliminarConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPreliminarConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialPreliminarConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialPreliminarConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPreliminarConstruccion["+indiceFilaFormulario+"]' id='difFchInicialPreliminarConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPreliminarConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalPreliminarConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalPreliminarConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalPreliminarConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalPreliminarConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPreliminarConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalPreliminarConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalPreliminarConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPreliminarConstruccion["+indiceFilaFormulario+"]' id='difFchFinalPreliminarConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarConstruccionPry["+indiceFilaFormulario+"]' id='porcIncPreliminarConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncPreliminarConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncPreliminarConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPreliminarConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncPreliminarConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActPreliminarConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPreliminarConstruccion["+indiceFilaFormulario+"]' id='difPorcIncPreliminarConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarConstruccionPry["+indiceFilaFormulario+"]' id='valActPreliminarConstruccionPry["+indiceFilaFormulario+"]' value='"+valActPreliminarConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarConstruccionSeg["+indiceFilaFormulario+"]' id='valActPreliminarConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPreliminarConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActPreliminarConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPreliminarConstruccion["+indiceFilaFormulario+"]' id='difValActPreliminarConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// CIMENTACION (CONSTRUCCION)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Cimentaci&oacute;n</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCimentacionConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialCimentacionConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialCimentacionConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialCimentacionConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialCimentacionConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCimentacionConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialCimentacionConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialCimentacionConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCimentacionConstruccion["+indiceFilaFormulario+"]' id='difFchInicialCimentacionConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCimentacionConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalCimentacionConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalCimentacionConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalCimentacionConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalCimentacionConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCimentacionConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalCimentacionConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalCimentacionConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCimentacionConstruccion["+indiceFilaFormulario+"]' id='difFchFinalCimentacionConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionConstruccionPry["+indiceFilaFormulario+"]' id='porcIncCimentacionConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncCimentacionConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncCimentacionConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCimentacionConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncCimentacionConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActCimentacionConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCimentacionConstruccion["+indiceFilaFormulario+"]' id='difPorcIncCimentacionConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionConstruccionPry["+indiceFilaFormulario+"]' id='valActCimentacionConstruccionPry["+indiceFilaFormulario+"]' value='"+valActCimentacionConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionConstruccionSeg["+indiceFilaFormulario+"]' id='valActCimentacionConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCimentacionConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActCimentacionConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCimentacionConstruccion["+indiceFilaFormulario+"]' id='difValActCimentacionConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// DESAGUES (CONSTRUCCION)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Desag&uuml;es e instalaciones sanitarias</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialDesaguesConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialDesaguesConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialDesaguesConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialDesaguesConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialDesaguesConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialDesaguesConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialDesaguesConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialDesaguesConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialDesaguesConstruccion["+indiceFilaFormulario+"]' id='difFchInicialDesaguesConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalDesaguesConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalDesaguesConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalDesaguesConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalDesaguesConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalDesaguesConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalDesaguesConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalDesaguesConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalDesaguesConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalDesaguesConstruccion["+indiceFilaFormulario+"]' id='difFchFinalDesaguesConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesConstruccionPry["+indiceFilaFormulario+"]' id='porcIncDesaguesConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncDesaguesConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncDesaguesConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncDesaguesConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncDesaguesConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActDesaguesConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncDesaguesConstruccion["+indiceFilaFormulario+"]' id='difPorcIncDesaguesConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesConstruccionPry["+indiceFilaFormulario+"]' id='valActDesaguesConstruccionPry["+indiceFilaFormulario+"]' value='"+valActDesaguesConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesConstruccionSeg["+indiceFilaFormulario+"]' id='valActDesaguesConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActDesaguesConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActDesaguesConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActDesaguesConstruccion["+indiceFilaFormulario+"]' id='difValActDesaguesConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// ESTRUCTURA (CONSTRUCCION)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Estructura en concreto</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialEstructuraConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialEstructuraConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialEstructuraConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialEstructuraConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialEstructuraConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialEstructuraConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialEstructuraConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialEstructuraConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialEstructuraConstruccion["+indiceFilaFormulario+"]' id='difFchInicialEstructuraConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalEstructuraConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalEstructuraConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalEstructuraConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalEstructuraConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalEstructuraConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalEstructuraConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalEstructuraConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalEstructuraConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalEstructuraConstruccion["+indiceFilaFormulario+"]' id='difFchFinalEstructuraConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncEstructuraConstruccionPry["+indiceFilaFormulario+"]' id='porcIncEstructuraConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncEstructuraConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncEstructuraConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncEstructuraConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncEstructuraConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncEstructuraConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActEstructuraConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncEstructuraConstruccion["+indiceFilaFormulario+"]' id='difPorcIncEstructuraConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActEstructuraConstruccionPry["+indiceFilaFormulario+"]' id='valActEstructuraConstruccionPry["+indiceFilaFormulario+"]' value='"+valActEstructuraConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActEstructuraConstruccionSeg["+indiceFilaFormulario+"]' id='valActEstructuraConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActEstructuraConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActEstructuraConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActEstructuraConstruccion["+indiceFilaFormulario+"]' id='difValActEstructuraConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// MAMPOSTERIA (CONSTRUCCION)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Mamposter&iacute;a</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialMamposteriaConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialMamposteriaConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialMamposteriaConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialMamposteriaConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialMamposteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialMamposteriaConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialMamposteriaConstruccion["+indiceFilaFormulario+"]' id='difFchInicialMamposteriaConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalMamposteriaConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalMamposteriaConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalMamposteriaConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalMamposteriaConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalMamposteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalMamposteriaConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalMamposteriaConstruccion["+indiceFilaFormulario+"]' id='difFchFinalMamposteriaConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncMamposteriaConstruccionPry["+indiceFilaFormulario+"]' id='porcIncMamposteriaConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncMamposteriaConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncMamposteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncMamposteriaConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActMamposteriaConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncMamposteriaConstruccion["+indiceFilaFormulario+"]' id='difPorcIncMamposteriaConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActMamposteriaConstruccionPry["+indiceFilaFormulario+"]' id='valActMamposteriaConstruccionPry["+indiceFilaFormulario+"]' value='"+valActMamposteriaConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' id='valActMamposteriaConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActMamposteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActMamposteriaConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActMamposteriaConstruccion["+indiceFilaFormulario+"]' id='difValActMamposteriaConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// PANETES (CONSTRUCCION)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Pa&ntilde;etes y resanes</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPanetesConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialPanetesConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialPanetesConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialPanetesConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialPanetesConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPanetesConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialPanetesConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialPanetesConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPanetesConstruccion["+indiceFilaFormulario+"]' id='difFchInicialPanetesConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPanetesConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalPanetesConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalPanetesConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalPanetesConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalPanetesConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPanetesConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalPanetesConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalPanetesConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPanetesConstruccion["+indiceFilaFormulario+"]' id='difFchFinalPanetesConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPanetesConstruccionPry["+indiceFilaFormulario+"]' id='porcIncPanetesConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncPanetesConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPanetesConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncPanetesConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPanetesConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncPanetesConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActPanetesConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPanetesConstruccion["+indiceFilaFormulario+"]' id='difPorcIncPanetesConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPanetesConstruccionPry["+indiceFilaFormulario+"]' id='valActPanetesConstruccionPry["+indiceFilaFormulario+"]' value='"+valActPanetesConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPanetesConstruccionSeg["+indiceFilaFormulario+"]' id='valActPanetesConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPanetesConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActPanetesConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPanetesConstruccion["+indiceFilaFormulario+"]' id='difValActPanetesConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// HIDROSANITARIA (CONSTRUCCION)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Instalaciones hidrosanitarias</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialHidrosanitariasConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialHidrosanitariasConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialHidrosanitariasConstruccion["+indiceFilaFormulario+"]' id='difFchInicialHidrosanitariasConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalHidrosanitariasConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalHidrosanitariasConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalHidrosanitariasConstruccion["+indiceFilaFormulario+"]' id='difFchFinalHidrosanitariasConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' id='porcIncHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncHidrosanitariasConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncHidrosanitariasConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncHidrosanitariasConstruccion["+indiceFilaFormulario+"]' id='difPorcIncHidrosanitariasConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' id='valActHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]' value='"+valActHidrosanitariasConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' id='valActHidrosanitariasConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActHidrosanitariasConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActHidrosanitariasConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActHidrosanitariasConstruccion["+indiceFilaFormulario+"]' id='difValActHidrosanitariasConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// ELECTRICAS (CONSTRUCCION)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Instalaciones el&eacute;ctricas</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialElectricasConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialElectricasConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialElectricasConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialElectricasConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialElectricasConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialElectricasConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialElectricasConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialElectricasConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialElectricasConstruccion["+indiceFilaFormulario+"]' id='difFchInicialElectricasConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalElectricasConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalElectricasConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalElectricasConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalElectricasConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalElectricasConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalElectricasConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalElectricasConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalElectricasConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalElectricasConstruccion["+indiceFilaFormulario+"]' id='difFchFinalElectricasConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncElectricasConstruccionPry["+indiceFilaFormulario+"]' id='porcIncElectricasConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncElectricasConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncElectricasConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncElectricasConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncElectricasConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncElectricasConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActElectricasConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncElectricasConstruccion["+indiceFilaFormulario+"]' id='difPorcIncElectricasConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActElectricasConstruccionPry["+indiceFilaFormulario+"]' id='valActElectricasConstruccionPry["+indiceFilaFormulario+"]' value='"+valActElectricasConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActElectricasConstruccionSeg["+indiceFilaFormulario+"]' id='valActElectricasConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActElectricasConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActElectricasConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActElectricasConstruccion["+indiceFilaFormulario+"]' id='difValActElectricasConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// CUBIERTA (CONSTRUCCION)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Cubierta</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCubiertaConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialCubiertaConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialCubiertaConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialCubiertaConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialCubiertaConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCubiertaConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialCubiertaConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialCubiertaConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCubiertaConstruccion["+indiceFilaFormulario+"]' id='difFchInicialCubiertaConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCubiertaConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalCubiertaConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalCubiertaConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalCubiertaConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalCubiertaConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCubiertaConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalCubiertaConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalCubiertaConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCubiertaConstruccion["+indiceFilaFormulario+"]' id='difFchFinalCubiertaConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCubiertaConstruccionPry["+indiceFilaFormulario+"]' id='porcIncCubiertaConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncCubiertaConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCubiertaConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncCubiertaConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCubiertaConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncCubiertaConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActCubiertaConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCubiertaConstruccion["+indiceFilaFormulario+"]' id='difPorcIncCubiertaConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCubiertaConstruccionPry["+indiceFilaFormulario+"]' id='valActCubiertaConstruccionPry["+indiceFilaFormulario+"]' value='"+valActCubiertaConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCubiertaConstruccionSeg["+indiceFilaFormulario+"]' id='valActCubiertaConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCubiertaConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActCubiertaConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCubiertaConstruccion["+indiceFilaFormulario+"]' id='difValActCubiertaConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// CARPINTERIA (CONSTRUCCION)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Carpinter&iacute;a met&aacute;lica</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialCarpinteriaConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialCarpinteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialCarpinteriaConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCarpinteriaConstruccion["+indiceFilaFormulario+"]' id='difFchInicialCarpinteriaConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalCarpinteriaConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalCarpinteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalCarpinteriaConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCarpinteriaConstruccion["+indiceFilaFormulario+"]' id='difFchFinalCarpinteriaConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' id='porcIncCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncCarpinteriaConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCarpinteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncCarpinteriaConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCarpinteriaConstruccion["+indiceFilaFormulario+"]' id='difPorcIncCarpinteriaConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' id='valActCarpinteriaConstruccionPry["+indiceFilaFormulario+"]' value='"+valActCarpinteriaConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' id='valActCarpinteriaConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCarpinteriaConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActCarpinteriaConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCarpinteriaConstruccion["+indiceFilaFormulario+"]' id='difValActCarpinteriaConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// PISOS (CONSTRUCCION)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Pisos, enchapes y acabados</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPisosConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialPisosConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialPisosConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialPisosConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialPisosConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPisosConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialPisosConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialPisosConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPisosConstruccion["+indiceFilaFormulario+"]' id='difFchInicialPisosConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPisosConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalPisosConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalPisosConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalPisosConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalPisosConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPisosConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalPisosConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalPisosConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPisosConstruccion["+indiceFilaFormulario+"]' id='difFchFinalPisosConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPisosConstruccionPry["+indiceFilaFormulario+"]' id='porcIncPisosConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncPisosConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPisosConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncPisosConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPisosConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncPisosConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActPisosConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPisosConstruccion["+indiceFilaFormulario+"]' id='difPorcIncPisosConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPisosConstruccionPry["+indiceFilaFormulario+"]' id='valActPisosConstruccionPry["+indiceFilaFormulario+"]' value='"+valActPisosConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPisosConstruccionSeg["+indiceFilaFormulario+"]' id='valActPisosConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPisosConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActPisosConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPisosConstruccion["+indiceFilaFormulario+"]' id='difValActPisosConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// SANITARIOS (CONSTRUCCION)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Aparatos sanitarios y lavaplatos</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialSanitariosConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialSanitariosConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialSanitariosConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialSanitariosConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialSanitariosConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialSanitariosConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialSanitariosConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialSanitariosConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialSanitariosConstruccion["+indiceFilaFormulario+"]' id='difFchInicialSanitariosConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalSanitariosConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalSanitariosConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalSanitariosConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalSanitariosConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalSanitariosConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalSanitariosConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalSanitariosConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalSanitariosConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalSanitariosConstruccion["+indiceFilaFormulario+"]' id='difFchFinalSanitariosConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncSanitariosConstruccionPry["+indiceFilaFormulario+"]' id='porcIncSanitariosConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncSanitariosConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncSanitariosConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncSanitariosConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncSanitariosConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncSanitariosConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActSanitariosConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncSanitariosConstruccion["+indiceFilaFormulario+"]' id='difPorcIncSanitariosConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActSanitariosConstruccionPry["+indiceFilaFormulario+"]' id='valActSanitariosConstruccionPry["+indiceFilaFormulario+"]' value='"+valActSanitariosConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActSanitariosConstruccionSeg["+indiceFilaFormulario+"]' id='valActSanitariosConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActSanitariosConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActSanitariosConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActSanitariosConstruccion["+indiceFilaFormulario+"]' id='difValActSanitariosConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// EXTERIORES (CONSTRUCCION)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Obras exteriores</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialExterioresConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialExterioresConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialExterioresConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialExterioresConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialExterioresConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialExterioresConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialExterioresConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialExterioresConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialExterioresConstruccion["+indiceFilaFormulario+"]' id='difFchInicialExterioresConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalExterioresConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalExterioresConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalExterioresConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalExterioresConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalExterioresConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalExterioresConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalExterioresConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalExterioresConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalExterioresConstruccion["+indiceFilaFormulario+"]' id='difFchFinalExterioresConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncExterioresConstruccionPry["+indiceFilaFormulario+"]' id='porcIncExterioresConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncExterioresConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncExterioresConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncExterioresConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncExterioresConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncExterioresConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActExterioresConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncExterioresConstruccion["+indiceFilaFormulario+"]' id='difPorcIncExterioresConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActExterioresConstruccionPry["+indiceFilaFormulario+"]' id='valActExterioresConstruccionPry["+indiceFilaFormulario+"]' value='"+valActExterioresConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActExterioresConstruccionSeg["+indiceFilaFormulario+"]' id='valActExterioresConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActExterioresConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActExterioresConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActExterioresConstruccion["+indiceFilaFormulario+"]' id='difValActExterioresConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// ASEO (CONSTRUCCION)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Aseo</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialAseoConstruccionPry["+indiceFilaFormulario+"]' id='fchInicialAseoConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialAseoConstruccion+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialAseoConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialAseoConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialAseoConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialAseoConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchInicialAseoConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialAseoConstruccion["+indiceFilaFormulario+"]' id='difFchInicialAseoConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalAseoConstruccionPry["+indiceFilaFormulario+"]' id='fchFinalAseoConstruccionPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalAseoConstruccion+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalAseoConstruccionSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalAseoConstruccionSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalAseoConstruccionSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalAseoConstruccionPry["+indiceFilaFormulario+"]\"), \"difFchFinalAseoConstruccion["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalAseoConstruccion["+indiceFilaFormulario+"]' id='difFchFinalAseoConstruccion["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoConstruccionPry["+indiceFilaFormulario+"]' id='porcIncAseoConstruccionPry["+indiceFilaFormulario+"]' value='"+porcIncAseoConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoConstruccionSeg["+indiceFilaFormulario+"]' id='porcIncAseoConstruccionSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncAseoConstruccionPry["+indiceFilaFormulario+"]\"), \"difPorcIncAseoConstruccion["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActAseoConstruccionSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncAseoConstruccion["+indiceFilaFormulario+"]' id='difPorcIncAseoConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoConstruccionPry["+indiceFilaFormulario+"]' id='valActAseoConstruccionPry["+indiceFilaFormulario+"]' value='"+valActAseoConstruccion+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoConstruccionSeg["+indiceFilaFormulario+"]' id='valActAseoConstruccionSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActAseoConstruccionPry["+indiceFilaFormulario+"]\"), \"difValActAseoConstruccion["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActAseoConstruccion["+indiceFilaFormulario+"]' id='difValActAseoConstruccion["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		//////////////////////////////////////////////////// URBANISMO //////////////////////////////////////////////////////
-		contenido += "<tr><td class='tituloNivel0' colspan='9'>Urbanismo</td></tr>";
-		// PRELIMINARES (URBANISMO)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Preliminares</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPreliminarUrbanismoPry["+indiceFilaFormulario+"]' id='fchInicialPreliminarUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialPreliminarUrbanismo+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPreliminarUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialPreliminarUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchInicialPreliminarUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPreliminarUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' id='difFchInicialPreliminarUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPreliminarUrbanismoPry["+indiceFilaFormulario+"]' id='fchFinalPreliminarUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalPreliminarUrbanismo+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPreliminarUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalPreliminarUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchFinalPreliminarUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPreliminarUrbanismo["+indiceFilaFormulario+"]' id='difFchFinalPreliminarUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarUrbanismoPry["+indiceFilaFormulario+"]' id='porcIncPreliminarUrbanismoPry["+indiceFilaFormulario+"]' value='"+porcIncPreliminarUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' id='porcIncPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPreliminarUrbanismoPry["+indiceFilaFormulario+"]\"), \"difPorcIncPreliminarUrbanismo["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActPreliminarUrbanismoSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPreliminarUrbanismo["+indiceFilaFormulario+"]' id='difPorcIncPreliminarUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarUrbanismoPry["+indiceFilaFormulario+"]' id='valActPreliminarUrbanismoPry["+indiceFilaFormulario+"]' value='"+valActPreliminarUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' id='valActPreliminarUrbanismoSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPreliminarUrbanismoPry["+indiceFilaFormulario+"]\"), \"difValActPreliminarUrbanismo["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPreliminarUrbanismo["+indiceFilaFormulario+"]' id='difValActPreliminarUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// CIMENTACION (URBANISMO)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Cimentaci&oacute;n</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCimentacionUrbanismoPry["+indiceFilaFormulario+"]' id='fchInicialCimentacionUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialCimentacionUrbanismo+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCimentacionUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialCimentacionUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchInicialCimentacionUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCimentacionUrbanismo["+indiceFilaFormulario+"]' id='difFchInicialCimentacionUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCimentacionUrbanismoPry["+indiceFilaFormulario+"]' id='fchFinalCimentacionUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalCimentacionUrbanismo+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCimentacionUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalCimentacionUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchFinalCimentacionUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCimentacionUrbanismo["+indiceFilaFormulario+"]' id='difFchFinalCimentacionUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionUrbanismoPry["+indiceFilaFormulario+"]' id='porcIncCimentacionUrbanismoPry["+indiceFilaFormulario+"]' value='"+porcIncCimentacionUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' id='porcIncCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCimentacionUrbanismoPry["+indiceFilaFormulario+"]\"), \"difPorcIncCimentacionUrbanismo["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActCimentacionUrbanismoSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCimentacionUrbanismo["+indiceFilaFormulario+"]' id='difPorcIncCimentacionUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionUrbanismoPry["+indiceFilaFormulario+"]' id='valActCimentacionUrbanismoPry["+indiceFilaFormulario+"]' value='"+valActCimentacionUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' id='valActCimentacionUrbanismoSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCimentacionUrbanismoPry["+indiceFilaFormulario+"]\"), \"difValActCimentacionUrbanismo["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCimentacionUrbanismo["+indiceFilaFormulario+"]' id='difValActCimentacionUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// DESAGUES (URBANISMO)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Desag&uuml;es e instalaciones sanitarias</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialDesaguesUrbanismoPry["+indiceFilaFormulario+"]' id='fchInicialDesaguesUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialDesaguesUrbanismo+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialDesaguesUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialDesaguesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchInicialDesaguesUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialDesaguesUrbanismo["+indiceFilaFormulario+"]' id='difFchInicialDesaguesUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalDesaguesUrbanismoPry["+indiceFilaFormulario+"]' id='fchFinalDesaguesUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalDesaguesUrbanismo+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalDesaguesUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalDesaguesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchFinalDesaguesUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalDesaguesUrbanismo["+indiceFilaFormulario+"]' id='difFchFinalDesaguesUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesUrbanismoPry["+indiceFilaFormulario+"]' id='porcIncDesaguesUrbanismoPry["+indiceFilaFormulario+"]' value='"+porcIncDesaguesUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' id='porcIncDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncDesaguesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difPorcIncDesaguesUrbanismo["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActDesaguesUrbanismoSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncDesaguesUrbanismo["+indiceFilaFormulario+"]' id='difPorcIncDesaguesUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesUrbanismoPry["+indiceFilaFormulario+"]' id='valActDesaguesUrbanismoPry["+indiceFilaFormulario+"]' value='"+valActDesaguesUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' id='valActDesaguesUrbanismoSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActDesaguesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difValActDesaguesUrbanismo["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActDesaguesUrbanismo["+indiceFilaFormulario+"]' id='difValActDesaguesUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// VIAS Y ANDENES (URBANISMO)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Estructura en concreto</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialViasUrbanismoPry["+indiceFilaFormulario+"]' id='fchInicialViasUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialViasUrbanismo+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialViasUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialViasUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialViasUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialViasUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchInicialViasUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialViasUrbanismo["+indiceFilaFormulario+"]' id='difFchInicialViasUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalViasUrbanismoPry["+indiceFilaFormulario+"]' id='fchFinalViasUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalViasUrbanismo+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalViasUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalViasUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalViasUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalViasUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchFinalViasUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalViasUrbanismo["+indiceFilaFormulario+"]' id='difFchFinalViasUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncViasUrbanismoPry["+indiceFilaFormulario+"]' id='porcIncViasUrbanismoPry["+indiceFilaFormulario+"]' value='"+porcIncViasUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncViasUrbanismoSeg["+indiceFilaFormulario+"]' id='porcIncViasUrbanismoSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncViasUrbanismoPry["+indiceFilaFormulario+"]\"), \"difPorcIncViasUrbanismo["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActViasUrbanismoSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncViasUrbanismo["+indiceFilaFormulario+"]' id='difPorcIncViasUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActViasUrbanismoPry["+indiceFilaFormulario+"]' id='valActViasUrbanismoPry["+indiceFilaFormulario+"]' value='"+valActViasUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActViasUrbanismoSeg["+indiceFilaFormulario+"]' id='valActViasUrbanismoSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActViasUrbanismoPry["+indiceFilaFormulario+"]\"), \"difValActViasUrbanismo["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActViasUrbanismo["+indiceFilaFormulario+"]' id='difValActViasUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// PARQUES Y CESIONES (URBANISMO)
-		contenido += "<tr class='fila_0'><td class='tituloNivel1'>Mamposter&iacute;a</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialParquesUrbanismoPry["+indiceFilaFormulario+"]' id='fchInicialParquesUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialParquesUrbanismo+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialParquesUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialParquesUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialParquesUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialParquesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchInicialParquesUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialParquesUrbanismo["+indiceFilaFormulario+"]' id='difFchInicialParquesUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalParquesUrbanismoPry["+indiceFilaFormulario+"]' id='fchFinalParquesUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalParquesUrbanismo+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalParquesUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalParquesUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalParquesUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalParquesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchFinalParquesUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalParquesUrbanismo["+indiceFilaFormulario+"]' id='difFchFinalParquesUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncParquesUrbanismoPry["+indiceFilaFormulario+"]' id='porcIncParquesUrbanismoPry["+indiceFilaFormulario+"]' value='"+porcIncParquesUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncParquesUrbanismoSeg["+indiceFilaFormulario+"]' id='porcIncParquesUrbanismoSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncParquesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difPorcIncParquesUrbanismo["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActParquesUrbanismoSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncParquesUrbanismo["+indiceFilaFormulario+"]' id='difPorcIncParquesUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActParquesUrbanismoPry["+indiceFilaFormulario+"]' id='valActParquesUrbanismoPry["+indiceFilaFormulario+"]' value='"+valActParquesUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActParquesUrbanismoSeg["+indiceFilaFormulario+"]' id='valActParquesUrbanismoSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActParquesUrbanismoPry["+indiceFilaFormulario+"]\"), \"difValActParquesUrbanismo["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActParquesUrbanismo["+indiceFilaFormulario+"]' id='difValActParquesUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		// ASEO (URBANISMO)
-		contenido += "<tr class='fila_1'><td class='tituloNivel1'>Aseo</td>";
-			// Fecha Inicial Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialAseoUrbanismoPry["+indiceFilaFormulario+"]' id='fchInicialAseoUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchInicialAseoUrbanismo+"'></td>";
-			// Fecha Inicial Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchInicialAseoUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchInicialAseoUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialAseoUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchInicialAseoUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchInicialAseoUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Inicial Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialAseoUrbanismo["+indiceFilaFormulario+"]' id='difFchInicialAseoUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Fecha Final Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalAseoUrbanismoPry["+indiceFilaFormulario+"]' id='fchFinalAseoUrbanismoPry["+indiceFilaFormulario+"]' size='10' class='campoReadonly' readonly value='"+fchFinalAseoUrbanismo+"'></td>";
-			// Fecha Final Ejecutada
-			contenido += "<td align='center' valign='top'><input name='fchFinalAseoUrbanismoSeg["+indiceFilaFormulario+"]' type='text' id='fchFinalAseoUrbanismoSeg["+indiceFilaFormulario+"]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalAseoUrbanismoSeg["+indiceFilaFormulario+"]\", document.getElementById(\"fchFinalAseoUrbanismoPry["+indiceFilaFormulario+"]\"), \"difFchFinalAseoUrbanismo["+indiceFilaFormulario+"]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
-			// Diferencia Fecha Final Ejecutada y Proyectada
-			contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalAseoUrbanismo["+indiceFilaFormulario+"]' id='difFchFinalAseoUrbanismo["+indiceFilaFormulario+"]' size='6' style='text-align:right' readonly></td>";
-			// Porcentaje Proyectado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoUrbanismoPry["+indiceFilaFormulario+"]' id='porcIncAseoUrbanismoPry["+indiceFilaFormulario+"]' value='"+porcIncAseoUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Porcentaje Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoUrbanismoSeg["+indiceFilaFormulario+"]' id='porcIncAseoUrbanismoSeg["+indiceFilaFormulario+"]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncAseoUrbanismoPry["+indiceFilaFormulario+"]\"), \"difPorcIncAseoUrbanismo["+indiceFilaFormulario+"]\"); valorActividadEjecutado(this, \"valActAseoUrbanismoSeg["+indiceFilaFormulario+"]\");' class='campoPesos' size='12'></td>";
-			// Diferencia Porcentaje
-			contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncAseoUrbanismo["+indiceFilaFormulario+"]' id='difPorcIncAseoUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td>";
-			// Valor Proyectado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoUrbanismoPry["+indiceFilaFormulario+"]' id='valActAseoUrbanismoPry["+indiceFilaFormulario+"]' value='"+valActAseoUrbanismo+"' class='campoPesosReadonly' size='12' readonly></td>";
-			// Valor Ejecutado
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoUrbanismoSeg["+indiceFilaFormulario+"]' id='valActAseoUrbanismoSeg["+indiceFilaFormulario+"]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActAseoUrbanismoPry["+indiceFilaFormulario+"]\"), \"difValActAseoUrbanismo["+indiceFilaFormulario+"]\");' ></td>";
-			// Diferencia Valor
-			contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActAseoUrbanismo["+indiceFilaFormulario+"]' id='difValActAseoUrbanismo["+indiceFilaFormulario+"]' class='campoPesos' size='12' readonly ></td></tr>";
-		contenido += "</table></div></div></td>";
-		myNewCell.innerHTML = contenido;
-		myNewCell=myNewRow.insertCell(-1);
-		myNewCell.setAttribute("align", "center");
-		myNewCell.setAttribute("valign", "top");
-		myNewCell.setAttribute("style", "padding:6px");
-		myNewCell.innerHTML="<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
-		indiceFilaFormulario++;
-	}
-	
-	function sumaVentas(){
-		var fila = 0;
-		var filab = 0;
-		var valSumaVentas = 0;
-		var valSumaVentasNuevas = 0;
-		var objValTotalVentas = document.getElementById("valTotalVentas");
-		// Valores de lineas existentes
-		var a;
-		for (fila = 1; fila < 50; fila++) {
-			if(!document.getElementById("numCantidadr_" + fila )){
-				a = 0;
-			} else {
-				valorCantidad = document.getElementById("numCantidadr_" + fila ).value;
-				valorVenta = document.getElementById("valPrecioVentar_" + fila ).value;
-				valSumaVentas += (parseInt(valorCantidad) * parseInt(valorVenta));
-			}
-		}
-		// Valores de lineas nuevas
-		var b;
-		for (filab = 1; filab < 50; filab++) {
-			if(!document.getElementById("numCantidad_" + filab )){
-				b = 0;
-			} else {
-				valorCantidadNueva = document.getElementById("numCantidad_" + filab ).value;
-				valorVentaNueva = document.getElementById("valPrecioVenta_" + filab ).value;
-				valSumaVentasNuevas += (parseInt(valorCantidadNueva) * parseInt(valorVentaNueva));
-			}
-		}
-		// Suma Totales
-		objValTotalVentas.value = valSumaVentas + valSumaVentasNuevas;
-		
-		// Calcula nueva utilidad
-		calculaUtilidad();
-	}
+var indiceFilaFormulario = 1;
+function addSeguimientoObras(fchInicialTerreno, fchFinalTerreno, porcIncTerreno, valActTerreno, fchInicialPreliminarConstruccion, fchFinalPreliminarConstruccion, porcIncPreliminarConstruccion, valActPreliminarConstruccion, fchInicialCimentacionConstruccion, fchFinalCimentacionConstruccion, porcIncCimentacionConstruccion, valActCimentacionConstruccion, fchInicialDesaguesConstruccion, fchFinalDesaguesConstruccion, porcIncDesaguesConstruccion, valActDesaguesConstruccion, fchInicialEstructuraConstruccion, fchFinalEstructuraConstruccion, porcIncEstructuraConstruccion, valActEstructuraConstruccion, fchInicialMamposteriaConstruccion, fchFinalMamposteriaConstruccion, porcIncMamposteriaConstruccion, valActMamposteriaConstruccion, fchInicialPanetesConstruccion, fchFinalPanetesConstruccion, porcIncPanetesConstruccion, valActPanetesConstruccion, fchInicialHidrosanitariasConstruccion, fchFinalHidrosanitariasConstruccion, porcIncHidrosanitariasConstruccion, valActHidrosanitariasConstruccion, fchInicialElectricasConstruccion, fchFinalElectricasConstruccion, porcIncElectricasConstruccion, valActElectricasConstruccion, fchInicialCubiertaConstruccion, fchFinalCubiertaConstruccion, porcIncCubiertaConstruccion, valActCubiertaConstruccion, fchInicialCarpinteriaConstruccion, fchFinalCarpinteriaConstruccion, porcIncCarpinteriaConstruccion, valActCarpinteriaConstruccion, fchInicialPisosConstruccion, fchFinalPisosConstruccion, porcIncPisosConstruccion, valActPisosConstruccion, fchInicialSanitariosConstruccion, fchFinalSanitariosConstruccion, porcIncSanitariosConstruccion, valActSanitariosConstruccion, fchInicialExterioresConstruccion, fchFinalExterioresConstruccion, porcIncExterioresConstruccion, valActExterioresConstruccion, fchInicialAseoConstruccion, fchFinalAseoConstruccion, porcIncAseoConstruccion, valActAseoConstruccion, fchInicialPreliminarUrbanismo, fchFinalPreliminarUrbanismo, porcIncPreliminarUrbanismo, valActPreliminarUrbanismo, fchInicialCimentacionUrbanismo, fchFinalCimentacionUrbanismo, porcIncCimentacionUrbanismo, valActCimentacionUrbanismo, fchInicialDesaguesUrbanismo, fchFinalDesaguesUrbanismo, porcIncDesaguesUrbanismo, valActDesaguesUrbanismo, fchInicialViasUrbanismo, fchFinalViasUrbanismo, porcIncViasUrbanismo, valActViasUrbanismo, fchInicialParquesUrbanismo, fchFinalParquesUrbanismo, porcIncParquesUrbanismo, valActParquesUrbanismo, fchInicialAseoUrbanismo, fchFinalAseoUrbanismo, porcIncAseoUrbanismo, valActAseoUrbanismo) {
+    myNewRow = document.getElementById("tablaSeguimientoObras").insertRow(-1);
+    myNewRow.id = indiceFilaFormulario;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("style", "padding:6px");
+    var contenido = "<td><div class='accordionItem'><h2>Visita <input name='fchVisita[" + indiceFilaFormulario + "]' type='text' id='fchVisita[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUp( \"fchVisita[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></h2><div><table border='0' cellspacing='2' cellpadding='0' width='100%'>";
+    contenido += "<tr class='tituloTabla'>";
+    contenido += "<th align='center' style='padding:3px;' rowspan='2' width='12%'>Actividad</th>";
+    contenido += "<th align='center' style='padding:3px;' colspan='3'>Fecha Inicial Actividad</th>";
+    contenido += "<th align='center' style='padding:3px;' colspan='3'>Fecha Final Actividad</th>";
+    contenido += "<th align='center' style='padding:3px;' colspan='3'>% Incidencia</th>";
+    contenido += "<th align='center' style='padding:3px;' colspan='3'>Valor Actividad</th></tr>";
+    contenido += "<tr class='tituloTabla'>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectada</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutada</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase (D&iacute;as)</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectada</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutada</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase (D&iacute;as)</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectado</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutado</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Proyectado</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Ejecutado</th>";
+    contenido += "<th align='center' style='padding:3px;' width='7%'>Desfase</th>";
+    //////////////////////////////////////////////////// TERRENO ///////////////////////////////////////////////////////////
+    contenido += "<tr><td class='tituloNivel0' colspan='9'>Terreno</td></tr>";
+    // TERRENO (TERRENO)
+    contenido += "<tr class='fila_0'>";
+    contenido += "<td class='tituloNivel1'>Terreno</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialTerrenoPry[" + indiceFilaFormulario + "]' id='fchInicialTerrenoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialTerreno + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialTerrenoSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialTerrenoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialTerrenoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialTerrenoPry[" + indiceFilaFormulario + "]\"), \"difFchInicialTerreno[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialTerreno[" + indiceFilaFormulario + "]' id='difFchInicialTerreno[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalTerrenoPry[" + indiceFilaFormulario + "]' id='fchFinalTerrenoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalTerreno + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalTerrenoSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalTerrenoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalTerrenoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalTerrenoPry[" + indiceFilaFormulario + "]\"), \"difFchFinalTerreno[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalTerreno[" + indiceFilaFormulario + "]' id='difFchFinalTerreno[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncTerrenoPry[" + indiceFilaFormulario + "]' id='porcIncTerrenoPry[" + indiceFilaFormulario + "]' value='" + porcIncTerreno + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncTerrenoSeg[" + indiceFilaFormulario + "]' id='porcIncTerrenoSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncTerrenoPry[" + indiceFilaFormulario + "]\"), \"difPorcIncTerreno[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActTerrenoSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncTerreno[" + indiceFilaFormulario + "]' id='difPorcIncTerreno[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActTerrenoPry[" + indiceFilaFormulario + "]' id='valActTerrenoPry[" + indiceFilaFormulario + "]' value='" + valActTerreno + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActTerrenoSeg[" + indiceFilaFormulario + "]' id='valActTerrenoSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActTerrenoPry[" + indiceFilaFormulario + "]\"), \"difValActTerreno[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActTerreno[" + indiceFilaFormulario + "]' id='difValActTerreno[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    ///////////////////////////////////////////// CONSTRUCCION ///////////////////////////////////////////////////////////////
+    contenido += "<tr><td class='tituloNivel0' colspan='9'>Construcci&oacute;n</td></tr>";
+    // PRELIMINARES (CONSTRUCCION)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Preliminares</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPreliminarConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialPreliminarConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialPreliminarConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPreliminarConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialPreliminarConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialPreliminarConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPreliminarConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialPreliminarConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPreliminarConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalPreliminarConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalPreliminarConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPreliminarConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalPreliminarConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalPreliminarConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPreliminarConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalPreliminarConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncPreliminarConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncPreliminarConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPreliminarConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncPreliminarConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActPreliminarConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPreliminarConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncPreliminarConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarConstruccionPry[" + indiceFilaFormulario + "]' id='valActPreliminarConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActPreliminarConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' id='valActPreliminarConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPreliminarConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActPreliminarConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPreliminarConstruccion[" + indiceFilaFormulario + "]' id='difValActPreliminarConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // CIMENTACION (CONSTRUCCION)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Cimentaci&oacute;n</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCimentacionConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialCimentacionConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialCimentacionConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCimentacionConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialCimentacionConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialCimentacionConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCimentacionConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialCimentacionConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCimentacionConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalCimentacionConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalCimentacionConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCimentacionConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalCimentacionConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalCimentacionConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCimentacionConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalCimentacionConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncCimentacionConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncCimentacionConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCimentacionConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncCimentacionConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActCimentacionConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCimentacionConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncCimentacionConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionConstruccionPry[" + indiceFilaFormulario + "]' id='valActCimentacionConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActCimentacionConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' id='valActCimentacionConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCimentacionConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActCimentacionConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCimentacionConstruccion[" + indiceFilaFormulario + "]' id='difValActCimentacionConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // DESAGUES (CONSTRUCCION)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Desag&uuml;es e instalaciones sanitarias</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialDesaguesConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialDesaguesConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialDesaguesConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialDesaguesConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialDesaguesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialDesaguesConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialDesaguesConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialDesaguesConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalDesaguesConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalDesaguesConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalDesaguesConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalDesaguesConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalDesaguesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalDesaguesConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalDesaguesConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalDesaguesConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncDesaguesConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncDesaguesConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncDesaguesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncDesaguesConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActDesaguesConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncDesaguesConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncDesaguesConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesConstruccionPry[" + indiceFilaFormulario + "]' id='valActDesaguesConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActDesaguesConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' id='valActDesaguesConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActDesaguesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActDesaguesConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActDesaguesConstruccion[" + indiceFilaFormulario + "]' id='difValActDesaguesConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // ESTRUCTURA (CONSTRUCCION)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Estructura en concreto</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialEstructuraConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialEstructuraConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialEstructuraConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialEstructuraConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialEstructuraConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialEstructuraConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialEstructuraConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialEstructuraConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalEstructuraConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalEstructuraConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalEstructuraConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalEstructuraConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalEstructuraConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalEstructuraConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalEstructuraConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalEstructuraConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncEstructuraConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncEstructuraConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncEstructuraConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncEstructuraConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncEstructuraConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActEstructuraConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncEstructuraConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncEstructuraConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActEstructuraConstruccionPry[" + indiceFilaFormulario + "]' id='valActEstructuraConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActEstructuraConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' id='valActEstructuraConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActEstructuraConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActEstructuraConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActEstructuraConstruccion[" + indiceFilaFormulario + "]' id='difValActEstructuraConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // MAMPOSTERIA (CONSTRUCCION)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Mamposter&iacute;a</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialMamposteriaConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialMamposteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialMamposteriaConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialMamposteriaConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialMamposteriaConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalMamposteriaConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalMamposteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalMamposteriaConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalMamposteriaConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalMamposteriaConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncMamposteriaConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncMamposteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncMamposteriaConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncMamposteriaConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncMamposteriaConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' id='valActMamposteriaConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActMamposteriaConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' id='valActMamposteriaConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActMamposteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActMamposteriaConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActMamposteriaConstruccion[" + indiceFilaFormulario + "]' id='difValActMamposteriaConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // PANETES (CONSTRUCCION)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Pa&ntilde;etes y resanes</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPanetesConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialPanetesConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialPanetesConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialPanetesConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialPanetesConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPanetesConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialPanetesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialPanetesConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPanetesConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialPanetesConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPanetesConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalPanetesConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalPanetesConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalPanetesConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalPanetesConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPanetesConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalPanetesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalPanetesConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPanetesConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalPanetesConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPanetesConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncPanetesConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncPanetesConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPanetesConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncPanetesConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPanetesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncPanetesConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActPanetesConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPanetesConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncPanetesConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPanetesConstruccionPry[" + indiceFilaFormulario + "]' id='valActPanetesConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActPanetesConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPanetesConstruccionSeg[" + indiceFilaFormulario + "]' id='valActPanetesConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPanetesConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActPanetesConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPanetesConstruccion[" + indiceFilaFormulario + "]' id='difValActPanetesConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // HIDROSANITARIA (CONSTRUCCION)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Instalaciones hidrosanitarias</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialHidrosanitariasConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialHidrosanitariasConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalHidrosanitariasConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalHidrosanitariasConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncHidrosanitariasConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncHidrosanitariasConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' id='valActHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActHidrosanitariasConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' id='valActHidrosanitariasConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActHidrosanitariasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActHidrosanitariasConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' id='difValActHidrosanitariasConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // ELECTRICAS (CONSTRUCCION)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Instalaciones el&eacute;ctricas</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialElectricasConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialElectricasConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialElectricasConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialElectricasConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialElectricasConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialElectricasConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialElectricasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialElectricasConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialElectricasConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialElectricasConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalElectricasConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalElectricasConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalElectricasConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalElectricasConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalElectricasConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalElectricasConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalElectricasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalElectricasConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalElectricasConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalElectricasConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncElectricasConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncElectricasConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncElectricasConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncElectricasConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncElectricasConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncElectricasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncElectricasConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActElectricasConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncElectricasConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncElectricasConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActElectricasConstruccionPry[" + indiceFilaFormulario + "]' id='valActElectricasConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActElectricasConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActElectricasConstruccionSeg[" + indiceFilaFormulario + "]' id='valActElectricasConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActElectricasConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActElectricasConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActElectricasConstruccion[" + indiceFilaFormulario + "]' id='difValActElectricasConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // CUBIERTA (CONSTRUCCION)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Cubierta</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCubiertaConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialCubiertaConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialCubiertaConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCubiertaConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialCubiertaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialCubiertaConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCubiertaConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialCubiertaConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCubiertaConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalCubiertaConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalCubiertaConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCubiertaConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalCubiertaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalCubiertaConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCubiertaConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalCubiertaConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCubiertaConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncCubiertaConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncCubiertaConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCubiertaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncCubiertaConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActCubiertaConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCubiertaConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncCubiertaConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCubiertaConstruccionPry[" + indiceFilaFormulario + "]' id='valActCubiertaConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActCubiertaConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' id='valActCubiertaConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCubiertaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActCubiertaConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCubiertaConstruccion[" + indiceFilaFormulario + "]' id='difValActCubiertaConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // CARPINTERIA (CONSTRUCCION)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Carpinter&iacute;a met&aacute;lica</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialCarpinteriaConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialCarpinteriaConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCarpinteriaConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialCarpinteriaConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalCarpinteriaConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalCarpinteriaConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCarpinteriaConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalCarpinteriaConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncCarpinteriaConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncCarpinteriaConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCarpinteriaConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncCarpinteriaConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' id='valActCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActCarpinteriaConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' id='valActCarpinteriaConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCarpinteriaConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActCarpinteriaConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCarpinteriaConstruccion[" + indiceFilaFormulario + "]' id='difValActCarpinteriaConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // PISOS (CONSTRUCCION)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Pisos, enchapes y acabados</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPisosConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialPisosConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialPisosConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialPisosConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialPisosConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPisosConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialPisosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialPisosConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPisosConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialPisosConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPisosConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalPisosConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalPisosConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalPisosConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalPisosConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPisosConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalPisosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalPisosConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPisosConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalPisosConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPisosConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncPisosConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncPisosConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPisosConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncPisosConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPisosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncPisosConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActPisosConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPisosConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncPisosConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPisosConstruccionPry[" + indiceFilaFormulario + "]' id='valActPisosConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActPisosConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPisosConstruccionSeg[" + indiceFilaFormulario + "]' id='valActPisosConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPisosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActPisosConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPisosConstruccion[" + indiceFilaFormulario + "]' id='difValActPisosConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // SANITARIOS (CONSTRUCCION)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Aparatos sanitarios y lavaplatos</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialSanitariosConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialSanitariosConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialSanitariosConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialSanitariosConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialSanitariosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialSanitariosConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialSanitariosConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialSanitariosConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalSanitariosConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalSanitariosConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalSanitariosConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalSanitariosConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalSanitariosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalSanitariosConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalSanitariosConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalSanitariosConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncSanitariosConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncSanitariosConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncSanitariosConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncSanitariosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncSanitariosConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActSanitariosConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncSanitariosConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncSanitariosConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActSanitariosConstruccionPry[" + indiceFilaFormulario + "]' id='valActSanitariosConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActSanitariosConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' id='valActSanitariosConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActSanitariosConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActSanitariosConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActSanitariosConstruccion[" + indiceFilaFormulario + "]' id='difValActSanitariosConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // EXTERIORES (CONSTRUCCION)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Obras exteriores</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialExterioresConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialExterioresConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialExterioresConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialExterioresConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialExterioresConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialExterioresConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialExterioresConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialExterioresConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialExterioresConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialExterioresConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalExterioresConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalExterioresConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalExterioresConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalExterioresConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalExterioresConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalExterioresConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalExterioresConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalExterioresConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalExterioresConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalExterioresConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncExterioresConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncExterioresConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncExterioresConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncExterioresConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncExterioresConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncExterioresConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncExterioresConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActExterioresConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncExterioresConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncExterioresConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActExterioresConstruccionPry[" + indiceFilaFormulario + "]' id='valActExterioresConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActExterioresConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActExterioresConstruccionSeg[" + indiceFilaFormulario + "]' id='valActExterioresConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActExterioresConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActExterioresConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActExterioresConstruccion[" + indiceFilaFormulario + "]' id='difValActExterioresConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // ASEO (CONSTRUCCION)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Aseo</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialAseoConstruccionPry[" + indiceFilaFormulario + "]' id='fchInicialAseoConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialAseoConstruccion + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialAseoConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialAseoConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialAseoConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialAseoConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchInicialAseoConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialAseoConstruccion[" + indiceFilaFormulario + "]' id='difFchInicialAseoConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalAseoConstruccionPry[" + indiceFilaFormulario + "]' id='fchFinalAseoConstruccionPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalAseoConstruccion + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalAseoConstruccionSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalAseoConstruccionSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalAseoConstruccionSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalAseoConstruccionPry[" + indiceFilaFormulario + "]\"), \"difFchFinalAseoConstruccion[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalAseoConstruccion[" + indiceFilaFormulario + "]' id='difFchFinalAseoConstruccion[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoConstruccionPry[" + indiceFilaFormulario + "]' id='porcIncAseoConstruccionPry[" + indiceFilaFormulario + "]' value='" + porcIncAseoConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoConstruccionSeg[" + indiceFilaFormulario + "]' id='porcIncAseoConstruccionSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncAseoConstruccionPry[" + indiceFilaFormulario + "]\"), \"difPorcIncAseoConstruccion[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActAseoConstruccionSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncAseoConstruccion[" + indiceFilaFormulario + "]' id='difPorcIncAseoConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoConstruccionPry[" + indiceFilaFormulario + "]' id='valActAseoConstruccionPry[" + indiceFilaFormulario + "]' value='" + valActAseoConstruccion + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoConstruccionSeg[" + indiceFilaFormulario + "]' id='valActAseoConstruccionSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActAseoConstruccionPry[" + indiceFilaFormulario + "]\"), \"difValActAseoConstruccion[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActAseoConstruccion[" + indiceFilaFormulario + "]' id='difValActAseoConstruccion[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    //////////////////////////////////////////////////// URBANISMO //////////////////////////////////////////////////////
+    contenido += "<tr><td class='tituloNivel0' colspan='9'>Urbanismo</td></tr>";
+    // PRELIMINARES (URBANISMO)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Preliminares</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' id='fchInicialPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialPreliminarUrbanismo + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialPreliminarUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchInicialPreliminarUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialPreliminarUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' id='difFchInicialPreliminarUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' id='fchFinalPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalPreliminarUrbanismo + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalPreliminarUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchFinalPreliminarUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalPreliminarUrbanismo[" + indiceFilaFormulario + "]' id='difFchFinalPreliminarUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' id='porcIncPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' value='" + porcIncPreliminarUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' id='porcIncPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncPreliminarUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difPorcIncPreliminarUrbanismo[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncPreliminarUrbanismo[" + indiceFilaFormulario + "]' id='difPorcIncPreliminarUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' id='valActPreliminarUrbanismoPry[" + indiceFilaFormulario + "]' value='" + valActPreliminarUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' id='valActPreliminarUrbanismoSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActPreliminarUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difValActPreliminarUrbanismo[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActPreliminarUrbanismo[" + indiceFilaFormulario + "]' id='difValActPreliminarUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // CIMENTACION (URBANISMO)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Cimentaci&oacute;n</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' id='fchInicialCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialCimentacionUrbanismo + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialCimentacionUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchInicialCimentacionUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialCimentacionUrbanismo[" + indiceFilaFormulario + "]' id='difFchInicialCimentacionUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' id='fchFinalCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalCimentacionUrbanismo + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalCimentacionUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchFinalCimentacionUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalCimentacionUrbanismo[" + indiceFilaFormulario + "]' id='difFchFinalCimentacionUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' id='porcIncCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' value='" + porcIncCimentacionUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' id='porcIncCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncCimentacionUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difPorcIncCimentacionUrbanismo[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncCimentacionUrbanismo[" + indiceFilaFormulario + "]' id='difPorcIncCimentacionUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' id='valActCimentacionUrbanismoPry[" + indiceFilaFormulario + "]' value='" + valActCimentacionUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' id='valActCimentacionUrbanismoSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActCimentacionUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difValActCimentacionUrbanismo[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActCimentacionUrbanismo[" + indiceFilaFormulario + "]' id='difValActCimentacionUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // DESAGUES (URBANISMO)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Desag&uuml;es e instalaciones sanitarias</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' id='fchInicialDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialDesaguesUrbanismo + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialDesaguesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchInicialDesaguesUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialDesaguesUrbanismo[" + indiceFilaFormulario + "]' id='difFchInicialDesaguesUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' id='fchFinalDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalDesaguesUrbanismo + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalDesaguesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchFinalDesaguesUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalDesaguesUrbanismo[" + indiceFilaFormulario + "]' id='difFchFinalDesaguesUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' id='porcIncDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' value='" + porcIncDesaguesUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' id='porcIncDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncDesaguesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difPorcIncDesaguesUrbanismo[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncDesaguesUrbanismo[" + indiceFilaFormulario + "]' id='difPorcIncDesaguesUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' id='valActDesaguesUrbanismoPry[" + indiceFilaFormulario + "]' value='" + valActDesaguesUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' id='valActDesaguesUrbanismoSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActDesaguesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difValActDesaguesUrbanismo[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActDesaguesUrbanismo[" + indiceFilaFormulario + "]' id='difValActDesaguesUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // VIAS Y ANDENES (URBANISMO)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Estructura en concreto</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialViasUrbanismoPry[" + indiceFilaFormulario + "]' id='fchInicialViasUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialViasUrbanismo + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialViasUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialViasUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialViasUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialViasUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchInicialViasUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialViasUrbanismo[" + indiceFilaFormulario + "]' id='difFchInicialViasUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalViasUrbanismoPry[" + indiceFilaFormulario + "]' id='fchFinalViasUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalViasUrbanismo + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalViasUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalViasUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalViasUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalViasUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchFinalViasUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalViasUrbanismo[" + indiceFilaFormulario + "]' id='difFchFinalViasUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncViasUrbanismoPry[" + indiceFilaFormulario + "]' id='porcIncViasUrbanismoPry[" + indiceFilaFormulario + "]' value='" + porcIncViasUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncViasUrbanismoSeg[" + indiceFilaFormulario + "]' id='porcIncViasUrbanismoSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncViasUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difPorcIncViasUrbanismo[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActViasUrbanismoSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncViasUrbanismo[" + indiceFilaFormulario + "]' id='difPorcIncViasUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActViasUrbanismoPry[" + indiceFilaFormulario + "]' id='valActViasUrbanismoPry[" + indiceFilaFormulario + "]' value='" + valActViasUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActViasUrbanismoSeg[" + indiceFilaFormulario + "]' id='valActViasUrbanismoSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActViasUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difValActViasUrbanismo[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActViasUrbanismo[" + indiceFilaFormulario + "]' id='difValActViasUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // PARQUES Y CESIONES (URBANISMO)
+    contenido += "<tr class='fila_0'><td class='tituloNivel1'>Mamposter&iacute;a</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialParquesUrbanismoPry[" + indiceFilaFormulario + "]' id='fchInicialParquesUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialParquesUrbanismo + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialParquesUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialParquesUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialParquesUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialParquesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchInicialParquesUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialParquesUrbanismo[" + indiceFilaFormulario + "]' id='difFchInicialParquesUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalParquesUrbanismoPry[" + indiceFilaFormulario + "]' id='fchFinalParquesUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalParquesUrbanismo + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalParquesUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalParquesUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalParquesUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalParquesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchFinalParquesUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalParquesUrbanismo[" + indiceFilaFormulario + "]' id='difFchFinalParquesUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncParquesUrbanismoPry[" + indiceFilaFormulario + "]' id='porcIncParquesUrbanismoPry[" + indiceFilaFormulario + "]' value='" + porcIncParquesUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncParquesUrbanismoSeg[" + indiceFilaFormulario + "]' id='porcIncParquesUrbanismoSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncParquesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difPorcIncParquesUrbanismo[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActParquesUrbanismoSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncParquesUrbanismo[" + indiceFilaFormulario + "]' id='difPorcIncParquesUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActParquesUrbanismoPry[" + indiceFilaFormulario + "]' id='valActParquesUrbanismoPry[" + indiceFilaFormulario + "]' value='" + valActParquesUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActParquesUrbanismoSeg[" + indiceFilaFormulario + "]' id='valActParquesUrbanismoSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActParquesUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difValActParquesUrbanismo[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActParquesUrbanismo[" + indiceFilaFormulario + "]' id='difValActParquesUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    // ASEO (URBANISMO)
+    contenido += "<tr class='fila_1'><td class='tituloNivel1'>Aseo</td>";
+    // Fecha Inicial Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchInicialAseoUrbanismoPry[" + indiceFilaFormulario + "]' id='fchInicialAseoUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchInicialAseoUrbanismo + "'></td>";
+    // Fecha Inicial Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchInicialAseoUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchInicialAseoUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchInicialAseoUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchInicialAseoUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchInicialAseoUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Inicial Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchInicialAseoUrbanismo[" + indiceFilaFormulario + "]' id='difFchInicialAseoUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Fecha Final Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='fchFinalAseoUrbanismoPry[" + indiceFilaFormulario + "]' id='fchFinalAseoUrbanismoPry[" + indiceFilaFormulario + "]' size='10' class='campoReadonly' readonly value='" + fchFinalAseoUrbanismo + "'></td>";
+    // Fecha Final Ejecutada
+    contenido += "<td align='center' valign='top'><input name='fchFinalAseoUrbanismoSeg[" + indiceFilaFormulario + "]' type='text' id='fchFinalAseoUrbanismoSeg[" + indiceFilaFormulario + "]' size='10' style='text-align:center' readonly /><a href='#' onClick='javascript: calendarioPopUpCalcula( \"fchFinalAseoUrbanismoSeg[" + indiceFilaFormulario + "]\", document.getElementById(\"fchFinalAseoUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difFchFinalAseoUrbanismo[" + indiceFilaFormulario + "]\" ); '><img src='recursos/imagenes/calendar_icon_tr.gif'></a></td>";
+    // Diferencia Fecha Final Ejecutada y Proyectada
+    contenido += "<td class='fechaNivel1' valign='top'><input type='text' name='difFchFinalAseoUrbanismo[" + indiceFilaFormulario + "]' id='difFchFinalAseoUrbanismo[" + indiceFilaFormulario + "]' size='6' style='text-align:right' readonly></td>";
+    // Porcentaje Proyectado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoUrbanismoPry[" + indiceFilaFormulario + "]' id='porcIncAseoUrbanismoPry[" + indiceFilaFormulario + "]' value='" + porcIncAseoUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Porcentaje Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='porcIncAseoUrbanismoSeg[" + indiceFilaFormulario + "]' id='porcIncAseoUrbanismoSeg[" + indiceFilaFormulario + "]' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"porcIncAseoUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difPorcIncAseoUrbanismo[" + indiceFilaFormulario + "]\"); valorActividadEjecutado(this, \"valActAseoUrbanismoSeg[" + indiceFilaFormulario + "]\");' class='campoPesos' size='12'></td>";
+    // Diferencia Porcentaje
+    contenido += "<td class='campoNivel1' valign='top'><input type='text' name='difPorcIncAseoUrbanismo[" + indiceFilaFormulario + "]' id='difPorcIncAseoUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td>";
+    // Valor Proyectado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoUrbanismoPry[" + indiceFilaFormulario + "]' id='valActAseoUrbanismoPry[" + indiceFilaFormulario + "]' value='" + valActAseoUrbanismo + "' class='campoPesosReadonly' size='12' readonly></td>";
+    // Valor Ejecutado
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='valActAseoUrbanismoSeg[" + indiceFilaFormulario + "]' id='valActAseoUrbanismoSeg[" + indiceFilaFormulario + "]' class='campoPesos' size='12' onBlur='sinCaracteresEspeciales( this ); soloNumeros( this ); diferenciaValores(this, document.getElementById(\"valActAseoUrbanismoPry[" + indiceFilaFormulario + "]\"), \"difValActAseoUrbanismo[" + indiceFilaFormulario + "]\");' ></td>";
+    // Diferencia Valor
+    contenido += "<td class='campoNivel1' valign='top'>$ <input type='text' name='difValActAseoUrbanismo[" + indiceFilaFormulario + "]' id='difValActAseoUrbanismo[" + indiceFilaFormulario + "]' class='campoPesos' size='12' readonly ></td></tr>";
+    contenido += "</table></div></div></td>";
+    myNewCell.innerHTML = contenido;
+    myNewCell = myNewRow.insertCell(-1);
+    myNewCell.setAttribute("align", "center");
+    myNewCell.setAttribute("valign", "top");
+    myNewCell.setAttribute("style", "padding:6px");
+    myNewCell.innerHTML = "<td><input type='button' value='Eliminar' onclick='return confirmaRemoverLineaFormulario(this);'></td>";
+    indiceFilaFormulario++;
+}
 
-	function sumaTotalCostos(){
-		if ((document.getElementById("valCostosDirectos").value) == '' || (document.getElementById("valCostosDirectos").value) == 0) {
-			var valDirectos	= 0;
-		} else {
-			var valDirectos	= document.getElementById("valCostosDirectos").value;
-		}
-		if ((document.getElementById("valCostosIndirectos").value) == '' || (document.getElementById("valCostosIndirectos").value) == 0) {
-			var valIndirectos	= 0;
-		} else {
-			var valIndirectos	= document.getElementById("valCostosIndirectos").value;
-		}
-		if ((document.getElementById("valTerreno").value) == '' || (document.getElementById("valTerreno").value) == 0) {
-			var valTerreno	= 0;
-		} else {
-			var valTerreno	= document.getElementById("valTerreno").value;
-		}
-		if ((document.getElementById("valGastosFinancieros").value) == '' || (document.getElementById("valGastosFinancieros").value) == 0) {
-			var valFinanciero	= 0;
-		} else {
-			var valFinanciero	= document.getElementById("valGastosFinancieros").value;
-		}
-		if ((document.getElementById("valGastosVentas").value) == '' || (document.getElementById("valGastosVentas").value) == 0) {
-			var valVentas	= 0;
-		} else {
-			var valVentas	= document.getElementById("valGastosVentas").value;
-		}
-
-		var objValTotalCostos	= document.getElementById("valTotalCostos");
-		
-		var valSumaCostos = 0;
-
-		valSumaCostos += parseInt(valDirectos);
-		valSumaCostos += parseInt(valIndirectos);
-		valSumaCostos += parseInt(valTerreno);
-		valSumaCostos += parseInt(valFinanciero);
-		valSumaCostos += parseInt(valVentas);
-
-		objValTotalCostos.value = valSumaCostos;
-
-		// Calcula nueva utilidad
-		calculaUtilidad();
-	}
-	
-	function calculaUtilidad() {
-		var valCalculaUtilidad = 0;
-		if ((document.getElementById("valTotalVentas").value) == '' || (document.getElementById("valTotalVentas").value) == 0) {
-			var valTotalVentas = 0;
-		} else {
-			var valTotalVentas	= document.getElementById("valTotalVentas").value;
-		}
-		if ((document.getElementById("valTotalCostos").value) == '' || (document.getElementById("valTotalCostos").value) == 0) {
-			var valTotalCostos = 0;
-		} else {
-			var valTotalCostos	= document.getElementById("valTotalCostos").value;
-		}
-		
-		var objvalUtilidadProyecto	= document.getElementById("valUtilidadProyecto");
-
-		valCalculaUtilidad = valTotalVentas - valTotalCostos;
-		objvalUtilidadProyecto.value = valCalculaUtilidad;
-	}
-
-	function sumaTotalRecursos() {
-		if ((document.getElementById("valRecursosPropios").value) == '' || (document.getElementById("valRecursosPropios").value) == 0) {
-			var valRecursosPropios	= 0;
-		} else {
-			var valRecursosPropios	= document.getElementById("valRecursosPropios").value;
-		}
-		if ((document.getElementById("valCreditoEntidadFinanciera").value) == '' || (document.getElementById("valCreditoEntidadFinanciera").value) == 0) {
-			var valCreditoEntidadFinanciera	= 0;
-		} else {
-			var valCreditoEntidadFinanciera	= document.getElementById("valCreditoEntidadFinanciera").value;
-		}
-		if ((document.getElementById("valCreditoParticulares").value) == '' || (document.getElementById("valCreditoParticulares").value) == 0) {
-			var valCreditoParticulares	= 0;
-		} else {
-			var valCreditoParticulares	= document.getElementById("valCreditoParticulares").value;
-		}
-		if ((document.getElementById("valVentasProyecto").value) == '' || (document.getElementById("valVentasProyecto").value) == 0) {
-			var valVentasProyecto	= 0;
-		} else {
-			var valVentasProyecto	= document.getElementById("valVentasProyecto").value;
-		}
-		if ((document.getElementById("valSDVE").value) == '' || (document.getElementById("valSDVE").value) == 0) {
-			var valSDVE	= 0;
-		} else {
-			var valSDVE	= document.getElementById("valSDVE").value;
-		}
-		if ((document.getElementById("valOtros").value) == '' || (document.getElementById("valOtros").value) == 0) {
-			var valOtros	= 0;
-		} else {
-			var valOtros	= document.getElementById("valOtros").value;
-		}
-		if ((document.getElementById("valDevolucionIVA").value) == '' || (document.getElementById("valDevolucionIVA").value) == 0) {
-			var valDevolucionIVA	= 0;
-		} else {
-			var valDevolucionIVA	= document.getElementById("valDevolucionIVA").value;
-		}
-
-		var objValTotalRecursos 			= document.getElementById("valTotalRecursos");
-		
-		var valSumaRecursos = 0;
-		valSumaRecursos += parseInt(valRecursosPropios);
-		valSumaRecursos += parseInt(valCreditoEntidadFinanciera);
-		valSumaRecursos += parseInt(valCreditoParticulares);
-		valSumaRecursos += parseInt(valVentasProyecto);
-		valSumaRecursos += parseInt(valSDVE);
-		valSumaRecursos += parseInt(valOtros);
-		valSumaRecursos += parseInt(valDevolucionIVA);
-
-		objValTotalRecursos.value = valSumaRecursos;
-	}
-	
-	function confirmaRemoverLineaFormulario(formObj) { 
-		if (!confirm(" Está seguro de eliminar el registro seleccionado?")) {
-			return false;
-		} else {
-			removerLineaFormulario(formObj);
-			return false;
-		}
-	}
-    
-    function obtenerDatosProyecto( objSelect , seqPlanGobierno ){
-        
-        var mensajes = YAHOO.util.Dom.get('mensajes');
-        
-        var fncExito = function( objRespuesta ){
-            
-            eval( objRespuesta.responseText );
-            
-            var objDireccionSolucion = YAHOO.util.Dom.get('txtDireccionSolucion');
-            var objMatriculaInmobiliaria = YAHOO.util.Dom.get('txtMatriculaInmobiliaria');
-            var objChip = YAHOO.util.Dom.get('txtChip'); 
-			var objEsquema = YAHOO.util.Dom.get('seqTipoEsquema'); 
-            objDireccionSolucion.value = txtDireccion;
-            objMatriculaInmobiliaria.value = txtMatriculaInmobiliaria;
-            objChip.value = txtChip;
-            objEsquema.value = seqTipoEsquema;
-			/*
-			// FUNCIONA PERFECTO
-			if(objEsquema.value == 1){
-				document.getElementById("divEsqIndiv").style.display = "block";
-				document.getElementById("divEsqOtros").style.display = "none";
-				document.getElementById("divEsqDefault").style.display = "none";
-			} else {
-				document.getElementById("divEsqIndiv").style.display = "none";
-				document.getElementById("divEsqOtros").style.display = "block";
-				document.getElementById("divEsqDefault").style.display = "none";
-			}*/
-			if(objEsquema.value == 1){
-				if(document.getElementById("seqProyecto").value == 4 ){
-					document.getElementById("divEsqIndiv").style.display = "none";
-					document.getElementById("divEsqOtros").style.display = "block";
-					document.getElementById("divEsqDefault").style.display = "none";
-					objMatriculaInmobiliaria.readOnly = false;
-					objChip.readOnly = false;
-				} else {
-					document.getElementById("divEsqIndiv").style.display = "block";
-					document.getElementById("divEsqOtros").style.display = "none";
-					document.getElementById("divEsqDefault").style.display = "none";
-					objMatriculaInmobiliaria.readOnly = true;
-					objChip.readOnly = true;
-				}
-			} else {
-				document.getElementById("divEsqIndiv").style.display = "none";
-				document.getElementById("divEsqOtros").style.display = "block";
-				document.getElementById("divEsqDefault").style.display = "none";
-				objMatriculaInmobiliaria.readOnly = false;
-				objChip.readOnly = false;
-			}
+function sumaVentas() {
+    var fila = 0;
+    var filab = 0;
+    var valSumaVentas = 0;
+    var valSumaVentasNuevas = 0;
+    var objValTotalVentas = document.getElementById("valTotalVentas");
+    // Valores de lineas existentes
+    var a;
+    for (fila = 1; fila < 50; fila++) {
+        if (!document.getElementById("numCantidadr_" + fila)) {
+            a = 0;
+        } else {
+            valorCantidad = document.getElementById("numCantidadr_" + fila).value;
+            valorVenta = document.getElementById("valPrecioVentar_" + fila).value;
+            valSumaVentas += (parseInt(valorCantidad) * parseInt(valorVenta));
         }
-        
-        var fncFalla = function( objRespuesta ){
-            alert( objRespuesta.status + ": " + objRespuesta.statusText );
+    }
+    // Valores de lineas nuevas
+    var b;
+    for (filab = 1; filab < 50; filab++) {
+        if (!document.getElementById("numCantidad_" + filab)) {
+            b = 0;
+        } else {
+            valorCantidadNueva = document.getElementById("numCantidad_" + filab).value;
+            valorVentaNueva = document.getElementById("valPrecioVenta_" + filab).value;
+            valSumaVentasNuevas += (parseInt(valorCantidadNueva) * parseInt(valorVentaNueva));
         }
-        
-        var objRetorno = {
-            success: fncExito,
-            failure: fncFalla        
-        }
-        
-        YAHOO.util.Connect.asyncRequest(
-                "POST", 
-                "./contenidos/postulacionIndividual/datosProyectos.php", 
-                objRetorno, 
-                "seqProyecto=" + objSelect.options[ objSelect.selectedIndex ].value + "&seqPlanGobierno=" + seqPlanGobierno
-        );
-        
+    }
+    // Suma Totales
+    objValTotalVentas.value = valSumaVentas + valSumaVentasNuevas;
+
+    // Calcula nueva utilidad
+    calculaUtilidad();
+}
+
+function sumaTotalCostos() {
+    if ((document.getElementById("valCostosDirectos").value) == '' || (document.getElementById("valCostosDirectos").value) == 0) {
+        var valDirectos = 0;
+    } else {
+        var valDirectos = document.getElementById("valCostosDirectos").value;
+    }
+    if ((document.getElementById("valCostosIndirectos").value) == '' || (document.getElementById("valCostosIndirectos").value) == 0) {
+        var valIndirectos = 0;
+    } else {
+        var valIndirectos = document.getElementById("valCostosIndirectos").value;
+    }
+    if ((document.getElementById("valTerreno").value) == '' || (document.getElementById("valTerreno").value) == 0) {
+        var valTerreno = 0;
+    } else {
+        var valTerreno = document.getElementById("valTerreno").value;
+    }
+    if ((document.getElementById("valGastosFinancieros").value) == '' || (document.getElementById("valGastosFinancieros").value) == 0) {
+        var valFinanciero = 0;
+    } else {
+        var valFinanciero = document.getElementById("valGastosFinancieros").value;
+    }
+    if ((document.getElementById("valGastosVentas").value) == '' || (document.getElementById("valGastosVentas").value) == 0) {
+        var valVentas = 0;
+    } else {
+        var valVentas = document.getElementById("valGastosVentas").value;
     }
 
-	function removerLineaFormulario(obj){ 
-	 var oTr = obj;
-	 while(oTr.nodeName.toLowerCase()!='tr'){
-	  oTr=oTr.parentNode;
-	 }
-	 var root = oTr.parentNode;
-	 root.removeChild(oTr);
-	}
+    var objValTotalCostos = document.getElementById("valTotalCostos");
+
+    var valSumaCostos = 0;
+
+    valSumaCostos += parseInt(valDirectos);
+    valSumaCostos += parseInt(valIndirectos);
+    valSumaCostos += parseInt(valTerreno);
+    valSumaCostos += parseInt(valFinanciero);
+    valSumaCostos += parseInt(valVentas);
+
+    objValTotalCostos.value = valSumaCostos;
+
+    // Calcula nueva utilidad
+    calculaUtilidad();
+}
+
+function calculaUtilidad() {
+    var valCalculaUtilidad = 0;
+    if ((document.getElementById("valTotalVentas").value) == '' || (document.getElementById("valTotalVentas").value) == 0) {
+        var valTotalVentas = 0;
+    } else {
+        var valTotalVentas = document.getElementById("valTotalVentas").value;
+    }
+    if ((document.getElementById("valTotalCostos").value) == '' || (document.getElementById("valTotalCostos").value) == 0) {
+        var valTotalCostos = 0;
+    } else {
+        var valTotalCostos = document.getElementById("valTotalCostos").value;
+    }
+
+    var objvalUtilidadProyecto = document.getElementById("valUtilidadProyecto");
+
+    valCalculaUtilidad = valTotalVentas - valTotalCostos;
+    objvalUtilidadProyecto.value = valCalculaUtilidad;
+}
+
+function sumaTotalRecursos() {
+    if ((document.getElementById("valRecursosPropios").value) == '' || (document.getElementById("valRecursosPropios").value) == 0) {
+        var valRecursosPropios = 0;
+    } else {
+        var valRecursosPropios = document.getElementById("valRecursosPropios").value;
+    }
+    if ((document.getElementById("valCreditoEntidadFinanciera").value) == '' || (document.getElementById("valCreditoEntidadFinanciera").value) == 0) {
+        var valCreditoEntidadFinanciera = 0;
+    } else {
+        var valCreditoEntidadFinanciera = document.getElementById("valCreditoEntidadFinanciera").value;
+    }
+    if ((document.getElementById("valCreditoParticulares").value) == '' || (document.getElementById("valCreditoParticulares").value) == 0) {
+        var valCreditoParticulares = 0;
+    } else {
+        var valCreditoParticulares = document.getElementById("valCreditoParticulares").value;
+    }
+    if ((document.getElementById("valVentasProyecto").value) == '' || (document.getElementById("valVentasProyecto").value) == 0) {
+        var valVentasProyecto = 0;
+    } else {
+        var valVentasProyecto = document.getElementById("valVentasProyecto").value;
+    }
+    if ((document.getElementById("valSDVE").value) == '' || (document.getElementById("valSDVE").value) == 0) {
+        var valSDVE = 0;
+    } else {
+        var valSDVE = document.getElementById("valSDVE").value;
+    }
+    if ((document.getElementById("valOtros").value) == '' || (document.getElementById("valOtros").value) == 0) {
+        var valOtros = 0;
+    } else {
+        var valOtros = document.getElementById("valOtros").value;
+    }
+    if ((document.getElementById("valDevolucionIVA").value) == '' || (document.getElementById("valDevolucionIVA").value) == 0) {
+        var valDevolucionIVA = 0;
+    } else {
+        var valDevolucionIVA = document.getElementById("valDevolucionIVA").value;
+    }
+
+    var objValTotalRecursos = document.getElementById("valTotalRecursos");
+
+    var valSumaRecursos = 0;
+    valSumaRecursos += parseInt(valRecursosPropios);
+    valSumaRecursos += parseInt(valCreditoEntidadFinanciera);
+    valSumaRecursos += parseInt(valCreditoParticulares);
+    valSumaRecursos += parseInt(valVentasProyecto);
+    valSumaRecursos += parseInt(valSDVE);
+    valSumaRecursos += parseInt(valOtros);
+    valSumaRecursos += parseInt(valDevolucionIVA);
+
+    objValTotalRecursos.value = valSumaRecursos;
+}
+
+function confirmaRemoverLineaFormulario(formObj) {
+    if (!confirm(" Está seguro de eliminar el registro seleccionado?")) {
+        return false;
+    } else {
+        removerLineaFormulario(formObj);
+        return false;
+    }
+}
+
+function obtenerDatosProyecto(objSelect, seqPlanGobierno) {
+
+    var mensajes = YAHOO.util.Dom.get('mensajes');
+
+    var fncExito = function (objRespuesta) {
+
+        eval(objRespuesta.responseText);
+
+        var objDireccionSolucion = YAHOO.util.Dom.get('txtDireccionSolucion');
+        var objMatriculaInmobiliaria = YAHOO.util.Dom.get('txtMatriculaInmobiliaria');
+        var objChip = YAHOO.util.Dom.get('txtChip');
+        var objEsquema = YAHOO.util.Dom.get('seqTipoEsquema');
+        objDireccionSolucion.value = txtDireccion;
+        objMatriculaInmobiliaria.value = txtMatriculaInmobiliaria;
+        objChip.value = txtChip;
+        objEsquema.value = seqTipoEsquema;
+        /*
+         // FUNCIONA PERFECTO
+         if(objEsquema.value == 1){
+         document.getElementById("divEsqIndiv").style.display = "block";
+         document.getElementById("divEsqOtros").style.display = "none";
+         document.getElementById("divEsqDefault").style.display = "none";
+         } else {
+         document.getElementById("divEsqIndiv").style.display = "none";
+         document.getElementById("divEsqOtros").style.display = "block";
+         document.getElementById("divEsqDefault").style.display = "none";
+         }*/
+        if (objEsquema.value == 1) {
+            if (document.getElementById("seqProyecto").value == 4) {
+                document.getElementById("divEsqIndiv").style.display = "none";
+                document.getElementById("divEsqOtros").style.display = "block";
+                document.getElementById("divEsqDefault").style.display = "none";
+                objMatriculaInmobiliaria.readOnly = false;
+                objChip.readOnly = false;
+            } else {
+                document.getElementById("divEsqIndiv").style.display = "block";
+                document.getElementById("divEsqOtros").style.display = "none";
+                document.getElementById("divEsqDefault").style.display = "none";
+                objMatriculaInmobiliaria.readOnly = true;
+                objChip.readOnly = true;
+            }
+        } else {
+            document.getElementById("divEsqIndiv").style.display = "none";
+            document.getElementById("divEsqOtros").style.display = "block";
+            document.getElementById("divEsqDefault").style.display = "none";
+            objMatriculaInmobiliaria.readOnly = false;
+            objChip.readOnly = false;
+        }
+    }
+
+    var fncFalla = function (objRespuesta) {
+        alert(objRespuesta.status + ": " + objRespuesta.statusText);
+    }
+
+    var objRetorno = {
+        success: fncExito,
+        failure: fncFalla
+    }
+
+    YAHOO.util.Connect.asyncRequest(
+            "POST",
+            "./contenidos/postulacionIndividual/datosProyectos.php",
+            objRetorno,
+            "seqProyecto=" + objSelect.options[ objSelect.selectedIndex ].value + "&seqPlanGobierno=" + seqPlanGobierno
+            );
+
+}
+
+function removerLineaFormulario(obj) {
+    var oTr = obj;
+    while (oTr.nodeName.toLowerCase() != 'tr') {
+        oTr = oTr.parentNode;
+    }
+    var root = oTr.parentNode;
+    root.removeChild(oTr);
+}
 
 function eliminarRegistroProyectos(seqRegistro, txtPregunta, txtArchivo) {
 
@@ -9416,7 +9450,7 @@ function eliminarRegistroProyectos(seqRegistro, txtPregunta, txtArchivo) {
     objDialogo.cfg.setProperty("icon", YAHOO.widget.SimpleDialog.ICON_WARN); // Icono de advertencia que se ve en el cuadro
 
     // COMPORTAMIENTO SI SE PRESIONA -- SI -- EN EL CUADRO
-    var handleYes = function() {
+    var handleYes = function () {
 
         // Envia los datos el archivo que contesta la peticion de borrado
         cargarContenido("mensajes", txtArchivo, "seqBorrar=" + seqRegistro, true);
@@ -9426,7 +9460,7 @@ function eliminarRegistroProyectos(seqRegistro, txtPregunta, txtArchivo) {
         // objeto que contiene el registro en pantalla
         YAHOO.util.Event.onContentReady(
                 "tablaMensajes",
-                function() {
+                function () {
                     // Cambiar 'msgOk' si la clase (css) que muestra los mensajes satisfactorios no se llama asi
                     if (document.getElementById('tablaMensajes').className == "msgOk") {
                         eliminarObjeto(seqRegistro);
@@ -9438,7 +9472,7 @@ function eliminarRegistroProyectos(seqRegistro, txtPregunta, txtArchivo) {
     }
 
     // COMPORTAMIENTO SI SE PRESIONA -- NO -- EN EL CUADRO
-    var handleNo = function() {
+    var handleNo = function () {
         document.getElementById("mensajes").innerHTML = "";
         this.hide();
     }
@@ -9465,188 +9499,190 @@ function eliminarRegistroProyectos(seqRegistro, txtPregunta, txtArchivo) {
 
 }
 
-function muestraProrrogaUrbanismo(){
-	if(document.getElementById("lineaProrrogaUrbanismo").style.display == "none"){
-		document.getElementById("lineaProrrogaUrbanismo").style.display = "table-row";
-	} else {
-		document.getElementById("lineaProrrogaUrbanismo").style.display = "none";
-	}
+function muestraProrrogaUrbanismo() {
+    if (document.getElementById("lineaProrrogaUrbanismo").style.display == "none") {
+        document.getElementById("lineaProrrogaUrbanismo").style.display = "table-row";
+    } else {
+        document.getElementById("lineaProrrogaUrbanismo").style.display = "none";
+    }
 }
 
-function sumaMesVencimiento(days){
-	var days = days - 1;
+function sumaMesVencimiento(days) {
+    var days = days - 1;
     var fechaEjecutoria = document.getElementById("fchEjecutaLicConstruccion").value;
-	var objFchVenceLicConstruccion = document.getElementById("fchVenceLicConstruccion");
-	if (fechaEjecutoria.substr(6,1) == "-"){
-		var Parte1 = fechaEjecutoria.substr(0,5);
-		var Parte2 = "0"
-		var Parte3 = fechaEjecutoria.substr(5,5);
-		var fechaEjecutoriaNueva = Parte1 + Parte2 + Parte3;
-	} else {
-		var fechaEjecutoriaNueva = fechaEjecutoria;
-	}
+    var objFchVenceLicConstruccion = document.getElementById("fchVenceLicConstruccion");
+    if (fechaEjecutoria.substr(6, 1) == "-") {
+        var Parte1 = fechaEjecutoria.substr(0, 5);
+        var Parte2 = "0"
+        var Parte3 = fechaEjecutoria.substr(5, 5);
+        var fechaEjecutoriaNueva = Parte1 + Parte2 + Parte3;
+    } else {
+        var fechaEjecutoriaNueva = fechaEjecutoria;
+    }
 
-	ms = Date.parse(fechaEjecutoriaNueva);
-	fecha = new Date(ms);
+    ms = Date.parse(fechaEjecutoriaNueva);
+    fecha = new Date(ms);
     dayx = fecha.getDate();
-    monthx = fecha.getMonth()+1;
+    monthx = fecha.getMonth() + 1;
     yearx = fecha.getFullYear();
 
     tiempo = fecha.getTime();
-    milisegundos = parseInt(days*24*60*60*1000);
-    total = fecha.setTime(tiempo+milisegundos);
+    milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
+    total = fecha.setTime(tiempo + milisegundos);
     dayx = fecha.getDate();
-    monthx = fecha.getMonth()+1;
+    monthx = fecha.getMonth() + 1;
     yearx = fecha.getFullYear();
-	
-	var fechaVencimiento = yearx + "-" + monthx + "-" + dayx;
-	 objFchVenceLicConstruccion.value = fechaVencimiento;
+
+    var fechaVencimiento = yearx + "-" + monthx + "-" + dayx;
+    objFchVenceLicConstruccion.value = fechaVencimiento;
 }
 
-function sumaMesVencimientoProrroga(days){
+function sumaMesVencimientoProrroga(days) {
     var fechaEjecutoriaProrroga = document.getElementById("fchEjecutaProrrogaLicConstruccion").value;
-	var objFchVenceProrrogaLicConstruccion = document.getElementById("fchVenceProrrogaLicConstruccion");
-	if (fechaEjecutoriaProrroga.substr(6,1) == "-"){
-		var Parte1 = fechaEjecutoriaProrroga.substr(0,5);
-		var Parte2 = "0"
-		var Parte3 = fechaEjecutoriaProrroga.substr(5,5);
-		var fechaEjecutoriaNueva = Parte1 + Parte2 + Parte3;
-	} else {
-		var fechaEjecutoriaNueva = fechaEjecutoriaProrroga;
-	}
+    var objFchVenceProrrogaLicConstruccion = document.getElementById("fchVenceProrrogaLicConstruccion");
+    if (fechaEjecutoriaProrroga.substr(6, 1) == "-") {
+        var Parte1 = fechaEjecutoriaProrroga.substr(0, 5);
+        var Parte2 = "0"
+        var Parte3 = fechaEjecutoriaProrroga.substr(5, 5);
+        var fechaEjecutoriaNueva = Parte1 + Parte2 + Parte3;
+    } else {
+        var fechaEjecutoriaNueva = fechaEjecutoriaProrroga;
+    }
 
-	ms = Date.parse(fechaEjecutoriaNueva);
-	fecha = new Date(ms);
+    ms = Date.parse(fechaEjecutoriaNueva);
+    fecha = new Date(ms);
     dayx = fecha.getDate();
-    monthx = fecha.getMonth()+1;
+    monthx = fecha.getMonth() + 1;
     yearx = fecha.getFullYear();
 
     tiempo = fecha.getTime();
-    milisegundos = parseInt(days*24*60*60*1000);
-    total = fecha.setTime(tiempo+milisegundos);
+    milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
+    total = fecha.setTime(tiempo + milisegundos);
     dayx = fecha.getDate();
-    monthx = fecha.getMonth()+1;
+    monthx = fecha.getMonth() + 1;
     yearx = fecha.getFullYear();
-	
-	var fechaVencimientoProrroga = yearx + "-" + monthx + "-" + dayx;
-	 objFchVenceProrrogaLicConstruccion.value = fechaVencimientoProrroga;
+
+    var fechaVencimientoProrroga = yearx + "-" + monthx + "-" + dayx;
+    objFchVenceProrrogaLicConstruccion.value = fechaVencimientoProrroga;
 }
 
-function sumaMesVencimientoRevalidacion(days){
+function sumaMesVencimientoRevalidacion(days) {
     var fechaEjecutoriaRevalidacion = document.getElementById("fchEjecutaRevalidacionLicConstruccion").value;
-	var objFchVenceRevalidacionLicConstruccion = document.getElementById("fchVenceRevalidacionLicConstruccion");
-	if (fechaEjecutoriaRevalidacion.substr(6,1) == "-"){
-		var Parte1 = fechaEjecutoriaRevalidacion.substr(0,5);
-		var Parte2 = "0"
-		var Parte3 = fechaEjecutoriaRevalidacion.substr(5,5);
-		var fechaEjecutoriaNueva = Parte1 + Parte2 + Parte3;
-	} else {
-		var fechaEjecutoriaNueva = fechaEjecutoriaRevalidacion;
-	}
+    var objFchVenceRevalidacionLicConstruccion = document.getElementById("fchVenceRevalidacionLicConstruccion");
+    if (fechaEjecutoriaRevalidacion.substr(6, 1) == "-") {
+        var Parte1 = fechaEjecutoriaRevalidacion.substr(0, 5);
+        var Parte2 = "0"
+        var Parte3 = fechaEjecutoriaRevalidacion.substr(5, 5);
+        var fechaEjecutoriaNueva = Parte1 + Parte2 + Parte3;
+    } else {
+        var fechaEjecutoriaNueva = fechaEjecutoriaRevalidacion;
+    }
 
-	ms = Date.parse(fechaEjecutoriaNueva);
-	fecha = new Date(ms);
+    ms = Date.parse(fechaEjecutoriaNueva);
+    fecha = new Date(ms);
     dayx = fecha.getDate();
-    monthx = fecha.getMonth()+1;
+    monthx = fecha.getMonth() + 1;
     yearx = fecha.getFullYear();
 
     tiempo = fecha.getTime();
-    milisegundos = parseInt(days*24*60*60*1000);
-    total = fecha.setTime(tiempo+milisegundos);
+    milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
+    total = fecha.setTime(tiempo + milisegundos);
     dayx = fecha.getDate();
-    monthx = fecha.getMonth()+1;
+    monthx = fecha.getMonth() + 1;
     yearx = fecha.getFullYear();
-	
-	var fechaVencimientoRevalidacion = yearx + "-" + monthx + "-" + dayx;
-	 objFchVenceRevalidacionLicConstruccion.value = fechaVencimientoRevalidacion;
+
+    var fechaVencimientoRevalidacion = yearx + "-" + monthx + "-" + dayx;
+    objFchVenceRevalidacionLicConstruccion.value = fechaVencimientoRevalidacion;
 }
 
 // Muestra la linea Descripcion contrato de interventoría 
 function escondeLineaObservacionesContratoInterventoria() {
-	if (document.getElementById("optVoBoContratoInterventoria").value == 2) {
-		document.getElementById("lineaObservacionesContratoInterventoria").style.display = "table-row";
-	} else {
-		document.getElementById("lineaObservacionesContratoInterventoria").style.display = "none";
-		document.getElementById("txtObservacionesContratoInterventoria").value = "";
-	}
+    if (document.getElementById("optVoBoContratoInterventoria").value == 2) {
+        document.getElementById("lineaObservacionesContratoInterventoria").style.display = "table-row";
+    } else {
+        document.getElementById("lineaObservacionesContratoInterventoria").style.display = "none";
+        document.getElementById("txtObservacionesContratoInterventoria").value = "";
+    }
 }
 
 // Calcula el valor de la actividad según el porcentaje y el Costo Total del Proyecto
 function calculaActividadSegunCosto(porcentaje, campoDestino) {
-	var valorPorcentaje = porcentaje.value;
-	var valorCosto = document.getElementById("valTotalCostos").value;
-	var valor = valorPorcentaje * valorCosto;
-	document.getElementById(campoDestino).value = valor;
+    var valorPorcentaje = porcentaje.value;
+    var valorCosto = document.getElementById("valTotalCostos").value;
+    var valor = valorPorcentaje * valorCosto;
+    document.getElementById(campoDestino).value = valor;
 }
 
 // Calcula el porcentaje de la actividad según el valor de la actividad sobre el Costo Total del Proyecto
 function calculaPorcentajeSegunValorCosto(valor, campoDestino) {
-	var valorCampo = valor.value;
-	var valorCosto = document.getElementById("valTotalCostos").value;
-	var porcentaje = valorCampo / valorCosto * 100;
-	document.getElementById(campoDestino).value = porcentaje;
+    var valorCampo = valor.value;
+    var valorCosto = document.getElementById("valTotalCostos").value;
+    var porcentaje = valorCampo / valorCosto * 100;
+    document.getElementById(campoDestino).value = porcentaje;
 }
 
 /*function complementaDireccion(){
-	var direccionBase = document.getElementById("txtDireccionSolucion").value;
-	document.getElementById("txtDireccionSolucion").value = "";
-	var e = document.getElementById("seqUnidadProyecto");
-	var strUser = e.options[e.selectedIndex].text;
-	var complemento = " - " + strUser;
-	document.getElementById("txtDireccionSolucion").value = direccionBase + complemento;
-}*/
+ var direccionBase = document.getElementById("txtDireccionSolucion").value;
+ document.getElementById("txtDireccionSolucion").value = "";
+ var e = document.getElementById("seqUnidadProyecto");
+ var strUser = e.options[e.selectedIndex].text;
+ var complemento = " - " + strUser;
+ document.getElementById("txtDireccionSolucion").value = direccionBase + complemento;
+ }*/
 
 //<![CDATA[
-    var accordionItems = new Array();
-    function init() {
-      // Grab the accordion items from the page
-      var divs = document.getElementsByTagName( 'div' );
-      for ( var i = 0; i < divs.length; i++ ) {
-        if ( divs[i].className == 'accordionItem' ) accordionItems.push( divs[i] );
-      }
-      // Assign onclick events to the accordion item headings
-      for ( var i = 0; i < accordionItems.length; i++ ) {
-        var h2 = getFirstChildWithTagName( accordionItems[i], 'H2' );
+var accordionItems = new Array();
+function init() {
+    // Grab the accordion items from the page
+    var divs = document.getElementsByTagName('div');
+    for (var i = 0; i < divs.length; i++) {
+        if (divs[i].className == 'accordionItem')
+            accordionItems.push(divs[i]);
+    }
+    // Assign onclick events to the accordion item headings
+    for (var i = 0; i < accordionItems.length; i++) {
+        var h2 = getFirstChildWithTagName(accordionItems[i], 'H2');
         h2.onclick = toggleItem;
-      }
-      // Hide all accordion item bodies except the first
-      for ( var i = 1; i < accordionItems.length; i++ ) {
+    }
+    // Hide all accordion item bodies except the first
+    for (var i = 1; i < accordionItems.length; i++) {
         accordionItems[i].className = 'accordionItem hide';
         $(accordionItems[i]).find('div').slideUp();
-      }
+    }
+}
+
+function toggleItem() {
+    var itemClass = this.parentNode.className;
+
+    // Hide all items
+    for (var i = 0; i < accordionItems.length; i++) {
+        accordionItems[i].className = 'accordionItem hide';
+        $(accordionItems[i]).find('div').slideUp();
     }
 
-    function toggleItem() {
-      var itemClass = this.parentNode.className;
-
-      // Hide all items
-      for ( var i = 0; i < accordionItems.length; i++ ) {
-        accordionItems[i].className = 'accordionItem hide';
-        $(accordionItems[i]).find('div').slideUp();
-      }
-
-      // Show this item if it was previously hidden
-      if ( itemClass == 'accordionItem hide' ) {
+    // Show this item if it was previously hidden
+    if (itemClass == 'accordionItem hide') {
         this.parentNode.className = 'accordionItem';
         $(this).parent().find('div').slideDown();
-      }
     }
+}
 
-    function getFirstChildWithTagName( element, tagName ) {
-      for ( var i = 0; i < element.childNodes.length; i++ ) {
-        if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
-      }
+function getFirstChildWithTagName(element, tagName) {
+    for (var i = 0; i < element.childNodes.length; i++) {
+        if (element.childNodes[i].nodeName == tagName)
+            return element.childNodes[i];
     }
-	//]]>
-	
-	function verInformacionActoUnidad(seqActo) {
+}
+//]]>
 
-	var numAncho = YAHOO.util.Dom.getClientWidth() - 900;
-	var numAlto = YAHOO.util.Dom.getClientHeight() - 300;
+function verInformacionActoUnidad(seqActo) {
+
+    var numAncho = YAHOO.util.Dom.getClientWidth() - 900;
+    var numAlto = YAHOO.util.Dom.getClientHeight() - 300;
 
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
 
                     var objConfiguracion = {
@@ -9675,7 +9711,7 @@ function calculaPorcentajeSegunValorCosto(valor, campoDestino) {
 
     // Objeto de respuesta si la carga falla
     var handleFailure =
-            function(o) {
+            function (o) {
                 if (o.responseText !== undefined) {
 
                     // Cuando se vence la sesion la respuesta es HTTP 401 = Not Authorized
@@ -9705,11 +9741,11 @@ function calculaPorcentajeSegunValorCosto(valor, campoDestino) {
 
 }
 
-   function construccionArchivoIndexacion( txtObjetoSelect ){
+function construccionArchivoIndexacion(txtObjetoSelect) {
 
-      var objSelect   = YAHOO.util.Dom.get( txtObjetoSelect );
+    var objSelect = YAHOO.util.Dom.get(txtObjetoSelect);
 
-      var objPopUp = new YAHOO.widget.Panel(
+    var objPopUp = new YAHOO.widget.Panel(
             "pop",
             {
                 width: "650px",
@@ -9719,68 +9755,106 @@ function calculaPorcentajeSegunValorCosto(valor, campoDestino) {
                 modal: true,
                 visible: true
             }
-      );
+    );
 
-      var fncExito = function( objRespuesta ){
-         objPopUp.setHeader("Instrucciones para la creación del archivo de carga");
-         objPopUp.setBody( objRespuesta.responseText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncExito = function (objRespuesta) {
+        objPopUp.setHeader("Instrucciones para la creación del archivo de carga");
+        objPopUp.setBody(objRespuesta.responseText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var fncFalla = function( objRespuesta ){
-         objPopUp.setHeader("Error al abrir el documento");
-         objPopUp.setBody( objRespuesta.status + ": " + objRespuesta.statusText );
-         objPopUp.render( document.body );
-         objPopUp.show();
-      }
+    var fncFalla = function (objRespuesta) {
+        objPopUp.setHeader("Error al abrir el documento");
+        objPopUp.setBody(objRespuesta.status + ": " + objRespuesta.statusText);
+        objPopUp.render(document.body);
+        objPopUp.show();
+    }
 
-      var objRetorno = {
-         success: fncExito,
-         failure: fncFalla
-      }
-      
-      YAHOO.util.Connect.asyncRequest(
-               "POST", 
-               "./contenidos/actosUnidades/plantillaConstruccionIndexacion.php", 
-               objRetorno
-      );
-   }
-   
-	/*function certificadoHabitabilidadUnidades(seqFormulario) { //(SI NO SE USA BORRAR)
-	YAHOO.util.Event.onContentReady(
-           "tablaMensajes",
-           function() {
-               var objTabla = YAHOO.util.Dom.get("tablaMensajes");
-               if (objTabla.className == "msgOk") {
-                   var wndFormato;
-                   try {
+    var objRetorno = {
+        success: fncExito,
+        failure: fncFalla
+    }
 
-                       //var txtUrl = "./contenidos/unidadProyecto/formatoRevisionTecnica.php";
-                       var txtUrl = "./contenidos/unidadProyecto/procesaCargaCartaHabitabilidad.php";
-					   txtUrl += "?seqFormulario=" + seqFormulario + txtCasaMano;
-                       var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100";
+    YAHOO.util.Connect.asyncRequest(
+            "POST",
+            "./contenidos/actosUnidades/plantillaConstruccionIndexacion.php",
+            objRetorno
+            );
+}
 
-                       if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
-                           throw "ErrorPopUp";
-                       }
-                   } catch (objError) {
-                       if (objError == "ErrorPopUp") {
-                           alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
-                       }
-                   }
-               }
-           }
-		);
-	}*/
+/*function certificadoHabitabilidadUnidades(seqFormulario) { //(SI NO SE USA BORRAR)
+ YAHOO.util.Event.onContentReady(
+ "tablaMensajes",
+ function() {
+ var objTabla = YAHOO.util.Dom.get("tablaMensajes");
+ if (objTabla.className == "msgOk") {
+ var wndFormato;
+ try {
+ 
+ //var txtUrl = "./contenidos/unidadProyecto/formatoRevisionTecnica.php";
+ var txtUrl = "./contenidos/unidadProyecto/procesaCargaCartaHabitabilidad.php";
+ txtUrl += "?seqFormulario=" + seqFormulario + txtCasaMano;
+ var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100";
+ 
+ if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
+ throw "ErrorPopUp";
+ }
+ } catch (objError) {
+ if (objError == "ErrorPopUp") {
+ alert("Ooops, al parecer tu navegador tiene bloqueado las ventanas emergentes, desactiva esa opcion y vuelve a intentar");
+ }
+ }
+ }
+ }
+ );
+ }*/
 
-	function certificadoHabitabilidadUnidades(seqFormulario) { //(SI NO SE USA BORRAR)
-		var wndFormato;
-		var txtUrl = "./contenidos/unidadProyecto/procesaCargaCartaHabitabilidad.php";
-		txtUrl += "?seqFormulario=" + seqFormulario;
-		var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100";
+function certificadoHabitabilidadUnidades(seqFormulario) { //(SI NO SE USA BORRAR)
+    var wndFormato;
+    var txtUrl = "./contenidos/unidadProyecto/procesaCargaCartaHabitabilidad.php";
+    txtUrl += "?seqFormulario=" + seqFormulario;
+    var txtParametros = "resizable=0,location=0,scrollbars=1,width=780,height=700,left=100,top=100";
 
-		if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
-		   throw "ErrorPopUp";
-		}
-	}
+    if (!(wndFormato = window.open(txtUrl, '_blank', txtParametros))) {
+        throw "ErrorPopUp";
+    }
+}
+
+function selectAnidados(documento, valor) {
+
+    console.log(document.getElementById('nivelEducativo').value);
+    console.log("<br>" + document.getElementById(documento + '-anosAprobados').value);
+    var apr = "anosAprobados";
+    var options = {
+        1: ["0"],
+        2: ["1", "2", "3", "4"],
+        3: ["5"],
+        4: ["6", "7", "8", "9", "10"],
+        5: ["11"],
+        6: ["6", "7", "8", "9", "10"],
+        7: ["11"],
+        8: ["11"],
+        9: ["11"],
+        12: ["11"]
+    }
+
+    $(function () {
+        var fillSecondary = function () {
+            $('#anosAprobados').empty();
+            var selected = $('#nivelEducativo').val();
+
+            options[selected].forEach(function (element, index) {
+                $('#anosAprobados').append('<option value="' + element + '">' + element + '</option>');
+            });
+            if (valor == 1 && document.getElementById(documento + '-anosAprobados').value != "") {
+                var anos = document.getElementById(documento + '-anosAprobados').value;
+                $('#anosAprobados').val(anos);
+            }
+        }
+        $('#nivelEducativo').change(fillSecondary);
+        fillSecondary();
+    });
+
+}
+

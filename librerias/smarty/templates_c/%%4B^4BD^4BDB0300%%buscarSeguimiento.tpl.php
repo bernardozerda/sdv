@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-20 03:59:37
+<?php /* Smarty version 2.6.26, created on 2017-03-07 15:10:04
          compiled from seguimiento/buscarSeguimiento.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'seguimiento/buscarSeguimiento.tpl', 2, false),array('modifier', 'number_format', 'seguimiento/buscarSeguimiento.tpl', 7, false),)), $this); ?>

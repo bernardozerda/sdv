@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-20 15:04:49
+<?php /* Smarty version 2.6.26, created on 2017-03-09 12:20:13
          compiled from reportes/adicionCondiciones.tpl */ ?>
 	<div style="width:12px; height:14px; cursor:pointer; border: 1px solid #999999; float:left" 
 			onMouseOver="this.style.backgroundColor='#FFA4A4';"

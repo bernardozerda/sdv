@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-20 03:59:36
+<?php /* Smarty version 2.6.26, created on 2017-03-07 16:16:50
          compiled from subsidios/inscripcion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'number_format', 'subsidios/inscripcion.tpl', 677, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'string_format', 'subsidios/inscripcion.tpl', 677, false),)), $this); ?>
 
 <form name="frmInscripcion" id="frmInscripcion" onSubmit="return false;" autocomplete=off>
 
@@ -767,7 +767,7 @@ unset($_smarty_tpl_vars);
                      $ <input type="text" 
                               name="valIngresoHogar" 
                               id="valIngresoHogar" 
-                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valIngresoHogar)) ? $this->_run_mod_handler('number_format', true, $_tmp, '0', ',', '.') : number_format($_tmp, '0', ',', '.')); ?>
+                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valIngresoHogar)) ? $this->_run_mod_handler('string_format', true, $_tmp, "%d") : smarty_modifier_string_format($_tmp, "%d")); ?>
 " 
                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
                               onBlur="soloNumeros( this ); this.style.backgroundColor = '#FFFFFF';"
@@ -784,7 +784,7 @@ unset($_smarty_tpl_vars);
                      $ <input type="text" 
                               name="valSaldoCuentaAhorro" 
                               id="valSaldoCuentaAhorro" 
-                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valSaldoCuentaAhorro)) ? $this->_run_mod_handler('number_format', true, $_tmp, '0', ',', '.') : number_format($_tmp, '0', ',', '.')); ?>
+                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valSaldoCuentaAhorro)) ? $this->_run_mod_handler('string_format', true, $_tmp, "%d") : smarty_modifier_string_format($_tmp, "%d")); ?>
 " 
                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
                               onBlur="soloNumeros( this ); this.style.backgroundColor = '#FFFFFF';"
@@ -829,7 +829,7 @@ unset($_smarty_tpl_vars);
                      $ <input type="text" 
                               name="valCredito" 
                               id="valCredito" 
-                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valCredito)) ? $this->_run_mod_handler('number_format', true, $_tmp, '0', ',', '.') : number_format($_tmp, '0', ',', '.')); ?>
+                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valCredito)) ? $this->_run_mod_handler('string_format', true, $_tmp, "%d") : smarty_modifier_string_format($_tmp, "%d")); ?>
 " 
                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
                               onBlur="soloNumeros( this ); this.style.backgroundColor = '#FFFFFF';"  
@@ -870,7 +870,7 @@ unset($_smarty_tpl_vars);
                      $ <input type="text" 
                               name="valSubsidioNacional" 
                               id="valSubsidioNacional" 
-                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valSubsidioNacional)) ? $this->_run_mod_handler('number_format', true, $_tmp, '0', ',', '.') : number_format($_tmp, '0', ',', '.')); ?>
+                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valSubsidioNacional)) ? $this->_run_mod_handler('string_format', true, $_tmp, "%d") : smarty_modifier_string_format($_tmp, "%d")); ?>
 " 
                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
                               onBlur="soloNumeros( this ); this.style.backgroundColor = '#FFFFFF';"
@@ -900,7 +900,7 @@ unset($_smarty_tpl_vars);
                      $ <input	type="text" 
                               name="valDonacion" 
                               id="valDonacion" 
-                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valDonacion)) ? $this->_run_mod_handler('number_format', true, $_tmp, '0', ',', '.') : number_format($_tmp, '0', ',', '.')); ?>
+                              value="<?php echo ((is_array($_tmp=$this->_tpl_vars['objFormulario']->valDonacion)) ? $this->_run_mod_handler('string_format', true, $_tmp, "%d") : smarty_modifier_string_format($_tmp, "%d")); ?>
 " 
                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
                               onBlur="soloNumeros( this ); this.style.backgroundColor = '#FFFFFF';"  

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-20 14:35:24
+<?php /* Smarty version 2.6.26, created on 2017-03-09 12:19:58
          compiled from reportes/ayudaReporteador.tpl */ ?>
 
 	<table cellpadding="3" cellspacing="0" border="0" width="100%">

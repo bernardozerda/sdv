@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-20 10:39:07
+<?php /* Smarty version 2.6.26, created on 2017-03-08 14:13:11
          compiled from subsidios/pedirConfirmacion.tpl */ ?>
 
 	<?php if ($this->_tpl_vars['bolConfirmacion'] == true): ?>
