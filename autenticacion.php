@@ -1,5 +1,5 @@
 <?php  
-echo "PRueba de cambios de Liliana";
+echo "PRueba de cambios de Bernardo";
     /**
      * ESTE ES EL INICIO DEL APLICATIVO, SI NO HAY SESION
      * ACTIVA, EL INDEX REDIRECCIONA AQUI.
