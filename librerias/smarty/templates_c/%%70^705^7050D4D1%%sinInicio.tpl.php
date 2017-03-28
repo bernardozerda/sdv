@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-07 15:09:56
+<?php /* Smarty version 2.6.26, created on 2017-03-28 12:07:29
          compiled from sinInicio.tpl */ ?>
 
 <center>

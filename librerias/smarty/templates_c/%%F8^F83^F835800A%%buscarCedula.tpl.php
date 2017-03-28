@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-07 15:10:01
+<?php /* Smarty version 2.6.26, created on 2017-03-28 12:07:46
          compiled from subsidios/buscarCedula.tpl */ ?>
 	<table cellspacing="" cellpadding="0" border="0" width="99%">
 		<tr>

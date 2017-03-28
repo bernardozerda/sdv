@@ -771,6 +771,7 @@ if (empty($arrErrores)) {
     $claFormularioNuevo->bolSecEducacion = $_POST['bolSecEducacion'];
     $claFormularioNuevo->bolSecMujer = $_POST['bolSecMujer'];
     $claFormularioNuevo->bolIpes = $_POST['bolIpes'];
+    $claFormularioNuevo->bolAltaCon = $_POST['bolAltaCon'];
     $claFormularioNuevo->txtOtro = $_POST['txtOtro'];
     $claFormularioNuevo->numAdultosNucleo = $numAdultos;
     $claFormularioNuevo->numNinosNucleo = $numNinos;

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-27 14:16:17
+<?php /* Smarty version 2.6.26, created on 2017-03-28 12:18:35
          compiled from subsidios/actualizacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'subsidios/actualizacion.tpl', 629, false),array('modifier', 'number_format', 'subsidios/actualizacion.tpl', 658, false),array('function', 'math', 'subsidios/actualizacion.tpl', 630, false),)), $this); ?>
@@ -1146,7 +1146,7 @@ unset($_smarty_tpl_vars);
                                             <?php endif; ?>
                                         </select>
                                     </td>
-                               
+
                                     <td id="tdupz">
                                         &nbsp;<input type='hidden' readonly id='seqUpz' name='seqUpz' value="<?php echo $this->_tpl_vars['objFormulario']->seqUpz; ?>
 ">
@@ -1256,7 +1256,21 @@ unset($_smarty_tpl_vars);
                                             <option value="1" <?php if ($this->_tpl_vars['objFormulario']->bolDesplazado == 1): ?> selected <?php endif; ?> disabled>Si</option>
                                         </select>
                                     </td>		
-                                </tr>		        	
+                                </tr>
+                                <tr>
+                                    <td>Retorno Reubicación </td>
+                                    <td>
+                                       <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                onBlur="this.style.backgroundColor = '#FFFFFF';" 
+                                                name="bolAltaCon" 
+                                                id="bolAltaCon" 
+                                                style="width:260px;"
+                                                >
+                                            <option value="0" <?php if ($this->_tpl_vars['objFormulario']->bolAltaCon != 1): ?> selected <?php endif; ?> >No</option>
+                                            <option value="1" <?php if ($this->_tpl_vars['objFormulario']->bolAltaCon == 1): ?> selected <?php endif; ?> >Si</option>
+                                        </select>
+                                    </td>
+                                </tr>
                             </table></p>
 
                             <!-- TABLA RED DE SERVICIOS -->

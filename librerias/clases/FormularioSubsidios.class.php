@@ -73,6 +73,7 @@ class FormularioSubsidios {
     public $bolSecEducacion;
     public $bolSecMujer;
     public $bolIpes;
+    public $bolAltaCon;
     public $txtOtro;
     public $numAdultosNucleo;
     public $numNinosNucleo;
@@ -171,6 +172,7 @@ class FormularioSubsidios {
         $this->bolSecEducacion = "";
         $this->bolSecMujer = "";
         $this->bolIpes = "";
+        $this->bolAltaCon = "";
         $this->txtOtro = "";
         $this->numAdultosNucleo = 0;
         $this->numNinosNucleo = 0;
@@ -272,6 +274,7 @@ class FormularioSubsidios {
                    bolSecEducacion,
                    bolSecMujer,
                    bolIpes,
+                   bolAltaCon, 
                    txtOtro,
                    numAdultosNucleo,
                    numNinosNucleo,
@@ -364,6 +367,7 @@ class FormularioSubsidios {
                    \"" . $this->bolSecEducacion . "\",
                    \"" . $this->bolSecMujer . "\",
                    \"" . $this->bolIpes . "\",
+                   \"" . $this->bolAltaCon . "\",
                    \"" . $this->txtOtro . "\",
                    \"" . $this->numAdultosNucleo . "\",
                    \"" . $this->numNinosNucleo . "\",
@@ -510,6 +514,7 @@ class FormularioSubsidios {
                       bolSecEducacion,
                       bolSecMujer,
                       bolIpes,
+                      bolAltaCon, 
                       txtOtro,
                       numAdultosNucleo,
                       numNinosNucleo,
@@ -608,6 +613,7 @@ class FormularioSubsidios {
                 $this->bolSecEducacion = $objRes->fields['bolSecEducacion'];
                 $this->bolSecMujer = $objRes->fields['bolSecMujer'];
                 $this->bolIpes = $objRes->fields['bolIpes'];
+                $this->bolAltaCon = $objRes->fields['bolAltaCon'];
                 $this->txtOtro = $objRes->fields['txtOtro'];
                 $this->numAdultosNucleo = $objRes->fields['numAdultosNucleo'];
                 $this->numNinosNucleo = $objRes->fields['numNinosNucleo'];
@@ -765,6 +771,7 @@ class FormularioSubsidios {
                         bolSecEducacion =   \"" . $this->bolSecEducacion . "\",
                         bolSecMujer =   \"" . $this->bolSecMujer . "\",
                         bolIpes  =   \"" . $this->bolIpes . "\",
+                        bolAltaCon  =   \"" . $this->bolAltaCon . "\",
                         txtOtro  =   \"" . $this->txtOtro . "\",
                         numAdultosNucleo  =   \"" . $this->numAdultosNucleo . "\",
                         numNinosNucleo  =   \"" . $this->numNinosNucleo . "\",

@@ -941,7 +941,7 @@
                                             {/if}
                                         </select>
                                     </td>
-                               
+
                                     <td id="tdupz">
                                         &nbsp;<input type='hidden' readonly id='seqUpz' name='seqUpz' value="{$objFormulario->seqUpz}">
                                     </td>
@@ -1040,7 +1040,21 @@
                                             <option value="1" {if $objFormulario->bolDesplazado == 1} selected {/if} disabled>Si</option>
                                         </select>
                                     </td>		
-                                </tr>		        	
+                                </tr>
+                                <tr>
+                                    <td>Retorno Reubicación </td>
+                                    <td>
+                                       <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                onBlur="this.style.backgroundColor = '#FFFFFF';" 
+                                                name="bolAltaCon" 
+                                                id="bolAltaCon" 
+                                                style="width:260px;"
+                                                >
+                                            <option value="0" {if $objFormulario->bolAltaCon != 1} selected {/if} >No</option>
+                                            <option value="1" {if $objFormulario->bolAltaCon == 1} selected {/if} >Si</option>
+                                        </select>
+                                    </td>
+                                </tr>
                             </table></p>
 
                             <!-- TABLA RED DE SERVICIOS -->

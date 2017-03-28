@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-08 15:14:45
+<?php /* Smarty version 2.6.26, created on 2017-03-28 12:17:14
          compiled from mensajes.tpl */ ?>
 	
 <!--
@@ -23,4 +23,4 @@
     	<div id="<?php echo $this->_tpl_vars['idDivOculto']; ?>
 "></div>
     <?php endif; ?>
-    
+    
