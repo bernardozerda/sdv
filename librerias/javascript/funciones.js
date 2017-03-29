@@ -9823,9 +9823,7 @@ function certificadoHabitabilidadUnidades(seqFormulario) { //(SI NO SE USA BORRA
 
 function selectAnidados(documento, valor) {
 
-    console.log(document.getElementById('nivelEducativo').value);
-    console.log("<br>" + document.getElementById(documento + '-anosAprobados').value);
-    var apr = "anosAprobados";
+     var apr = "anosAprobados";
     var options = {
         1: ["0"],
         2: ["1", "2", "3", "4"],

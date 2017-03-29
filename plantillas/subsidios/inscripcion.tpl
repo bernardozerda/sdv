@@ -632,6 +632,9 @@
                                    {if $arrDatos.seqPlanGobierno == 1}
                                       disabled
                                    {/if}
+                                   {if $arrDatos.seqPlanGobierno == 2}
+                                      disabled
+                                   {/if}
                            >
                               {$arrDatos.txtModalidad}
                            </option>

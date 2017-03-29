@@ -85,7 +85,7 @@ if (empty($arrErrores)) {
     $cuentaUnionMarital = 0;
 
     if (!empty($_POST['hogar'])) {
-       // var_dump($_POST);
+        // var_dump($_POST);
 
         foreach ($_POST['hogar'] as $numDocumento => $arrCiudadano) {
 
@@ -563,26 +563,28 @@ if (empty($arrErrores)) {
 
     // Obtiene el valor del subsidio segun modalidad y tipo de solucion seleccionada	
     try {
-        $_POST['valAspiraSubsidio'] = mb_ereg_replace("[^0-9]", "", $_POST['valAspiraSubsidio']);
-        $valAspiraSubsidio = 0;
-        $sql = "
+        if ($_POST['seqPlanGobierno'] != 3) {
+            $_POST['valAspiraSubsidio'] = mb_ereg_replace("[^0-9]", "", $_POST['valAspiraSubsidio']);
+            $valAspiraSubsidio = 0;
+            $sql = "
             SELECT valSubsidio
             FROM T_FRM_VALOR_SUBSIDIO
             WHERE seqSolucion = " . $_POST['seqSolucion'] . "
               AND seqModalidad = " . $_POST['seqModalidad'] . "
          ";
-        $objRes = $aptBd->execute($sql);
-        if ($objRes->RecordCount() > 0) {
-            $valAspiraSubsidio = $objRes->fields['valSubsidio'];
-            if (( intval($_POST['valAspiraSubsidio']) < $valAspiraSubsidio ) and trim($_POST['txtSoporteSubsidio']) == "") {
-                $arrErrores[] = "No puede cambiar el valor tope del subsidio sin dar un soporte para este cambio, diligencie el campo 'Soporte Cambio'";
+            $objRes = $aptBd->execute($sql);
+            if ($objRes->RecordCount() > 0) {
+                $valAspiraSubsidio = $objRes->fields['valSubsidio'];
+                if (( intval($_POST['valAspiraSubsidio']) < $valAspiraSubsidio ) and trim($_POST['txtSoporteSubsidio']) == "") {
+                    $arrErrores[] = "No puede cambiar el valor tope del subsidio sin dar un soporte para este cambio, diligencie el campo 'Soporte Cambio'";
+                }
+                /* Con el cambio del valor indexado esta validación no aplica
+                  if( intval( $_POST['valAspiraSubsidio'] ) > $valAspiraSubsidio ){
+                  $arrErrores[] = "El valor del subsidio al que se aspira nunca puede superar el limite establecido";
+                  } */
+            } else {
+                $arrErrores[] = "No se ha podido establecer el valor del subsidio con base en la modalidad y la solucion seleccionada";
             }
-            /* Con el cambio del valor indexado esta validación no aplica
-              if( intval( $_POST['valAspiraSubsidio'] ) > $valAspiraSubsidio ){
-              $arrErrores[] = "El valor del subsidio al que se aspira nunca puede superar el limite establecido";
-              } */
-        } else {
-            $arrErrores[] = "No se ha podido establecer el valor del subsidio con base en la modalidad y la solucion seleccionada";
         }
     } catch (Exception $objError) {
         $valAspiraSubsidio = 0;
@@ -805,8 +807,8 @@ if (empty($arrErrores)) {
     $claFormularioNuevo->seqTipoEsquema = $_POST['seqTipoEsquema'];
     $claFormularioNuevo->numPuntajeSisben = 0;
     $claFormularioNuevo->flagActualizar = 1;
-    $claFormularioNuevo->numHabitaciones =$_POST['numCohabitacion'];
-    $claFormularioNuevo->numHacinamiento =$_POST['numHacinamiento'];
+    $claFormularioNuevo->numHabitaciones = $_POST['numCohabitacion'];
+    $claFormularioNuevo->numHacinamiento = $_POST['numHacinamiento'];
 
     // edita los datos del formulario
     $claFormularioNuevo->editarFormulario($_POST['seqFormulario']);

@@ -1044,7 +1044,7 @@
                                 <tr>
                                     <td>Retorno Reubicación </td>
                                     <td>
-                                       <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                        <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
                                                 name="bolAltaCon" 
                                                 id="bolAltaCon" 
@@ -1153,8 +1153,10 @@
                                 <!-- PLAN DE GOBIERNO -->
                                 {if $objFormulario->seqEtapa >= 4} 
                                     <input type="hidden" name="seqPlanGobierno" id="seqPlanGobierno" value="{$objFormulario->seqPlanGobierno}">
-                                {else}
+                                {elseif $objFormulario->seqPlanGobierno == 2}                                    
                                     <input type="hidden" name="seqPlanGobierno" id="seqPlanGobierno" value="2">
+                                {elseif $objFormulario->seqPlanGobierno == 3}
+                                    <input type="hidden" name="seqPlanGobierno" id="seqPlanGobierno" value="{$objFormulario->seqPlanGobierno}"> 
                                 {/if}
 
 
@@ -1175,7 +1177,13 @@
                                                         {if $objFormulario->seqModalidad == $seqModalidad} 
                                                             selected 
                                                         {/if}
-                                                        {if $arrDatos.seqPlanGobierno == 1}
+                                                        {if $arrDatos.seqPlanGobierno == 1 }
+                                                            disabled
+                                                        {/if}
+                                                        {if $arrDatos.seqPlanGobierno == 2 and $objFormulario->seqPlanGobierno == 3 }
+                                                            disabled
+                                                        {/if}
+                                                        {if $arrDatos.seqPlanGobierno == 3 and $objFormulario->seqPlanGobierno == 2 }
                                                             disabled
                                                         {/if}
                                                         >
@@ -1937,53 +1945,54 @@
                                     <td>&nbsp;</td>
                                 <input type="hidden" name="valTotalRecursos" id="valTotalRecursos" value="{$objFormulario->valTotalRecursos}">
                                 </tr>
+                                {if $objFormulario->seqPlanGobierno != 3}
+                                    <tr bgcolor="#E0E0E0">
 
-                                <tr bgcolor="#E0E0E0">
+                                        {assign var=seqModalidad value=$objFormulario->seqModalidad}
+                                        {assign var=seqSolucion value=$objFormulario->seqSolucion}
 
-                                    {assign var=seqModalidad value=$objFormulario->seqModalidad}
-                                    {assign var=seqSolucion value=$objFormulario->seqSolucion}
-
-                                    {if $objFormulario->valAspiraSubsidio == 0 || $objFormulario->valAspiraSubsidio == ""}
-                                        {assign var=valSubsidio value=$arrValorSubsidio.$seqModalidad.$seqSolucion}
-                                        {if $valSubsidio == ""}
-                                            {assign var=valSubsidio value=0}
+                                        {if $objFormulario->valAspiraSubsidio == 0 || $objFormulario->valAspiraSubsidio == ""}
+                                            {assign var=valSubsidio value=$arrValorSubsidio.$seqModalidad.$seqSolucion}
+                                            {if $valSubsidio == ""}
+                                                {assign var=valSubsidio value=0}
+                                            {/if}
+                                        {else}
+                                            {assign var=valSubsidio value=$objFormulario->valAspiraSubsidio}
                                         {/if}
-                                    {else}
-                                        {assign var=valSubsidio value=$objFormulario->valAspiraSubsidio}
-                                    {/if}
 
-                                    <!-- VALOR AL QUE ASPIRA DEL SUBSIDIO -->
-                                    <td class="tituloTabla" height="25px" align="top">Valor Subsidio Aspira</td>
-                                    <td align="right" style="padding-right:10px" id="tdValSubsidio"  height="25px" align="top">
-                                        $ <input	type="text" 
-                                                 name="valAspiraSubsidio"
-                                                 id="valAspiraSubsidio" 
-                                                 value="{$valSubsidio|number_format:'0':'.':'.'}" 
-                                                 onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                                 onBlur="soloNumeros(this);
-                                                         this.style.backgroundColor = '#FFFFFF';
-                                                         sumarTotalRecursos();"  
-                                                 onKeyUp="formatoSeparadores(this)"
-                                                 onChange="formatoSeparadores(this)"
-                                                 style="width:100px; text-align:right;"
-                                                 {if $objFormulario->seqTipoEsquema == 1}
-                                                     readonly
-                                                 {/if}
-                                                 />
-                                    </td>
-                                    <td class="tituloTabla"  height="25px" align="top">Soporte Cambio <br>Vr. subsidio</td>
-                                    <td style="padding-left: 10px;"  height="25px" align="top">
-                                        <input	type="text" 
-                                               name="txtSoporteSubsidio" 
-                                               id="txtSoporteSubsidio" 
-                                               value="{$objFormulario->txtSoporteSubsidio}" 
-                                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                               onBlur="sinCaracteresEspeciales(this);
-                                                       this.style.backgroundColor = '#FFFFFF';"  
-                                               style="width:300px;" 
-                                               />
-                                    </td>
-                                </tr>				        		
+                                        <!-- VALOR AL QUE ASPIRA DEL SUBSIDIO -->
+                                        <td class="tituloTabla" height="25px" align="top">Valor Subsidio Aspira</td>
+                                        <td align="right" style="padding-right:10px" id="tdValSubsidio"  height="25px" align="top">
+                                            $ <input	type="text" 
+                                                     name="valAspiraSubsidio"
+                                                     id="valAspiraSubsidio" 
+                                                     value="0" 
+                                                     onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                     onBlur="soloNumeros(this);
+                                                             this.style.backgroundColor = '#FFFFFF';
+                                                             sumarTotalRecursos();"  
+                                                     onKeyUp="formatoSeparadores(this)"
+                                                     onChange="formatoSeparadores(this)"
+                                                     style="width:100px; text-align:right;"
+                                                     {if $objFormulario->seqTipoEsquema == 1}
+                                                         readonly
+                                                     {/if}
+                                                     />
+                                        </td>
+                                        <td class="tituloTabla"  height="25px" align="top">Soporte Cambio <br>Vr. subsidio</td>
+                                        <td style="padding-left: 10px;"  height="25px" align="top">
+                                            <input	type="text" 
+                                                   name="txtSoporteSubsidio" 
+                                                   id="txtSoporteSubsidio" 
+                                                   value="0" 
+                                                   onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                   onBlur="sinCaracteresEspeciales(this);
+                                                           this.style.backgroundColor = '#FFFFFF';"  
+                                                   style="width:300px;" 
+                                                   />
+                                        </td>
+                                    </tr>
+                                {/if}
                             </table>
                             </p></div>
                     </div>
