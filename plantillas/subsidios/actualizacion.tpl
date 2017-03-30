@@ -1075,7 +1075,7 @@
                                     </td>	
 
                                     <!-- SEC SALUD -->
-                                    <td width="110px" align="right">Sec. Salud</td>
+                                   <!-- <td width="110px" align="right">Sec. Salud</td>
                                     <td style="padding-left:10px;">
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1089,7 +1089,7 @@
                                     </td>
 
                                     <!-- SEC EDUCACION -->
-                                    <td width="110px" align="right">Sec. Educacion</td>
+                                    <!--<td width="110px" align="right">Sec. Educacion</td>
                                     <td style="padding-left:10px;">
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1100,7 +1100,7 @@
                                             <option value="0" {if $objFormulario->bolSecEducacion != 1} selected {/if} >No</option>
                                             <option value="1" {if $objFormulario->bolSecEducacion == 1} selected {/if} >Si</option>
                                         </select>
-                                    </td>
+                                    </td>-->
                                     <td width="110px" align="center">Sec. de la Mujer</td>
                                     <td style="padding-left:10px;">
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 

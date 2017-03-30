@@ -922,7 +922,7 @@ if (empty($arrErrores)) {
 echo "<table cellpadding='0' cellspacing='0' border='0' width='100%' id='tablaMensajes' style='padding:5px'>";
 foreach ($arrMensajes as $txtMensaje) {
     echo "<tr><td class='$txtEstilo'><li>$txtMensaje</li></td></tr>";
-    print_r($txtMensaje);
+    //print_r($txtMensaje);
 }
 echo "</table>";
 ?>
