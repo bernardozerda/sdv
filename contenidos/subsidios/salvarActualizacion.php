@@ -26,6 +26,7 @@ $numTerceraEdad = strtotime("-65 year", $numFechaHoy); // Timestamp de nacimient
 $claCiudadano = new Ciudadano();
 $claFormulario = new FormularioSubsidios();
 $claFormulario->cargarFormulario($_POST['seqFormulario']);
+$victima = '';
 
 /* * ****************************************************************************************************
  * VALIDACIONES GENERALES
@@ -83,6 +84,7 @@ if (empty($arrErrores)) {
     $numNinos = 0;
     $hoy = date('Y-m-d');
     $cuentaUnionMarital = 0;
+    $cuentaCasado = 0;
 
     if (!empty($_POST['hogar'])) {
         // var_dump($_POST);
@@ -121,23 +123,33 @@ if (empty($arrErrores)) {
             }
 
             // Estado Civil
-            $arrEstadoCivilProhibido = ( $_POST['seqPlanGobierno'] == 1 ) ? array(0) : array(0, 1, 3, 4, 5);
+
+            $arrEstadoCivilProhibido = ( $_POST['seqPlanGobierno'] == 1 || $_POST['seqPlanGobierno'] == 3) ? array(0) : array(0, 1, 3, 4, 5);
             if (in_array($arrCiudadano['seqEstadoCivil'], $arrEstadoCivilProhibido)) {
                 $arrErrores[] = "El ciudadano con numero de documento " . number_format($numDocumento) . " no puede tener el estado civil seleccionado.";
             }
 
-            if ($_POST['valIngresoHogar'] > 0 && $arrCiudadano['anosAprobados'] == 0) {
-                $arrErrores[] = "El ciudadano debe seleccionar el numero de años aprobados";
+            if ($_POST['seqPlanGobierno'] == 3) {
+                // echo "<br> <br>".$arrCiudadano['seqNivelEducativo'];
+                if ($_POST['valIngresoHogar'] > 0 && $arrCiudadano['seqNivelEducativo'] != 1 && $arrCiudadano['anosAprobados'] == 0) {
+                    $arrErrores[] = "El ciudadano debe seleccionar el numero de años aprobados";
+                }
+
+                if ($arrCiudadano['afiliacionSalud'] == 0) {
+                    $arrErrores[] = "El ciudadano debe seleccionar si se encuentra afiliado a la salud";
+                }
             }
 
-            if ($arrCiudadano['afiliacionSalud'] == 0) {
-                $arrErrores[] = "El ciudadano debe seleccionar si se encuentra afiliado a la salud";
-            }
+
 
             // Si es el caso de unión marital de hecho, deben existir solo 2 personas con ese estado civil en el hogar
             // Author: Jaison Ospina - Enero 21
             if ($arrCiudadano['seqEstadoCivil'] == 7) {
                 $cuentaUnionMarital ++;
+            }
+
+            if ($arrCiudadano['seqEstadoCivil'] == 6) {
+                $cuentaCasado ++;
             }
 
             // fecha de nacimiento
@@ -179,6 +191,8 @@ if (empty($arrErrores)) {
                             $arrCiudadano['txtApellido1'] . " " . $arrCiudadano['txtApellido2'] .
                             " porque segun su fecha de nacimiento es menor de edad";
                 }
+
+
 
                 // se compara si es menor de 65 aNos y tenga condicion especial mayor 65 anos
                 if (( $numEdad > $numTerceraEdad ) and ( $arrCiudadano["seqCondicionEspecial"] == $numCondicionEspecialMayor65 or
@@ -263,6 +277,12 @@ if (empty($arrErrores)) {
             $unionMarital = 'no';
         }
 
+        if ($cuentaCasado % 2 == 0) {
+            $casado = 'ok';
+        } else {
+            $casado = 'no';
+        }
+
         // errores que se producen dentro del grupo familiar
         switch (true) {
             case $numCabezaFamilia == 0: $arrErrores[] = "Debe existir un postulante principal en el hogar";
@@ -276,6 +296,8 @@ if (empty($arrErrores)) {
             case $numCedula == 0: $arrErrores[] = "Debe haber por lo menos un mayor de edad colombiano dentro del nucleo familiar";
                 break;
             case $unionMarital == 'no': $arrErrores[] = "Verificar estado civil, debe existir otra persona con estado civil 'Unión Marital de hecho' en el hogar";
+                break;
+            case $casado == 'no': $arrErrores[] = "Verificar estado civil, debe existir otra persona con estado civil 'Casado' en el hogar";
                 break;
         }
     } else {
@@ -718,7 +740,7 @@ if (empty($arrErrores)) {
     $claFormularioNuevo->txtChip = $_POST['txtChip'];
     $claFormularioNuevo->bolViabilizada = $_POST['bolViabilizada'];
     $claFormularioNuevo->bolIdentificada = $_POST['bolIdentificada'];
-    if ($_POST['seqPlanGobierno'] == 2) {
+    if ($_POST['seqPlanGobierno'] == 2 || $_POST['seqPlanGobierno'] == 3) {
         $claFormularioNuevo->bolDesplazado = $condicionV;
     } else {
         $claFormularioNuevo->bolDesplazado = $_POST['bolDesplazado'];

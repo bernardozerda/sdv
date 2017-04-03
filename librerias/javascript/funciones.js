@@ -1107,7 +1107,9 @@ function agregarMiembroHogar() {
     var objSeqTipoVictima = document.getElementById("seqTipoVictima");
     var objSeqGrupoLgtbi = document.getElementById("seqGrupoLgtbi");
 
-
+    if (objAnosAprobados == null || objAnosAprobados == "") {
+        selectAnidados(objNumDocumento, 0);
+    }
 
     // Celda que contiene los miembros del hogar
     var objHogar = document.getElementById("datosHogar");
@@ -9823,7 +9825,7 @@ function certificadoHabitabilidadUnidades(seqFormulario) { //(SI NO SE USA BORRA
 
 function selectAnidados(documento, valor) {
 
-     var apr = "anosAprobados";
+    var apr = "anosAprobados";
     var options = {
         1: ["0"],
         2: ["1", "2", "3", "4"],

@@ -3,19 +3,22 @@
 
 	<table cellpadding="0" cellspacing="0" border="0" width="95%" bgcolor="#FFFFFF">
 		<tr>
-			<td style="padding:8px;" width="118px" rowspan="2">
-				<img src="./recursos/imagenes/sdv.jpg" alt="Subsidio Distrital de Vivienda" align="center">
+			
+                    <td style="font-size: 20px; font-weight:bold; width: 75%;" valign="middle" align="center">
+                        <br><br>
+				 SISTEMA DE INFORMACIÓN DEL PROGRAMA
+                                <br>INTEGRAL DE VIVIENDA <br>EFECTIVA
 			</td>
-			<td style="font-size: 20px; font-weight:bold; " valign="middle" align="center">
-				SISTEMA DE INFORMACIÓN PARA LOS SUBSIDIOS DISTRITALES DE VIVIENDA
+                        <td style="padding-right: 5%;" width="118px" ><br><br><br>
+				<img src="./recursos/imagenes/SiPIVE.png" alt="Subsidio Distrital de Vivienda" align="left">
 			</td>
 		</tr>
-		<tr>
+		<!--<tr>
 			<td style="font-size: 12px; font-weight:bold; " valign="top" align="center">
 				SISTEMA DE INFORMACION PARA FINANCIACION DE SOLUCIONES DE VIVIENDA<br>SIFSV
 			</td>
 		</tr>
-		<!--<tr>
+		<tr>
 			<td colspan="2" height="20px;" class="tituloVerde">
 				Accesos directos
 			</td>

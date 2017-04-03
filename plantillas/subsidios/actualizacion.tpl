@@ -4,6 +4,7 @@
     TAMBIEN SE USA PARA EL ESQUEMA DE CASA EN MANO
     EN LA FASE DE POSTULACION
 *************************************************************** -->
+ {assign var=victima value=''}
 {if $objFormulario->seqEstadoProceso != 6}
     {assign var=seqEstadoProceso value=$objFormulario->seqEstadoProceso}
 {else}
@@ -625,6 +626,9 @@
                                     {assign var=anosAprobados      value=$objCiudadano->numAnosAprobados}
                                     {assign var=afiliacionSalud      value=$objCiudadano->numAfiliacionSalud}
                                     {assign var=ocupacion          value=$objCiudadano->seqOcupacion}
+                                    {if $objCiudadano->seqTipoVictima ==2}
+                                        {assign var=victima  value='OK'}
+                                    {/if}
 
                                     {assign var=valIngresosCiudadano value=$objCiudadano->valIngresos|replace:'[^0-9]':''}
                                     {math equation="x + y" x=$valTotal y=$valIngresosCiudadano assign=valTotal}
@@ -1036,13 +1040,13 @@
                                                 id="bolDesplazado" 
                                                 style="width:260px;"
                                                 >
-                                            <option value="0" {if $objFormulario->bolDesplazado != 1} selected {/if} disabled>No</option>
-                                            <option value="1" {if $objFormulario->bolDesplazado == 1} selected {/if} disabled>Si</option>
+                                            <option value="0" {if $victima != 'OK' } selected {/if} disabled>No</option>
+                                            <option value="1" {if $victima == 'OK'} selected {/if} disabled>Si</option>
                                         </select>
                                     </td>		
                                 </tr>
                                 <tr>
-                                    <td>Retorno Reubicación </td>
+                                    <td>Acta de Voluntariedad<br>{$victima} de Retorno/Reubicación</td>
                                     <td>
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1050,8 +1054,13 @@
                                                 id="bolAltaCon" 
                                                 style="width:260px;"
                                                 >
-                                            <option value="0" {if $objFormulario->bolAltaCon != 1} selected {/if} >No</option>
-                                            <option value="1" {if $objFormulario->bolAltaCon == 1} selected {/if} >Si</option>
+                                            {if $victima == 'OK'}
+                                                <option value="0" selected>No</option>
+                                                <option value="1" >Si</option>
+                                            {else}
+                                                <option value="0"  selected  >No</option>
+                                                <option value="1"  disabled>Si</option>
+                                            {/if}
                                         </select>
                                     </td>
                                 </tr>
@@ -1075,19 +1084,19 @@
                                     </td>	
 
                                     <!-- SEC SALUD -->
-                                   <!-- <td width="110px" align="right">Sec. Salud</td>
-                                    <td style="padding-left:10px;">
-                                        <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                                onBlur="this.style.backgroundColor = '#FFFFFF';" 
-                                                name="bolSecSalud" 
-                                                id="bolSecSalud" 
-                                                style="width:100%;"
-                                                >
-                                            <option value="0" {if $objFormulario->bolSecSalud != 1} selected {/if} >No</option>
-                                            <option value="1" {if $objFormulario->bolSecSalud == 1} selected {/if} >Si</option>
-                                        </select>
-                                    </td>
-
+                                    <!-- <td width="110px" align="right">Sec. Salud</td>
+                                     <td style="padding-left:10px;">
+                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
+                                                 name="bolSecSalud" 
+                                                 id="bolSecSalud" 
+                                                 style="width:100%;"
+                                                 >
+                                             <option value="0" {if $objFormulario->bolSecSalud != 1} selected {/if} >No</option>
+                                             <option value="1" {if $objFormulario->bolSecSalud == 1} selected {/if} >Si</option>
+                                         </select>
+                                     </td>
+ 
                                     <!-- SEC EDUCACION -->
                                     <!--<td width="110px" align="right">Sec. Educacion</td>
                                     <td style="padding-left:10px;">
@@ -1128,21 +1137,21 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <!-- OTRO -->
-                                    <td align="right">Otro</td>
-                                    <td colspan="8" style="padding-left:10px">
-                                        <input	type="text" 
-                                               name="txtOtro" 
-                                               id="txtOtro" 
-                                               value="{$objFormulario->txtOtro}" 
-                                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                               onBlur="sinCaracteresEspeciales(this);
-                                                       this.style.backgroundColor = '#FFFFFF';" 
-                                               style="width:100%;" 
-                                               />
-                                    </td>
-                                </tr>
+                                <!-- <tr>
+                                      OTRO 
+                                     <td align="right">Otro</td>
+                                     <td colspan="8" style="padding-left:10px">
+                                         <input	type="text" 
+                                                name="txtOtro" 
+                                                id="txtOtro" 
+                                                value="{$objFormulario->txtOtro}" 
+                                                onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                onBlur="sinCaracteresEspeciales(this);
+                                                        this.style.backgroundColor = '#FFFFFF';" 
+                                                style="width:100%;" 
+                                                />
+                                     </td>
+                                 </tr>-->
                             </table></p>
                             </p></div>
 

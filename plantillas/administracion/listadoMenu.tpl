@@ -18,7 +18,7 @@
 	<table cellspacing="0" cellpadding="0" border="0" width="100%">
 		<tr><td style="padding-left:5px">
 		
-			<!--  SELECT DE PROYECTOS AUTORIZADOS -->
+			<!--  SELECT DE PROYECTOS  -->
 			<b>Proyecto:<b> <select name"proyectoArbol" id="proyectoArbol" style="width:200px">
 				{foreach from=$arrProyecto key=seqProyecto item=objProyecto}
 					<option value="{$seqProyecto}" {if $seqProyectoPost == $seqProyecto} selected {/if} >{$objProyecto->txtProyecto}</option>
