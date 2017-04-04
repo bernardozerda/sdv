@@ -2757,6 +2757,23 @@ function verCambiosFormulario(seqFormulario, seqSeguimiento) {
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
             function (o) {
+    	
+		    	var tmpObj = null;
+		        tmpObj = document.getElementById('cambios_mask');
+		        while (tmpObj != null) {
+		            //alert( tmpObj );
+		            eliminarObjeto("cambios_mask");
+		            tmpObj = document.getElementById('cambios_mask');
+		        }
+    	
+		        var tmpObj = null;
+		        tmpObj = document.getElementById('cambios_c');
+		        while (tmpObj != null) {
+		            //alert( tmpObj );
+		            eliminarObjeto("cambios_c"); 
+		            tmpObj = document.getElementById('cambios_c');
+		        }
+    	
                 if (o.responseText !== undefined) {
 
                     var objConfiguracion = {
