@@ -15,7 +15,7 @@ include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases'] . "Ciudadano
 include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases'] . "FormularioSubsidios.class.php" );
 include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases'] . "Seguimiento.class.php" );
 
-$bolConfirmacion = false;
+$bolConfirmacion = true;
 $arrErrores = array();
 $arrMensajes = array();
 $arrCamposLibres = array();
@@ -48,6 +48,7 @@ $arrCamposCalificacion[] = "seqCondicionEspecial2";
 $arrCamposCalificacion[] = "seqCondicionEspecial3";
 $arrCamposCalificacion[] = "fchNacimiento";
 $arrCamposCalificacion[] = "seqNivelEducativo";
+$arrCamposCalificacion[] = "estadoCivil";
 
 //$arrCamposCalificacion[] = "anosAprobados";
 //$arrCamposCalificacion[] = "afiliacionSalud";
@@ -144,7 +145,7 @@ if (trim($_POST['txtArchivo']) == "./contenidos/subsidios/salvarActualizacion.ph
     foreach ($claFormulario->arrCiudadano as $seqCiudadano => $objCiudadano) {
         $numDocumento = $objCiudadano->numDocumento;
         $arrCedulasFormulario[] = $numDocumento;
-        
+
         if ($_POST['hogar'][$numDocumento]['anosAprobados'] == 0) {
             $arrErrores[] = "Debe seleccionar años aprobados";
         }
@@ -156,8 +157,8 @@ if (trim($_POST['txtArchivo']) == "./contenidos/subsidios/salvarActualizacion.ph
             foreach ($objCiudadano as $txtClave => $txtValor) {
                 //echo $txtValor."******".$_POST['hogar'][$numDocumento][$txtClave]." ->".$txtClave."<br>";
                 if (isset($_POST['hogar'][$numDocumento][$txtClave])) {
-                    if (trim($txtValor) != trim($_POST['hogar'][$numDocumento][$txtClave])) {                      
-                        
+                    if (trim($txtValor) != trim($_POST['hogar'][$numDocumento][$txtClave])) {
+
                         $arrCamposCambiados[] = $txtClave;
                         $bolConfirmacion = true;
                     }
@@ -192,7 +193,7 @@ if (trim($_POST['txtArchivo']) == "./contenidos/subsidios/salvarActualizacion.ph
                     }
                     if ($txtValor != $valFormateado) {
                         if ($_SESSION['seqUsuario'] == 251) {
-                          //  echo $txtClave . 'txtValor: ' . $txtValor . '-->' . $valFormateado . '<br>';
+                            //  echo $txtClave . 'txtValor: ' . $txtValor . '-->' . $valFormateado . '<br>';
                             echo htmlentities($objCiudadano->txtApellido1);
                         }
                         if ($txtClave == 'seqEstadoProceso' || $txtClave == 'valAspiraSubsidio' || $txtClave == 'seqBancoCuentaAhorro2') {
@@ -229,14 +230,15 @@ if ($bolConfirmacion == true) {
                 //$_POST['seqTipoEsquema'] = 0;
                 //break;
             }
-
-            foreach ($arrCamposCambiados as $txtCampo) {
-                //echo "eliminados: ".$eliminados;
-                if (in_array($txtCampo, $arrCamposCalificacion)) {
-                    $bolRetorno = true;
-                    $_POST['seqEstadoProceso'] = 37;
-                    //$_POST['seqTipoEsquema'] = 0;
-                    break;
+            if (count($arrCamposCambiados) > 0) {
+                foreach ($arrCamposCambiados as $txtCampo) {
+                    //echo "eliminados: ".$eliminados;
+                    if (in_array($txtCampo, $arrCamposCalificacion)) {
+                        $bolRetorno = true;
+                        $_POST['seqEstadoProceso'] = 37;
+                        //$_POST['seqTipoEsquema'] = 0;
+                        break;
+                    }
                 }
             }
         }

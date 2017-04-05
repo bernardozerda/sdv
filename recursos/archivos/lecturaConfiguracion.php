@@ -41,7 +41,7 @@
 	$arrConfiguracion['baseDatos']['servidor'] = "localhost";
 	$arrConfiguracion['baseDatos']['usuario']  = "sdht_usuario";
 	$arrConfiguracion['baseDatos']['clave']    = "Ochochar*1";
-	$arrConfiguracion['baseDatos']['nombre']   = "sdht_subsidios";
+	$arrConfiguracion['baseDatos']['nombre']   = "sdv_pruebas";
 	
   	// Datos de coneccion para el envio de correos electronicos
   	$arrConfiguracion['correo']['servidor']    = "smtp.googlemail.com";

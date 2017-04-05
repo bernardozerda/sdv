@@ -110,13 +110,13 @@
                                 <!-- <td width="170px" valign="middle" align="center"> PROYECTOS AUTORIZADOS 
                                     <select name="proyecto" id="proyecto" style="width:170px;"
                                             onChange="cargarContenido('bodyHtml', './index.php', 'proyecto=' + this.options[ this.selectedIndex ].value, true);">
-                                        {foreach from=$arrProyectos key=seqProyecto item=objProyecto}
-                                            <option value="{$seqProyecto}"
-                                                    {if $seqProyectoPost == $seqProyecto} selected {/if}
-                                                    >{$objProyecto->txtProyecto}</option>
-                                        {/foreach}
-                                    </select>
-                                </td>-->
+                                {foreach from=$arrProyectos key=seqProyecto item=objProyecto}
+                                    <option value="{$seqProyecto}"
+                                    {if $seqProyectoPost == $seqProyecto} selected {/if}
+                                    >{$objProyecto->txtProyecto}</option>
+                                {/foreach}
+                            </select>
+                        </td>-->
                             </tr>
                         </table>
                     </td>
@@ -166,24 +166,24 @@
             </table>
         </center>
         <footer>
-            <div class="well well-small" >
+            <div  >
                 <center>
-                    <div style="position: relative; width: 49%; height: 40px">
-                        <div style=" position: relative; float: left; width:50%">
-                            <img src="./recursos/imagenes/pie_ws.png" width="450px"/><br> 
-                        </div>
-                        <div style=" position: relative; float: right; width:50%;">
-                            <div id="oScroll" style="width:450px ">
-                                <div id="scroll">La información que se registra debe ser soportada documentalmente.
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						
-                                    La sdht podrá verificar en cualquier momento la veracidad de la información.<br><br/><br/>
-                                </div><br/>
+                    <div id="oScroll" style="width: 52%; margin-top: 5px; margin-bottom: 10px;" class="alert alert-danger">
+                        <div id="scroll" >
+                            La información que se registra debe ser soportada documentalmente.
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            La sdht podrá verificar en cualquier momento la veracidad de la información.<br><br/><br/>
+                        </div><br/>
 
-                            </div>
-                            <img src="./recursos/imagenes/background_menupie.png" width="450px" height="20px"/>
-                        </div>                                                       
                     </div>
+                    <div style=" position: relative; float: left; width:100%">
+                        <img src="./recursos/imagenes/pie_ws.png" /><br> 
+                    </div>
+
+
+                    <!--<img src="./recursos/imagenes/background_menupie.png" width="450px" height="20px"/>-->
                 </center>
             </div>
         </footer>

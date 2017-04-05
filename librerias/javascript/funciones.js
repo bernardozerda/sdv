@@ -667,11 +667,14 @@ function mostrarOcultar(idObj) {
 
     if (document.getElementById(idObj).style.display == "none") {
         document.getElementById(idObj).style.display = "";
+        selectAnidados(0, 0);
         return "mostrar";
+
     } else {
         document.getElementById(idObj).style.display = "none";
         return "ocultar";
     }
+
 }
 
 /**
@@ -845,6 +848,9 @@ function agregarMiembroHogarBp() {
 
     var objPlanGobierno = document.getElementById("seqPlanGobierno");
     //alert (objPlanGobierno);
+    if (objAnosAprobados == null || objAnosAprobados == "") {
+        selectAnidados(objNumDocumento, 0);
+    }
 
     // Celda que contiene los miembros del hogar
     var objHogar = document.getElementById("datosHogar");
@@ -9847,9 +9853,11 @@ function selectAnidados(documento, valor) {
             options[selected].forEach(function (element, index) {
                 $('#anosAprobados').append('<option value="' + element + '">' + element + '</option>');
             });
-            if (valor == 1 && document.getElementById(documento + '-anosAprobados').value != "") {
-                var anos = document.getElementById(documento + '-anosAprobados').value;
-                $('#anosAprobados').val(anos);
+            if (document.getElementById(documento + '-anosAprobados')) {
+                if (valor == 1 && document.getElementById(documento + '-anosAprobados').value != "") {
+                    var anos = document.getElementById(documento + '-anosAprobados').value;
+                    $('#anosAprobados').val(anos);
+                }
             }
         }
         $('#nivelEducativo').change(fillSecondary);
