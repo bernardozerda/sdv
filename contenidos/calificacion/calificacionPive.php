@@ -86,25 +86,24 @@ group by frm.seqFormulario;";
                 <th></th>
                 <th></th>
             </tr>
-            <?php
-            while ($objRes1->fields) {?>
-            <tr>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['nombre']?></td>
-                <td><table><?= ucwords(strtolower(str_replace(",", "", $objRes1->fields['edades'])))?></table></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>            
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-                <td><?=$objRes1->fields['seqFormulario']?></td>
-            </tr>
-            <?php
-               // echo "<br>" . $objRes1->fields['seqFormulario'];
+            <?php while ($objRes1->fields) { ?>
+                <tr>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['nombre'] ?></td>
+                    <td><table><?= ucwords(strtolower(str_replace(",", "", $objRes1->fields['edades']))) ?></table></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>            
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                    <td><?= $objRes1->fields['seqFormulario'] ?></td>
+                </tr>
+                <?php
+                // echo "<br>" . $objRes1->fields['seqFormulario'];
 
                 $objRes1->MoveNext();
             }

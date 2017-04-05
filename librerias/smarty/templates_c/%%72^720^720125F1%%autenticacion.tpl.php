@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-07 16:14:00
+<?php /* Smarty version 2.6.26, created on 2017-04-03 15:39:39
          compiled from autenticacion.tpl */ ?>
 <!--
 <!--
@@ -19,7 +19,7 @@
 		<meta http-equiv="Content-Language" content="es">
 		<meta name="robots" content="index,  nofollow" />
 
-      <title>SDVE</title>
+      <title>PIVE</title>
 
       <!-- Estilos CSS -->        
       <link href="./librerias/bootstrap/css/bootstrap.css" rel="stylesheet">        
@@ -75,7 +75,7 @@
          </div>
          
          <div class="hero-unit-header" style="background-color: #289bae; color: white; text-align: center">
-            <strong>SISTEMA DE INFORMACI&Oacute;N DEL SUBSIDIO DISTRITAL DE VIVIENDA</strong>
+            <strong>SISTEMA DE INFORMACIÓN DEL PROGRAMA INTEGRAL DE VIVIENDA EFECTVA</strong>
          </div>
          
          <center>
@@ -117,9 +117,9 @@
                <div class="span1">&nbsp;</div>
 
                <!-- ACCESO PARA CIUDADANOS -->
-               <div class="span5" style="height: 470px;">
+               <!-- <div class="span5" style="height: 470px;">
                      
-                  <div class="thumbnail" style="height: 420px;">
+                 <div class="thumbnail" style="height: 420px;">
                      <img data-src="holder.js/200x180" alt="" style="width: 200px; height: 180px;" src="./recursos/imagenes/accesoCiudadanos.png">
                      <div class="caption">
                         <h3>Acceso para Ciudadanos</h3>
@@ -131,7 +131,7 @@
                            </p>
                            <p>
                               <center>
-                              <!-- BOTON DE ACCESO -->
+                              
                               <div class="input-append">
                                   <input type="text"
                                          id="documento"
@@ -151,14 +151,14 @@
                      </div>
                   </div>
                   
-               </div>
+               </div>-->
 
                <!-- ACCESO PARA FUNCIONARIOS -->
-               <div class="span5" style="height: 470px;">
+               <div class="span5" style="height: 470px; width:518px; padding-left: 18%; ">
                   
                   <div class="thumbnail" style="height: 420px;">
                      <div class="caption">
-                        <h3>Acceso para funcionarios</h3>
+                         <h3 style="text-align: center">Acceso para funcionarios</h3>
                         <p>
                            <form id="frmFuncionarios" class="form-horizontal" method="post" action="./autenticacion.php" autocomplete="off">
                               <fieldset>

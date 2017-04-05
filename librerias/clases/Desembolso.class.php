@@ -131,8 +131,6 @@ class Desembolso {
         $this->seqCiudad = null;
     }
 
-// Fin constructor
-
     public function cargarDesembolso($seqFormulario) {
 
         global $aptBd;
@@ -1483,11 +1481,29 @@ class Desembolso {
                 }
                 closedir($aptDir);
 
-                // Elimina los registros de las imagenes que haya
-                // para insertar las que vienen en el formulario
-                // las imagenes ya estan fisicamente en la carpeta desde
-                // que se cargan en el formulario
-                $sql = "
+			$arrNombreArchivoCargado = ( is_array( $arrNombreArchivoCargado ) )? $arrNombreArchivoCargado : array() ;
+			if( is_dir( $txtPrefijoRuta ."recursos/imagenes/desembolsos" ) ){
+				if( $aptDir = opendir( $txtPrefijoRuta ."recursos/imagenes/desembolsos" ) ){
+
+					// Elimina de la carpeta los archivos que no esten en el arreglo que viene del formulario
+					while( ( $txtArchivo = readdir( $aptDir ) ) !== false ){
+						if( $txtArchivo != "." and $txtArchivo != ".." ){
+							$numFormulario = intval( substr( $txtArchivo , 0 , strpos( $txtArchivo , "_" ) ) );
+							$seqFormulario = ( intval($seqFormulario) == 0 )? $this->seqFormulario : $seqFormulario;
+							if( $numFormulario == $seqFormulario ){
+								if( ! in_array( $txtArchivo , $arrNombreArchivoCargado ) ){
+									unlink( $txtPrefijoRuta ."recursos/imagenes/desembolsos/" . $txtArchivo );
+								}
+							}
+						}
+					}
+					closedir( $aptDir );
+
+					// Elimina los registros de las imagenes que haya
+					// para insertar las que vienen en el formulario
+					// las imagenes ya estan fisicamente en la carpeta desde
+					// que se cargan en el formulario
+					$sql = "
 						DELETE
 						FROM T_DES_ADJUNTOS_TECNICOS
 						WHERE seqTecnico = $seqTecnico
@@ -2960,17 +2976,26 @@ class Desembolso {
                     $bolCambios = true;
                 }
 
-                // verificando cambios en las observaciones
-                if (count($this->arrTitulos["observacion"]) != count($arrPost["observacion"])) {
-                    $bolCambios = true; // echo "observacion";
-                } else {
-                    $arrPost["observacion"] = ( is_array($arrPost["observacion"]) ) ? $arrPost["observacion"] : array();
-                    foreach ($arrPost["observacion"] as $txtObservacion) {
-                        if (!in_array($txtObservacion, $this->arrTitulos["observacion"])) {
-                            $bolCambios = true;
-                        }
-                    }
-                }
+					// reemplaza todos los caracteres que son de presentacion
+					// y que no deben ir a la base de datos
+					foreach( $arrPost as $txtClave => $txtValor ){
+						if( ! is_array( $arrPost[ $txtClave ] ) ){
+							switch( $arrDato[ $txtClave ] ){
+								case "txt":
+									$arrPost[ $txtClave ] = preg_replace( "/[^Ã¡Ã©Ã­Ã³ÃºÃ±Ã�Ã‰Ã�Ã“ÃšÃ‘A-Za-z0-9\ \.\-\/]/" , "" , $txtValor );
+								break;
+								case "fch":
+									$arrPost[ $txtClave ] = preg_replace( "/[^0-9\-\/]/" , "" , $txtValor );
+								break;
+								case "num":
+									$arrPost[ $txtClave ] = preg_replace( "/[^0-9]/" , "" , $txtValor );
+								break;
+								default:
+									$arrPost[ $txtClave ] = preg_replace( "/[^Ã¡Ã©Ã­Ã³ÃºÃ±Ã�Ã‰Ã�Ã“ÃšÃ‘A-Za-z0-9\ \.\-\/]/" , "" , $txtValor );
+								break;
+							}
+						}
+					}
 
                 // verificando cambios en los documentos
                 if (count($this->arrTitulos["documentos"]) != count($arrPost["documento"])) {

@@ -1,13 +1,14 @@
-<?php /* Smarty version 2.6.26, created on 2017-03-28 12:18:35
+<?php /* Smarty version 2.6.26, created on 2017-04-04 14:49:39
          compiled from subsidios/actualizacion.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'subsidios/actualizacion.tpl', 629, false),array('modifier', 'number_format', 'subsidios/actualizacion.tpl', 658, false),array('function', 'math', 'subsidios/actualizacion.tpl', 630, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'subsidios/actualizacion.tpl', 633, false),array('modifier', 'number_format', 'subsidios/actualizacion.tpl', 662, false),array('function', 'math', 'subsidios/actualizacion.tpl', 634, false),)), $this); ?>
 
 <!-- ********************************************************** 
     PLANTILLA DE ACTUALIZACION Y POSTLACION,
     TAMBIEN SE USA PARA EL ESQUEMA DE CASA EN MANO
     EN LA FASE DE POSTULACION
 *************************************************************** -->
+ <?php $this->assign('victima', ''); ?>
 <?php if ($this->_tpl_vars['objFormulario']->seqEstadoProceso != 6): ?>
     <?php $this->assign('seqEstadoProceso', $this->_tpl_vars['objFormulario']->seqEstadoProceso); ?>
 <?php else: ?>
@@ -711,6 +712,9 @@ unset($_smarty_tpl_vars);
                                     <?php $this->assign('anosAprobados', $this->_tpl_vars['objCiudadano']->numAnosAprobados); ?>
                                     <?php $this->assign('afiliacionSalud', $this->_tpl_vars['objCiudadano']->numAfiliacionSalud); ?>
                                     <?php $this->assign('ocupacion', $this->_tpl_vars['objCiudadano']->seqOcupacion); ?>
+                                    <?php if ($this->_tpl_vars['objCiudadano']->seqTipoVictima == 2): ?>
+                                        <?php $this->assign('victima', 'OK'); ?>
+                                    <?php endif; ?>
 
                                     <?php $this->assign('valIngresosCiudadano', ((is_array($_tmp=$this->_tpl_vars['objCiudadano']->valIngresos)) ? $this->_run_mod_handler('replace', true, $_tmp, '[^0-9]', '') : smarty_modifier_replace($_tmp, '[^0-9]', ''))); ?>
                                     <?php echo smarty_function_math(array('equation' => "x + y",'x' => $this->_tpl_vars['valTotal'],'y' => $this->_tpl_vars['valIngresosCiudadano'],'assign' => 'valTotal'), $this);?>
@@ -1252,22 +1256,28 @@ unset($_smarty_tpl_vars);
                                                 id="bolDesplazado" 
                                                 style="width:260px;"
                                                 >
-                                            <option value="0" <?php if ($this->_tpl_vars['objFormulario']->bolDesplazado != 1): ?> selected <?php endif; ?> disabled>No</option>
-                                            <option value="1" <?php if ($this->_tpl_vars['objFormulario']->bolDesplazado == 1): ?> selected <?php endif; ?> disabled>Si</option>
+                                            <option value="0" <?php if ($this->_tpl_vars['victima'] != 'OK'): ?> selected <?php endif; ?> disabled>No</option>
+                                            <option value="1" <?php if ($this->_tpl_vars['victima'] == 'OK'): ?> selected <?php endif; ?> disabled>Si</option>
                                         </select>
                                     </td>		
                                 </tr>
                                 <tr>
-                                    <td>Retorno Reubicación </td>
+                                    <td>Acta de Voluntariedad<br><?php echo $this->_tpl_vars['victima']; ?>
+ de Retorno/Reubicación</td>
                                     <td>
-                                       <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                        <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
                                                 name="bolAltaCon" 
                                                 id="bolAltaCon" 
                                                 style="width:260px;"
                                                 >
-                                            <option value="0" <?php if ($this->_tpl_vars['objFormulario']->bolAltaCon != 1): ?> selected <?php endif; ?> >No</option>
-                                            <option value="1" <?php if ($this->_tpl_vars['objFormulario']->bolAltaCon == 1): ?> selected <?php endif; ?> >Si</option>
+                                            <?php if ($this->_tpl_vars['victima'] == 'OK'): ?>
+                                                <option value="0" selected>No</option>
+                                                <option value="1" >Si</option>
+                                            <?php else: ?>
+                                                <option value="0"  selected  >No</option>
+                                                <option value="1"  disabled>Si</option>
+                                            <?php endif; ?>
                                         </select>
                                     </td>
                                 </tr>
@@ -1291,21 +1301,21 @@ unset($_smarty_tpl_vars);
                                     </td>	
 
                                     <!-- SEC SALUD -->
-                                    <td width="110px" align="right">Sec. Salud</td>
-                                    <td style="padding-left:10px;">
-                                        <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                                onBlur="this.style.backgroundColor = '#FFFFFF';" 
-                                                name="bolSecSalud" 
-                                                id="bolSecSalud" 
-                                                style="width:100%;"
-                                                >
-                                            <option value="0" <?php if ($this->_tpl_vars['objFormulario']->bolSecSalud != 1): ?> selected <?php endif; ?> >No</option>
-                                            <option value="1" <?php if ($this->_tpl_vars['objFormulario']->bolSecSalud == 1): ?> selected <?php endif; ?> >Si</option>
-                                        </select>
-                                    </td>
-
+                                    <!-- <td width="110px" align="right">Sec. Salud</td>
+                                     <td style="padding-left:10px;">
+                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
+                                                 name="bolSecSalud" 
+                                                 id="bolSecSalud" 
+                                                 style="width:100%;"
+                                                 >
+                                             <option value="0" <?php if ($this->_tpl_vars['objFormulario']->bolSecSalud != 1): ?> selected <?php endif; ?> >No</option>
+                                             <option value="1" <?php if ($this->_tpl_vars['objFormulario']->bolSecSalud == 1): ?> selected <?php endif; ?> >Si</option>
+                                         </select>
+                                     </td>
+ 
                                     <!-- SEC EDUCACION -->
-                                    <td width="110px" align="right">Sec. Educacion</td>
+                                    <!--<td width="110px" align="right">Sec. Educacion</td>
                                     <td style="padding-left:10px;">
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1316,7 +1326,7 @@ unset($_smarty_tpl_vars);
                                             <option value="0" <?php if ($this->_tpl_vars['objFormulario']->bolSecEducacion != 1): ?> selected <?php endif; ?> >No</option>
                                             <option value="1" <?php if ($this->_tpl_vars['objFormulario']->bolSecEducacion == 1): ?> selected <?php endif; ?> >Si</option>
                                         </select>
-                                    </td>
+                                    </td>-->
                                     <td width="110px" align="center">Sec. de la Mujer</td>
                                     <td style="padding-left:10px;">
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
@@ -1344,22 +1354,22 @@ unset($_smarty_tpl_vars);
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <!-- OTRO -->
-                                    <td align="right">Otro</td>
-                                    <td colspan="8" style="padding-left:10px">
-                                        <input	type="text" 
-                                               name="txtOtro" 
-                                               id="txtOtro" 
-                                               value="<?php echo $this->_tpl_vars['objFormulario']->txtOtro; ?>
+                                <!-- <tr>
+                                      OTRO 
+                                     <td align="right">Otro</td>
+                                     <td colspan="8" style="padding-left:10px">
+                                         <input	type="text" 
+                                                name="txtOtro" 
+                                                id="txtOtro" 
+                                                value="<?php echo $this->_tpl_vars['objFormulario']->txtOtro; ?>
 " 
-                                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                               onBlur="sinCaracteresEspeciales(this);
-                                                       this.style.backgroundColor = '#FFFFFF';" 
-                                               style="width:100%;" 
-                                               />
-                                    </td>
-                                </tr>
+                                                onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                onBlur="sinCaracteresEspeciales(this);
+                                                        this.style.backgroundColor = '#FFFFFF';" 
+                                                style="width:100%;" 
+                                                />
+                                     </td>
+                                 </tr>-->
                             </table></p>
                             </p></div>
 
@@ -1371,8 +1381,11 @@ unset($_smarty_tpl_vars);
                                 <?php if ($this->_tpl_vars['objFormulario']->seqEtapa >= 4): ?> 
                                     <input type="hidden" name="seqPlanGobierno" id="seqPlanGobierno" value="<?php echo $this->_tpl_vars['objFormulario']->seqPlanGobierno; ?>
 ">
-                                <?php else: ?>
+                                <?php elseif ($this->_tpl_vars['objFormulario']->seqPlanGobierno == 2): ?>                                    
                                     <input type="hidden" name="seqPlanGobierno" id="seqPlanGobierno" value="2">
+                                <?php elseif ($this->_tpl_vars['objFormulario']->seqPlanGobierno == 3): ?>
+                                    <input type="hidden" name="seqPlanGobierno" id="seqPlanGobierno" value="<?php echo $this->_tpl_vars['objFormulario']->seqPlanGobierno; ?>
+"> 
                                 <?php endif; ?>
 
 
@@ -1397,6 +1410,12 @@ unset($_smarty_tpl_vars);
                                                             selected 
                                                         <?php endif; ?>
                                                         <?php if ($this->_tpl_vars['arrDatos']['seqPlanGobierno'] == 1): ?>
+                                                            disabled
+                                                        <?php endif; ?>
+                                                        <?php if ($this->_tpl_vars['arrDatos']['seqPlanGobierno'] == 2 && $this->_tpl_vars['objFormulario']->seqPlanGobierno == 3): ?>
+                                                            disabled
+                                                        <?php endif; ?>
+                                                        <?php if ($this->_tpl_vars['arrDatos']['seqPlanGobierno'] == 3 && $this->_tpl_vars['objFormulario']->seqPlanGobierno == 2): ?>
                                                             disabled
                                                         <?php endif; ?>
                                                         >
@@ -2224,55 +2243,54 @@ unset($_smarty_tpl_vars);
                                 <input type="hidden" name="valTotalRecursos" id="valTotalRecursos" value="<?php echo $this->_tpl_vars['objFormulario']->valTotalRecursos; ?>
 ">
                                 </tr>
+                                <?php if ($this->_tpl_vars['objFormulario']->seqPlanGobierno != 3): ?>
+                                    <tr bgcolor="#E0E0E0">
 
-                                <tr bgcolor="#E0E0E0">
+                                        <?php $this->assign('seqModalidad', $this->_tpl_vars['objFormulario']->seqModalidad); ?>
+                                        <?php $this->assign('seqSolucion', $this->_tpl_vars['objFormulario']->seqSolucion); ?>
 
-                                    <?php $this->assign('seqModalidad', $this->_tpl_vars['objFormulario']->seqModalidad); ?>
-                                    <?php $this->assign('seqSolucion', $this->_tpl_vars['objFormulario']->seqSolucion); ?>
-
-                                    <?php if ($this->_tpl_vars['objFormulario']->valAspiraSubsidio == 0 || $this->_tpl_vars['objFormulario']->valAspiraSubsidio == ""): ?>
-                                        <?php $this->assign('valSubsidio', $this->_tpl_vars['arrValorSubsidio'][$this->_tpl_vars['seqModalidad']][$this->_tpl_vars['seqSolucion']]); ?>
-                                        <?php if ($this->_tpl_vars['valSubsidio'] == ""): ?>
-                                            <?php $this->assign('valSubsidio', 0); ?>
+                                        <?php if ($this->_tpl_vars['objFormulario']->valAspiraSubsidio == 0 || $this->_tpl_vars['objFormulario']->valAspiraSubsidio == ""): ?>
+                                            <?php $this->assign('valSubsidio', $this->_tpl_vars['arrValorSubsidio'][$this->_tpl_vars['seqModalidad']][$this->_tpl_vars['seqSolucion']]); ?>
+                                            <?php if ($this->_tpl_vars['valSubsidio'] == ""): ?>
+                                                <?php $this->assign('valSubsidio', 0); ?>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <?php $this->assign('valSubsidio', $this->_tpl_vars['objFormulario']->valAspiraSubsidio); ?>
                                         <?php endif; ?>
-                                    <?php else: ?>
-                                        <?php $this->assign('valSubsidio', $this->_tpl_vars['objFormulario']->valAspiraSubsidio); ?>
-                                    <?php endif; ?>
 
-                                    <!-- VALOR AL QUE ASPIRA DEL SUBSIDIO -->
-                                    <td class="tituloTabla" height="25px" align="top">Valor Subsidio Aspira</td>
-                                    <td align="right" style="padding-right:10px" id="tdValSubsidio"  height="25px" align="top">
-                                        $ <input	type="text" 
-                                                 name="valAspiraSubsidio"
-                                                 id="valAspiraSubsidio" 
-                                                 value="<?php echo ((is_array($_tmp=$this->_tpl_vars['valSubsidio'])) ? $this->_run_mod_handler('number_format', true, $_tmp, '0', '.', '.') : number_format($_tmp, '0', '.', '.')); ?>
-" 
-                                                 onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                                 onBlur="soloNumeros(this);
-                                                         this.style.backgroundColor = '#FFFFFF';
-                                                         sumarTotalRecursos();"  
-                                                 onKeyUp="formatoSeparadores(this)"
-                                                 onChange="formatoSeparadores(this)"
-                                                 style="width:100px; text-align:right;"
-                                                 <?php if ($this->_tpl_vars['objFormulario']->seqTipoEsquema == 1): ?>
-                                                     readonly
-                                                 <?php endif; ?>
-                                                 />
-                                    </td>
-                                    <td class="tituloTabla"  height="25px" align="top">Soporte Cambio <br>Vr. subsidio</td>
-                                    <td style="padding-left: 10px;"  height="25px" align="top">
-                                        <input	type="text" 
-                                               name="txtSoporteSubsidio" 
-                                               id="txtSoporteSubsidio" 
-                                               value="<?php echo $this->_tpl_vars['objFormulario']->txtSoporteSubsidio; ?>
-" 
-                                               onFocus="this.style.backgroundColor = '#ADD8E6';" 
-                                               onBlur="sinCaracteresEspeciales(this);
-                                                       this.style.backgroundColor = '#FFFFFF';"  
-                                               style="width:300px;" 
-                                               />
-                                    </td>
-                                </tr>				        		
+                                        <!-- VALOR AL QUE ASPIRA DEL SUBSIDIO -->
+                                        <td class="tituloTabla" height="25px" align="top">Valor Subsidio Aspira</td>
+                                        <td align="right" style="padding-right:10px" id="tdValSubsidio"  height="25px" align="top">
+                                            $ <input	type="text" 
+                                                     name="valAspiraSubsidio"
+                                                     id="valAspiraSubsidio" 
+                                                     value="0" 
+                                                     onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                     onBlur="soloNumeros(this);
+                                                             this.style.backgroundColor = '#FFFFFF';
+                                                             sumarTotalRecursos();"  
+                                                     onKeyUp="formatoSeparadores(this)"
+                                                     onChange="formatoSeparadores(this)"
+                                                     style="width:100px; text-align:right;"
+                                                     <?php if ($this->_tpl_vars['objFormulario']->seqTipoEsquema == 1): ?>
+                                                         readonly
+                                                     <?php endif; ?>
+                                                     />
+                                        </td>
+                                        <td class="tituloTabla"  height="25px" align="top">Soporte Cambio <br>Vr. subsidio</td>
+                                        <td style="padding-left: 10px;"  height="25px" align="top">
+                                            <input	type="text" 
+                                                   name="txtSoporteSubsidio" 
+                                                   id="txtSoporteSubsidio" 
+                                                   value="0" 
+                                                   onFocus="this.style.backgroundColor = '#ADD8E6';" 
+                                                   onBlur="sinCaracteresEspeciales(this);
+                                                           this.style.backgroundColor = '#FFFFFF';"  
+                                                   style="width:300px;" 
+                                                   />
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
                             </table>
                             </p></div>
                     </div>

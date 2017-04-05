@@ -127,7 +127,7 @@
 			$this->arrTecnico = null;
 			$this->arrTitulos = null;
 			$this->arrSolicitud = null;
-			$this->txtCiudadMatricula = utf8_encode("Bogot�");
+			$this->txtCiudadMatricula = utf8_encode("Bogotï¿½");
 			$this->txtFlujo = null;
          $this->seqCiudad = null;
                         
@@ -1486,6 +1486,7 @@
 					while( ( $txtArchivo = readdir( $aptDir ) ) !== false ){
 						if( $txtArchivo != "." and $txtArchivo != ".." ){
 							$numFormulario = intval( substr( $txtArchivo , 0 , strpos( $txtArchivo , "_" ) ) );
+							$seqFormulario = ( intval($seqFormulario) == 0 )? $this->seqFormulario : $seqFormulario;
 							if( $numFormulario == $seqFormulario ){
 								if( ! in_array( $txtArchivo , $arrNombreArchivoCargado ) ){
 									unlink( $txtPrefijoRuta ."recursos/imagenes/desembolsos/" . $txtArchivo );
@@ -1552,10 +1553,10 @@
 					}
                     
 				}else{
-					$arrErrores[] = "La informacion del registro se salvo pero las imágenes no pudieron salvarse, no se pudo abrir el directorio de imagenes";
+					$arrErrores[] = "La informacion del registro se salvo pero las imÃ¡genes no pudieron salvarse, no se pudo abrir el directorio de imagenes";
 				}
 			}else{
-				$arrErrores[] = "La informacion del registro se salvo pero las imágenes no pudieron salvarse, falta la carpeta de imagenes";
+				$arrErrores[] = "La informacion del registro se salvo pero las imÃ¡genes no pudieron salvarse, falta la carpeta de imagenes";
 			}
 			
 			return $arrErrores;
@@ -2921,7 +2922,7 @@
                         if( ! is_array( $arrPost[ $txtClave ] ) ){
                             switch( $arrDato[ $txtClave ] ){
                                 case "txt":
-                                    $arrPost[ $txtClave ] = preg_replace( "/[^áéíóúñÁÉÍÓÚÑA-Za-z0-9\ \.\-\/]/" , "" , $txtValor );
+                                    $arrPost[ $txtClave ] = preg_replace( "/[^Ã¡Ã©Ã­Ã³ÃºÃ±Ã�Ã‰Ã�Ã“ÃšÃ‘A-Za-z0-9\ \.\-\/]/" , "" , $txtValor );
                                     break;
                                 case "fch":
                                     $arrPost[ $txtClave ] = preg_replace( "/[^0-9\-\/]/" , "" , $txtValor );
@@ -2930,7 +2931,7 @@
                                     $arrPost[ $txtClave ] = preg_replace( "/[^0-9]/" , "" , $txtValor );
                                     break;
                                 default:
-                                    $arrPost[ $txtClave ] = preg_replace( "/[^áéíóúñÁÉÍÓÚÑA-Za-z0-9\ \.\-\/]/" , "" , $txtValor );
+                                    $arrPost[ $txtClave ] = preg_replace( "/[^Ã¡Ã©Ã­Ã³ÃºÃ±Ã�Ã‰Ã�Ã“ÃšÃ‘A-Za-z0-9\ \.\-\/]/" , "" , $txtValor );
                                     break;
                             }
                         }

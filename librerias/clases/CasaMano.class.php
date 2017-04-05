@@ -1163,6 +1163,7 @@
               while( ( $txtArchivo = readdir( $aptDir ) ) !== false ){
                  if( $txtArchivo != "." and $txtArchivo != ".." ){
                     $numFormulario = intval( substr( $txtArchivo , 0 , strpos( $txtArchivo , "_" ) ) );
+                    $seqFormulario = ( intval($seqFormulario) == 0 )? $this->seqFormulario : $seqFormulario;
                     if( $numFormulario == $seqFormulario ){
                        if( ! in_array( $txtArchivo , $arrNombreArchivoCargado ) ){
                           unlink( $txtPrefijoRuta ."recursos/imagenes/desembolsos/" . $txtArchivo );
