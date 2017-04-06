@@ -29,7 +29,7 @@
         <td valign="top">
             <div style="padding-top:0px; padding-left: 10px" id="estados">
                 <div style="padding:5px; border-bottom: 1px dotted #999999;">
-                    <strong>Seleccione una acción</strong>
+                    <strong>Seleccione una acción para probar</strong>
                 </div>
                 
                 <div style="padding:5px;">
