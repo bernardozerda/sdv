@@ -15,7 +15,7 @@
 	//include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases'] . "CasaMano.class.php" );
 	
 	
-	echo "Hola Encuestas PIVE con un cambio adicional";
+	echo "En serio";
 	
 
 ?>
