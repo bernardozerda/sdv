@@ -15,7 +15,7 @@
 	//include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases'] . "CasaMano.class.php" );
 	
 	
-	echo "En serio";
+	echo "Commit 1 que es el que pasa";
 	
 
 ?>
