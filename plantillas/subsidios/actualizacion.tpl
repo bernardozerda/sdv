@@ -1017,7 +1017,7 @@
 
                                 <!-- SISBEN y DESPLAZAMIENTO FORZADO -->
                                 <tr>
-                                    <td>Sisben </td>
+                                    <td>Tiene Sisben</td>
                                     <td>
                                         <select onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1025,10 +1025,14 @@
                                                 id="seqSisben" 
                                                 style="width:260px;"
                                                 ><option value="0" selected>SELECCIONE</option>
-                                            {foreach from=$arrSisben key=seqSisben item=txtSisben}
+                                            {foreach from=$arrSisben key=seqSisben item=arrRegistro}
                                                 <option value="{$seqSisben}"
                                                         {if $objFormulario->seqSisben == $seqSisben} selected {/if}
-                                                        >{$txtSisben}</option>
+                                                        {if $arrRegistro.bolActivo == 0}
+                                                        	 	style="color:#666666"
+                                                    			disabled
+                                                    	  {/if}	
+                                                        >{$arrRegistro.txtSisben}</option>
                                             {/foreach}
                                         </select>
                                     </td>
