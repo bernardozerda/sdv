@@ -3,8 +3,8 @@
 	{assign var=cssEncabezado        value="background-color:#000000; color:white; font-family:calibri; font-size:12pt; font-weight: normal; "}
 	{assign var=cssSeccion           value="background-color:#b8bfc9; color:white; font-family:calibri; font-size:10pt; font-weight: normal; padding-left:13px;"}
 	{assign var=cssSubseccion        value="background-color:#f0f0f0; color:black; font-family:calibri; font-size:10pt; font-weight: normal; padding-left:13px;"}
-	{assign var=cssPreguntaNormal    value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: normal; padding-left:13px;"}
-	{assign var=cssPreguntaNegrilla  value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: bold;   "}
+	{assign var=cssPreguntaNormal    value="background-color:#ffffff; color:blue; font-family:calibri; font-size:8pt;  font-weight: normal; padding-left:13px;"}
+	{assign var=cssPreguntaNegrilla  value="background-color:#ffffff; color:blue; font-family:calibri; font-size:8pt;  font-weight: bold;   "}
 	{assign var=cssRespuestaNormal   value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: normal; padding-left:26px;"}
 	{assign var=cssRespuestaNegrilla value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: bold;   "}
 	
@@ -65,9 +65,9 @@
 								<table  style='border-bottom: 1px dotted #b8bfc9; width: 100%;' cellpadding=3 cellspacing=0>
 									<tr>
 										{if $arrPregunta.padre != ""}
-											<td style='width: 25%; {$cssPreguntaNormal}'>
+											<td style='width: 40%; {$cssRespuestaNormal}'>
 												{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
-													<span style='{$cssPreguntaNegrilla}'>{$arrRespuesta.identificador}</span> {$arrRespuesta.texto}
+													<span style='{$cssRespuestaNegrilla}'>{$arrRespuesta.identificador}</span> {$arrRespuesta.texto}
 												{/foreach}
 											</td>
 										{/if}
@@ -101,12 +101,12 @@
 							
 							<!-- MULTIPLES -->
 							{elseif $arrPregunta.tipo == 5}
-							
+								
 								<table border=0 style='width: 100%;' cellpadding=3 cellspacing=0>
 									{if ! empty($arrPregunta.respuesta)}
 										{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
 											<tr>
-												<td style='width: 25%; border-bottom: 1px dotted #b8bfc9; {$cssRespuestaNegrilla}'>
+												<td style='width: 40%; border-bottom: 1px dotted #b8bfc9; {$cssRespuestaNegrilla}'>
 													{$arrRespuesta.texto}
 												</td>
 												<td style="border-bottom: 1px dotted #b8bfc9; {$cssRespuestaNormal}">
@@ -139,8 +139,8 @@
 								{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
 								
 									{if $arrPregunta.padre != ""}
-										<td style='width: 25%; {$cssPreguntaNormal}'>
-											<span style="{$cssPreguntaNegrilla}">{$arrRespuesta.identificador}</span> {$arrRespuesta.texto}
+										<td style='width: 25%; {$cssRespuestaNormal}'>
+											<span style="{$cssRespuestaNegrilla}">{$arrRespuesta.identificador}</span> {$arrRespuesta.texto}
 										</td>
 									{/if}
 								
