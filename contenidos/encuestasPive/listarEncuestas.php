@@ -21,6 +21,10 @@
 		$arrAplicaciones = $claEncuestas->listarAplicaciones($numDocumento);
 	}
 	
+	if( empty($arrAplicaciones) ){
+		$arrErrores[] = "El hogar no tiene aplicaciones de encuestas realizadas";
+	}
+	
 	//pr($arrAplicaciones);
 	
 	if(! empty($arrErrores)){
