@@ -111,6 +111,8 @@ if (empty($arrErrores)) {
                         $arrErrores[] = "El tipo de documento seleccionado para el postulante principal no es válido";
                     }
                 }
+            } elseif ( $arrCiudadano['seqParentesco'] == 13 or $arrCiudadano['seqParentesco'] == 12 ){
+            	$arrErrores[] = "El ciudadano con numero de documento " . number_format($numDocumento) . " tiene seleccionado un parentesco que no es válido";
             }
 
             // Solo puede haber una persona con condicion Especial Jefe de Hogar

@@ -337,8 +337,15 @@
                                                             style="width:90%;"
                                                             >
                                                         <option value="0">Ninguno</option>
-                                                        {foreach from=$arrParentesco key=seqParentesco item=txtParentesco}
-                                                            <option value="{$seqParentesco}">{$txtParentesco}</option>
+                                                        {foreach from=$arrParentesco key=seqParentesco item=arrRegistro}
+                                                            <option value="{$seqParentesco}"
+                                                            	{if $arrRegistro.bolActivo == 0}
+                                                                        style="color:#666666"
+                                                                        disabled
+                                                                    {/if}	
+                                                            >
+																					{$arrRegistro.txtParentesco}
+																				</option>
                                                         {/foreach}
                                                     </select>
                                                 </td>
