@@ -510,7 +510,7 @@
 			$objRes = $aptBd->execute($sql);
 			while($objRes->fields){
 				foreach($objRes->fields as $txtCampo => $txtValor){
-					$$txtCampo = $txtValor;
+					$$txtCampo = iconv("UTF-8", "Windows-1252", $txtValor);
 				}
 				$this->arrAplicacion['encabezado']['nombre'] = $txtNombreCargue;
 				$this->arrAplicacion['encabezado']['formulario'] = $txtFormulario;
@@ -534,7 +534,7 @@
 			$objRes = $aptBd->execute($sql);
 			while($objRes->fields){
 				foreach($objRes->fields as $txtCampo => $txtValor){
-					$$txtCampo = $txtValor;
+					$$txtCampo = iconv("UTF-8", "Windows-1252", $txtValor);
 				}
 				$this->arrAplicacion['ciudadano'][$numOrden][$seqRespuesta] = $valRespuesta;
 				$objRes->MoveNext();
@@ -581,7 +581,7 @@
 			while($objRes->fields){
 				
 				foreach($objRes->fields as $txtCampo => $txtValor){
-					$$txtCampo = $txtValor;
+					$$txtCampo = iconv("UTF-8", "Windows-1252", $txtValor);
 				}
 				
 				$this->txtDiseno = $txtDiseno;
@@ -593,12 +593,16 @@
 				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['tipo'] = $seqTipoPregunta;
 				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['destino'] = $txtTablaDestino;
 				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['padre'] = $txtIdentificadorPadre;
-				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['identificador'] = $idRespuesta;
-				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['tipo'] = $seqTipoRespuesta;
-				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['texto'] = $txtRespuesta;
-				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['tabla'] = $txtTablaEquivalente;
-				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['campo'] = $txtCampoEquivalente;
-				$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['valor'] = $valEquivalente;
+				if( intval($seqRespuesta) != 0 ){
+					$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['identificador'] = $idRespuesta;
+					$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['tipo'] = $seqTipoRespuesta;
+					$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['texto'] = $txtRespuesta;
+					$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['tabla'] = $txtTablaEquivalente;
+					$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['campo'] = $txtCampoEquivalente;
+					$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'][$seqRespuesta]['valor'] = $valEquivalente;
+				}else{
+					$this->arrPlantilla[$txtSeccion][$txtSubseccion][$idPregunta]['respuesta'] = array();
+				}
 				
 				// TRANSFORMACION DE LAS EQUIVALENCIAS CONFIGURADAS
 				if($txtTablaEquivalente != ""){

@@ -19,8 +19,7 @@
 								</div>
 							{/if}
 							
-							<!--  <button onclick="someterFormulario('mensajes', this.form, './contenidos/encuestasPive/exportarEncuesta.php', true, false);" style="width:70px;"> -->
-							<button onclick="alert('Esta funcionalidad estará disponible pronto');" style="width:70px;">
+							<button onclick="someterFormulario('mensajes', this.form, './contenidos/encuestasPive/exportarEncuesta.php', true, false);" style="width:70px;">
 								<img src="recursos/imagenes/word.png" width="25px" height="25px"><br>
 								<span style="font-size: 10px; font-weight: bold;">Exportar<br>Respuestas</span>
 							</button>
@@ -28,8 +27,8 @@
 						</form>
 					</td>
 					<td rowspan="2" align="center" width="10%">
-						{if $bolEliminar == true}
-							<!-- <form onSubmit="return false;">
+						{if false}
+							<form onSubmit="return false;">
 								<div style="background-color: black; font-size: 9px; color: white; font-weight: bold; width:70px; height: 12px; text-align: center;">
 									&nbsp;
 								</div>
@@ -39,7 +38,6 @@
 								</button>
 								<input type="hidden" name="seqAplicacion" value="{$arrAplicacion.seqAplicacion}">
 							</form>
-							-->
 						{/if}
 					</td>
 				</tr>

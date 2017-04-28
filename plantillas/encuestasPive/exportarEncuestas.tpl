@@ -1,39 +1,40 @@
 
-	{assign var=cssEncabezado        value="background-color:black;   color:white; font-family:verdana; font-size:12pt; font-weight: normal;"}
-	{assign var=cssSeccion           value="background-color:gray;    color:white; font-family:verdana; font-size:10pt; font-weight: normal;"}
-	{assign var=cssSubseccion        value="background-color:#f0f0f0; color:black; font-family:verdana; font-size:10pt; font-weight: normal;"}
-	{assign var=cssPreguntaNormal    value="background-color:#f5f5f5; color:black; font-family:verdana; font-size:8pt;  font-weight: normal;"}
-	{assign var=cssPreguntaNegrilla  value="background-color:#f5f5f5; color:black; font-family:verdana; font-size:8pt;  font-weight: bold;  "}
-	{assign var=cssRespuestaNormal   value="background-color:white;   color:black; font-family:verdana; font-size:8pt;  font-weight: normal;" }
-	{assign var=cssRespuestaNegrilla value="background-color:white;   color:black; font-family:verdana; font-size:8pt;  font-weight: bold;" }
+	<!-- HOJAS DE ESTILO -->
+	{assign var=cssEncabezado        value="background-color:#000000; color:white; font-family:calibri; font-size:12pt; font-weight: normal; "}
+	{assign var=cssSeccion           value="background-color:#b8bfc9; color:white; font-family:calibri; font-size:10pt; font-weight: normal; padding-left:13px;"}
+	{assign var=cssSubseccion        value="background-color:#f0f0f0; color:black; font-family:calibri; font-size:10pt; font-weight: normal; padding-left:13px;"}
+	{assign var=cssPreguntaNormal    value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: normal; padding-left:13px;"}
+	{assign var=cssPreguntaNegrilla  value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: bold;   "}
+	{assign var=cssRespuestaNormal   value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: normal; padding-left:26px;"}
+	{assign var=cssRespuestaNegrilla value="background-color:#ffffff; color:black; font-family:calibri; font-size:8pt;  font-weight: bold;   "}
 	
-	<table border=0 style='width: 100%;' cellpadding=5 cellspacing=0>
+	<table border=0 style='width: 100%;' cellpadding=3 cellspacing=0>
 	
 		<!-- ENCABEZADO -->
 		<tr>
-			<td style='{$cssEncabezado}'>
+			<td style='padding:5px; {$cssEncabezado}' align="center">
 				{$claEncuesta->txtDiseno}
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td style="padding:10px;  {$cssPreguntaNormal}">
 				<table border=0 style='width: 100%;' cellpadding=3 cellspacing=0>
 					<tr>
-						<td style='width: 25%; {$cssPreguntaNegrilla}'>NOMBRE DEL CARGUE:</td>
-						<td style='{$cssPreguntaNormal}'>{$claEncuesta->arrAplicacion.encabezado.nombre|strtoupper}</td>
+						<td style='width: 40%; {$cssPreguntaNegrilla}'>NOMBRE DEL CARGUE:</td>
+						<td style='{$cssRespuestaNormal}'>{$claEncuesta->arrAplicacion.encabezado.nombre|strtoupper}</td>
 					</tr><tr>
-						<td style='width: 25%; {$cssPreguntaNegrilla}'>IDENTIFICADOR DEL FORMULARIO:</td>
-						<td style='{$cssPreguntaNormal}'>{$claEncuesta->arrAplicacion.encabezado.formulario|strtoupper}</td>
+						<td style='width: 40%; {$cssPreguntaNegrilla}'>IDENTIFICADOR DEL FORMULARIO:</td>
+						<td style='{$cssRespuestaNormal}'>{$claEncuesta->arrAplicacion.encabezado.formulario|strtoupper}</td>
 					</tr><tr>
-						<td style='width: 25%; {$cssPreguntaNegrilla}'>FECHA DE APLICACIÓN DE LA ENCUESTA:</td>
-						<td style='{$cssPreguntaNormal}'>{$claEncuesta->arrAplicacion.encabezado.fchAplicacion|strtoupper}</td>
+						<td style='width: 40%; {$cssPreguntaNegrilla}'>FECHA DE APLICACI&Oacute;N DE LA ENCUESTA:</td>
+						<td style='{$cssRespuestaNormal}'>{$claEncuesta->arrAplicacion.encabezado.fchAplicacion|strtoupper}</td>
 					</tr><tr>
-						<td style='width: 25%; {$cssPreguntaNegrilla}'>FECHA DE CARGA DE LA ENCUESTA:</td>
-						<td style='{$cssPreguntaNormal}'>{$claEncuesta->arrAplicacion.encabezado.fchCarga|strtoupper}</td>
+						<td style='width: 40%; {$cssPreguntaNegrilla}'>FECHA DE CARGA DE LA ENCUESTA:</td>
+						<td style='{$cssRespuestaNormal}'>{$claEncuesta->arrAplicacion.encabezado.fchCarga|strtoupper}</td>
 					</tr>
 					</tr><tr>
-						<td style='width: 25%; {$cssPreguntaNegrilla}'>USUARIO QUE CARGÓ LA ENCUESTA:</td>
-						<td style='{$cssPreguntaNormal}'>{$claEncuesta->arrAplicacion.encabezado.txtUsuario|strtoupper}</td>
+						<td style='width: 40%;  {$cssPreguntaNegrilla}'>USUARIO QUE CARG&Oacute; LA ENCUESTA:</td>
+						<td style='{$cssRespuestaNormal}'>{$claEncuesta->arrAplicacion.encabezado.txtUsuario|strtoupper}</td>
 					</tr>
 				</table>
 			</td>
@@ -42,65 +43,146 @@
 		<!-- IMPRESION DE LA PLANTILLA Y DE LOS RESULTADOS -->
 		
 		{foreach from=$claEncuesta->arrPlantilla key=txtSeccion item=arrSubsecciones}
-			<tr><td style='{$cssSeccion}'>{$txtSeccion}</td></tr>
+			<tr><td style='padding:5px; {$cssSeccion}'>{$txtSeccion}</td></tr>
 			{foreach from=$arrSubsecciones key=txtSubseccion item=arrPreguntas}
-				<tr><td style='{$cssSubseccion}'>{$txtSubseccion}</td></tr>
+				<tr><td style='padding:5px; {$cssSubseccion}'>{$txtSubseccion}</td></tr>
 				{foreach from=$arrPreguntas key=txtIdentificador item=arrPregunta}
-					
-					<tr>
-						<td style='width: 25%; {$cssPreguntaNormal}'>
-							<span style="width: 25%; {$cssPreguntaNegrilla}">{$txtIdentificador}</span> {$arrPregunta.pregunta}
-						</td>
-					</tr>
-					
-					<tr>
-						<td style="{$cssRespuestaNormal}"> <!-- #{$txtIdentificador}#{$arrPregunta.tipo}#{$arrPregunta.destino}  -->
 							
-							{if $arrPregunta.destino == "T_ENC_APLICACION_FORMULARIO"}
-		
-								{if $arrPregunta.tipo != 3 && $arrPregunta.tipo != 5}	
-									<!--  {$claEncuesta->arrAplicacion.formulario.$seqRespuesta}  -->
-								{elseif $arrPregunta.tipo == 3}
-								<!-- 
-									<table border=0 style='width: 100%;' cellpadding=3 cellspacing=0>
+					{if $arrPregunta.destino == "T_ENC_APLICACION_FORMULARIO"}
+					 	
+					 	<!-- IMPRIME LA PREGUNTA -->
+						{if $arrPregunta.padre == ""}
+							<tr><td style='width: 25%; {$cssPreguntaNormal}'>
+								<span style="{$cssPreguntaNegrilla}">{$txtIdentificador}</span> {$arrPregunta.pregunta}
+							</td></tr>
+						{/if}
+					 	
+					 	<tr><td>
+					 	
+							<!-- PREGUNTAS DE TIPO TEXTO, NUMERO Y FECHA -->
+							{if $arrPregunta.tipo != 3 && $arrPregunta.tipo != 5}
+								
+								<table  style='border-bottom: 1px dotted #b8bfc9; width: 100%;' cellpadding=3 cellspacing=0>
+									<tr>
+										{if $arrPregunta.padre != ""}
+											<td style='width: 25%; {$cssPreguntaNormal}'>
+												{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
+													<span style='{$cssPreguntaNegrilla}'>{$arrRespuesta.identificador}</span> {$arrRespuesta.texto}
+												{/foreach}
+											</td>
+										{/if}
+										<td style='{$cssRespuestaNormal}'>
+											{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
+												{$claEncuesta->arrAplicacion.formulario.$seqRespuesta}
+											{/foreach}
+										</td>
+									</tr>
+								</table>
+							
+							<!-- UNICAS	-->
+							{elseif $arrPregunta.tipo == 3}
+							 
+								<table border=0 style='width: 100%;' cellpadding=3 cellspacing=0>
+									{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
+										<tr>
+											<td style='border-bottom: 1px dotted #b8bfc9; width: 40%; {$cssRespuestaNormal}'>
+												{$arrRespuesta.texto}
+											</td>
+											<td style="border-bottom: 1px dotted #b8bfc9; {$cssRespuestaNormal}">
+												{if isset( $claEncuesta->arrAplicacion.formulario.$seqRespuesta )}
+													1
+												{else}
+													&nbsp;
+												{/if}
+											</td>
+										</tr>
+									{/foreach}
+								</table>
+							
+							<!-- MULTIPLES -->
+							{elseif $arrPregunta.tipo == 5}
+							
+								<table border=0 style='width: 100%;' cellpadding=3 cellspacing=0>
+									{if ! empty($arrPregunta.respuesta)}
 										{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
 											<tr>
-												<td style='width: 25%; border-bottom: 1px dotted #000000; {$cssRespuestaNegrilla}'>
+												<td style='width: 25%; border-bottom: 1px dotted #b8bfc9; {$cssRespuestaNegrilla}'>
 													{$arrRespuesta.texto}
 												</td>
-												<td style="border-bottom: 2px dotted #000000; {$cssRespuestaNormal}">
-													{if isset( $claEncuesta->arrAplicacion.formulario.$seqRespuesta )}
-														1
-													{else}
-														0
-													{/if}
-												</td>
-											</tr>
-										{/foreach}
-									</table>
-								 -->
-								{elseif $arrPregunta.tipo == 5}
-									<table border=0 style='width: 100%;' cellpadding=3 cellspacing=0>
-										{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
-											<tr>
-												<td style='width: 25%; border-bottom: 1px dotted #000000; {$cssRespuestaNegrilla}'>
-													{$arrRespuesta.texto}
-												</td>
-												<td style="border-bottom: 2px dotted #000000; {$cssRespuestaNormal}">
+												<td style="border-bottom: 1px dotted #b8bfc9; {$cssRespuestaNormal}">
 													{$claEncuesta->arrAplicacion.formulario.$seqRespuesta}
 												</td>
 											</tr>
 										{/foreach}
-									</table>
-								{/if}
-							
-							{else}
-								<!-- preguntas de ciudadano -->				
+									{/if}
+								</table>
+								
 							{/if}
-									
-						</td>
-					</tr>
+						
+						</td></tr>
 					
+					{else}	<!-- preguntas de ciudadano -->
+						
+						<tr><td>
+							
+							<table border=0 style='width: 100%;' cellpadding=0 cellspacing=1><tr>
+							
+							{if $arrPregunta.padre == ""}
+								<td style='width: 25%; {$cssPreguntaNormal}'>
+									<span style="{$cssPreguntaNegrilla}">{$txtIdentificador}</span> {$arrPregunta.pregunta}
+								</td>
+							{/if}
+							
+							<!-- PREGUNTAS DE TIPO TEXTO, NUMERO Y FECHA -->
+							{if $arrPregunta.tipo != 3 && $arrPregunta.tipo != 5}
+								
+								{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
+								
+									{if $arrPregunta.padre != ""}
+										<td style='width: 25%; {$cssPreguntaNormal}'>
+											<span style="{$cssPreguntaNegrilla}">{$arrRespuesta.identificador}</span> {$arrRespuesta.texto}
+										</td>
+									{/if}
+								
+									{math equation=x/y x=75 y=$claEncuesta->arrAplicacion.ciudadano|@count assign=numAncho}
+									{section name=numCiudadanos start=0 loop=$claEncuesta->arrAplicacion.ciudadano|@count step=1}
+									  	<td style="width:{$numAncho|@intval}%; border-bottom: 1px dotted #b8bfc9; border-right: 1px dotted #b8bfc9;  {$cssRespuestaNormal}" align="center">
+									  		{assign var=numOrden value=$smarty.section.numCiudadanos.index}
+											{$claEncuesta->arrAplicacion.ciudadano.$numOrden.$seqRespuesta}
+										</td>
+									{/section}
+								{/foreach}
+								
+							<!-- UNICAS	 -->		
+							{elseif $arrPregunta.tipo == 3}
+								
+								{foreach from=$arrPregunta.respuesta key=seqRespuesta item=arrRespuesta}
+								
+									</tr><tr><td style='width: 25%; {$cssRespuestaNormal}'>{$arrRespuesta.texto}</td>
+								
+									{math equation=x/y x=70 y=$claEncuesta->arrAplicacion.ciudadano|@count assign=numAncho}
+									{section name=numCiudadanos start=0 loop=$claEncuesta->arrAplicacion.ciudadano|@count step=1}
+										<td style="border-bottom: 1px dotted #b8bfc9; border-right: 1px dotted #b8bfc9; {$cssRespuestaNormal}" align="center">
+											{assign var=numOrden value=$smarty.section.numCiudadanos.index}
+											{if isset( $claEncuesta->arrAplicacion.ciudadano.$numOrden.$seqRespuesta )}
+												1
+											{else}
+												&nbsp;
+											{/if}
+										</td>
+									{/section}
+									
+								{/foreach}
+								</tr>
+							
+							{/if}
+							
+							</tr></table>
+							
+						</td></tr>
+									
+					{/if}
+
 				{/foreach}
 			{/foreach}
 		{/foreach}
