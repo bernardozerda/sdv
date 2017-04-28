@@ -954,7 +954,7 @@
                                 <tr>
                                     <td>N° Hogares que hábitan la vivienda</td>
                                     <td><input type="number" name="numCohabitacion" autofocus="" size="4" maxlength="3" min="0" step="1" style="width: 40px" value="{$objFormulario->numHabitaciones}"></td>
-                                    <td>Hacinamiento. Número Dormitorios</td>
+                                    <td>Número Dormitorios</td>
                                     <td><input type="number" name="numHacinamiento" autofocus="" size="4" maxlength="3" min="0" step="1" style="width: 40px" value="{$objFormulario->numHacinamiento}"></td>
                                 </tr>
 
@@ -1050,7 +1050,7 @@
                                     </td>		
                                 </tr>
                                 <tr>
-                                    <td>Acta de Voluntariedad<br>{$victima} de Retorno/Reubicación</td>
+                                    <td>Acta de Voluntariedad.<br>{$victima} Retorno/Reubicación?</td>
                                     <td>
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1895,7 +1895,7 @@
                                 </tr>
                                 <tr>
                                     <!-- TIENE DONACIONES -->
-                                    <td>Donaci&oacute;n</td>
+                                    <td>Donaci&oacute;n / Rec. Económico</td>
                                     <td align="right" style="padding-right: 5px;">
                                         $ <input type="text" 
                                                  name="valDonacion" 
