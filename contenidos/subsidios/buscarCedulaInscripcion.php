@@ -109,7 +109,15 @@ if (!isset($_POST['cedula'])) {
         $claFormulario->cargarFormulario($seqFormulario);
         $arrBarrio = obtenerDatosTabla("T_FRM_BARRIO", array("seqBarrio", "txtBarrio"), "seqBarrio", "seqLocalidad = " . $claFormulario->seqLocalidad, "txtBarrio");
         $claFormulario->seqEtapa = obtenerCampo("T_FRM_ESTADO_PROCESO", $claFormulario->seqEstadoProceso, "seqEtapa", "seqEstadoProceso");
-        $txtPlantilla = "subsidios/actualizacion.tpl";
+        
+        
+        if( $claFormulario->seqEtapa == 1 ){
+        	$txtPlantilla = "subsidios/actualizacion.tpl";
+        }else{
+        	$txtPlantilla = "";
+        	imprimirErrores(array("Hogar en proceso de postulación, ingrese por el menú Proceso --> Postulación"));
+        }
+        
         //}
     }
 

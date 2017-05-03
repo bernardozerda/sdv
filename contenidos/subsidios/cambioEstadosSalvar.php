@@ -355,6 +355,22 @@ if (empty($arrErrores)) {
                         $claCiudadano->txtApellido1 . " " . $claCiudadano->txtApellido2;
             }
         }
+        
+        
+        // Para cambios especiales de Mejoramiento y Adquisicion
+        if(isset($_POST['especial']) and $_POST['especial'] == "mejoramiento"){
+        	$claFormulario->seqModalidad    = 9;  // Mejoramiento Habitacional
+        	$claFormulario->seqSolucion     = 16; // 70 SMMLV
+        	$claFormulario->seqTipoEsquema  = 4;  // Territorial Dirigido
+        	$claFormulario->seqPlanGobierno = 2;  // Bogotá Humana
+        	$claFormulario->seqProyecto     = 98; // TERRITORIAL DIRIGIDA - HABITACIONAL URBANO
+        }elseif(isset($_POST['especial']) and $_POST['especial'] == "adquisicion"){
+        	$claFormulario->seqModalidad    = 6;  // Adquisición de Vivienda Nueva
+        	$claFormulario->seqSolucion     = 13; // 70 SMMLV
+        	$claFormulario->seqTipoEsquema  = 1;  // Individual
+        	$claFormulario->seqPlanGobierno = 2;  // Bogotá Humana
+        	$claFormulario->seqProyecto     = 32; // INDIVIDUAL PROYECTO SDVE
+        }
 
         $claFormulario->editarFormulario($seqFormulario);
         if (empty($claFormulario->arrErrores)) {
