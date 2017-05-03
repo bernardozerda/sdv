@@ -70,7 +70,7 @@ if (isset($_POST['seqCruce']) and intval($_POST['seqCruce']) > 0) {
                 res.txtTitulo,
                 res.txtDetalle,
                 if( res.bolInhabilitar <> 0, 'SI' , 'NO' ) as bolInhabilitar,
-                res.txtObservaciones
+                REPLACE(res.txtObservaciones, '\"', '') 
             FROM T_FRM_FORMULARIO frm
             INNER JOIN T_FRM_MODALIDAD moa ON frm.seqModalidad = moa.seqModalidad
             INNER JOIN T_FRM_ESTADO_PROCESO est ON frm.seqEstadoProceso = est.seqEstadoProceso

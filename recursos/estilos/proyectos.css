@@ -18,6 +18,9 @@
 .divLeftP h2, h3{
     color: #548DD4;
     text-align: center;
+    background: #E4E4E4;
+    height: 28px;
+    padding-top: 2%;
 }
 .bodyP{
     position: relative;

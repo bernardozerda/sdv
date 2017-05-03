@@ -337,8 +337,15 @@
                                                             style="width:90%;"
                                                             >
                                                         <option value="0">Ninguno</option>
-                                                        {foreach from=$arrParentesco key=seqParentesco item=txtParentesco}
-                                                            <option value="{$seqParentesco}">{$txtParentesco}</option>
+                                                        {foreach from=$arrParentesco key=seqParentesco item=arrRegistro}
+                                                            <option value="{$seqParentesco}"
+                                                            	{if $arrRegistro.bolActivo == 0}
+                                                                        style="color:#666666"
+                                                                        disabled
+                                                                    {/if}	
+                                                            >
+																					{$arrRegistro.txtParentesco}
+																				</option>
                                                         {/foreach}
                                                     </select>
                                                 </td>
@@ -571,18 +578,17 @@
                                                     </select>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr >
                                                 <td>Afiliación a Salud</td>
                                                 <td align="center">
                                                     <select onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                             onBlur="this.style.backgroundColor = '#FFFFFF';" 
-                                                            id="afiliacionSalud" 
+                                                            id="seqSalud" 
                                                             style="width:90%;"
-                                                            >
-                                                        <option value="0" >Ninguno</option>
-                                                        <option value="1" >Contributivo</option>
-                                                        <option value="2" >Especial ó de Excepción (Fuerzas Armadas, Ecopetrol, universidades públicas, Magisterio)</option>
-                                                        <option value="3" >Subsidiado (ARS o EPS-S)</option>                                                        
+                                                            >                                                        
+                                                       {foreach from=$arrSalud key=seqSalud item=txtSalud}
+                                                            <option value="{$seqSalud}">{$txtSalud}</option>
+                                                        {/foreach}                                                      
                                                     </select>
                                                 </td>
                                                 <td>&nbsp;</td>
@@ -624,7 +630,7 @@
                                     {assign var=lgbt               value=$objCiudadano->bolLgbt}
                                     {assign var=nivelEducativo     value=$objCiudadano->seqNivelEducativo}
                                     {assign var=anosAprobados      value=$objCiudadano->numAnosAprobados}
-                                    {assign var=afiliacionSalud      value=$objCiudadano->numAfiliacionSalud}
+                                    {assign var=seqSalud      value=$objCiudadano->seqSalud}
                                     {assign var=ocupacion          value=$objCiudadano->seqOcupacion}
                                     {if $objCiudadano->seqTipoVictima ==2}
                                         {assign var=victima  value='OK'}
@@ -709,7 +715,7 @@
                                         <input type="hidden" id="{$objCiudadano->numDocumento}-seqTipoVictima" name="hogar[{$objCiudadano->numDocumento}][seqTipoVictima]" value="{$objCiudadano->seqTipoVictima}">
                                         <input type="hidden" id="{$objCiudadano->numDocumento}-seqNivelEducativo" name="hogar[{$objCiudadano->numDocumento}][seqNivelEducativo]" value="{$objCiudadano->seqNivelEducativo}">
                                         <input type="hidden" id="{$objCiudadano->numDocumento}-anosAprobados" name="hogar[{$objCiudadano->numDocumento}][anosAprobados]" value="{$objCiudadano->numAnosAprobados}">
-                                        <input type="hidden" id="{$objCiudadano->numDocumento}-afiliacionSalud" name="hogar[{$objCiudadano->numDocumento}][afiliacionSalud]" value="{$objCiudadano->numAfiliacionSalud}">
+                                        <input type="hidden" id="{$objCiudadano->numDocumento}-seqSalud" name="hogar[{$objCiudadano->numDocumento}][seqSalud]" value="{$objCiudadano->seqSalud}">
 
                                     </table>
 
@@ -954,7 +960,7 @@
                                 <tr>
                                     <td>N° Hogares que hábitan la vivienda</td>
                                     <td><input type="number" name="numCohabitacion" autofocus="" size="4" maxlength="3" min="0" step="1" style="width: 40px" value="{$objFormulario->numHabitaciones}"></td>
-                                    <td>Hacinamiento. Número Dormitorios</td>
+                                    <td>Número Dormitorios</td>
                                     <td><input type="number" name="numHacinamiento" autofocus="" size="4" maxlength="3" min="0" step="1" style="width: 40px" value="{$objFormulario->numHacinamiento}"></td>
                                 </tr>
 
@@ -1017,7 +1023,7 @@
 
                                 <!-- SISBEN y DESPLAZAMIENTO FORZADO -->
                                 <tr>
-                                    <td>Sisben </td>
+                                    <td>Tiene Sisben</td>
                                     <td>
                                         <select onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1028,7 +1034,11 @@
                                             {foreach from=$arrSisben key=seqSisben item=txtSisben}
                                                 <option value="{$seqSisben}"
                                                         {if $objFormulario->seqSisben == $seqSisben} selected {/if}
-                                                        >{$txtSisben}</option>
+                                                        {if $arrRegistro.bolActivo == 0}
+                                                        	 	style="color:#666666"
+                                                    			disabled
+                                                    	  {/if}	
+                                                        >{$arrRegistro.txtSisben}</option>
                                             {/foreach}
                                         </select>
                                     </td>
@@ -1046,7 +1056,7 @@
                                     </td>		
                                 </tr>
                                 <tr>
-                                    <td>Acta de Voluntariedad<br>{$victima} de Retorno/Reubicación</td>
+                                    <td>Acta de Voluntariedad.<br>{$victima} Retorno/Reubicación?</td>
                                     <td>
                                         <select	onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                 onBlur="this.style.backgroundColor = '#FFFFFF';" 
@@ -1891,7 +1901,7 @@
                                 </tr>
                                 <tr>
                                     <!-- TIENE DONACIONES -->
-                                    <td>Donaci&oacute;n</td>
+                                    <td>Donaci&oacute;n / Rec. Económico</td>
                                     <td align="right" style="padding-right: 5px;">
                                         $ <input type="text" 
                                                  name="valDonacion" 

@@ -22,7 +22,6 @@ class Ciudadano {
     public $valIngresos;
     public $seqNivelEducativo;
     public $numAnosAprobados;
-    public $numAfiliacionSalud;
     public $seqEtnia;
     public $seqEstadoCivil;
     public $seqOcupacion;
@@ -57,7 +56,6 @@ class Ciudadano {
         $this->valIngresos = "";
         $this->seqNivelEducativo = "";
         $this->numAnosAprobados = 0;
-        $this->numAfiliacionSalud = 0;
         $this->seqEtnia = "";
         $this->seqEstadoCivil = "";
         $this->seqOcupacion = "";
@@ -71,7 +69,7 @@ class Ciudadano {
         $this->seqParentesco = 0;
         $this->seqCajaCompensacion = 1; // Obsoleto
         $this->bolBeneficiario = 0; // Obsoleto
-        $this->seqSalud = 1; // Obsoleto
+        $this->seqSalud = 0; // Obsoleto
         $this->bolCertificadoElectoral = 0; // Obsoleto
         $this->bolSoporteDocumento = 0; // Obsoleto
 
@@ -101,7 +99,6 @@ class Ciudadano {
                seqCajaCompensacion,
                seqNivelEducativo,
                numAnosAprobados,
-               numAfiliacionSalud,
                seqEtnia,
                seqEstadoCivil,
                seqOcupacion,
@@ -126,8 +123,7 @@ class Ciudadano {
                " . mb_ereg_replace("[^0-9]", "", $this->valIngresos) . ",
                " . $this->seqCajaCompensacion . ",
                " . $this->seqNivelEducativo . ",
-               " . $this->numAnosAprobados . ",
-               " . $this->numAfiliacionSalud . ",
+               " . $this->numAnosAprobados . ",               
                " . $this->seqEtnia . ",
                " . $this->seqEstadoCivil . ", 
                " . $this->seqOcupacion . ",
@@ -176,7 +172,7 @@ class Ciudadano {
     public function cargarCiudadano($seqCiudadano) {
         global $aptBd;
         $sql = "	
-				SELECT 
+		SELECT 
                seqCiudadano,
                ucwords(trim(txtNombre1)) as txtNombre1,
                ucwords(trim(txtNombre2)) as txtNombre2,
@@ -188,8 +184,7 @@ class Ciudadano {
                valIngresos,
                seqCajaCompensacion,
                seqNivelEducativo,
-               numAnosAprobados,
-               numAfiliacionSalud,
+               numAnosAprobados,          
                seqEtnia,
                seqEstadoCivil,
                seqOcupacion,
@@ -220,7 +215,6 @@ class Ciudadano {
             $this->seqCajaCompensacion = $objRes->fields['seqCajaCompensacion'];
             $this->seqNivelEducativo = $objRes->fields['seqNivelEducativo'];
             $this->numAnosAprobados = $objRes->fields['numAnosAprobados'];
-            $this->numAfiliacionSalud = $objRes->fields['numAfiliacionSalud'];
             $this->seqEtnia = $objRes->fields['seqEtnia'];
             $this->seqEstadoCivil = $objRes->fields['seqEstadoCivil'];
             $this->seqOcupacion = $objRes->fields['seqOcupacion'];
@@ -256,7 +250,6 @@ class Ciudadano {
 					valIngresos             = " . mb_ereg_replace("[^0-9]", "", $this->valIngresos) . ",
 					seqNivelEducativo       = " . $this->seqNivelEducativo . ",
                                         numAnosAprobados        = " . $this->numAnosAprobados . ",
-                                        numAfiliacionSalud        = " . $this->numAfiliacionSalud . ",  
 					seqEtnia                = " . $this->seqEtnia . ",
 					seqEstadoCivil          = " . $this->seqEstadoCivil . ", 
 					seqOcupacion            = " . $this->seqOcupacion . ",
@@ -438,6 +431,8 @@ class Ciudadano {
         }
         return $seqFormulario;
     }
+
+  
 
 }
 

@@ -72,7 +72,7 @@ include '../../../recursos/archivos/verificarSesion.php';
         </div>
 
         <!-- INCLUSIONES JAVASCRIPT [NO MOVER DEL FINAL] -->
-        <script type="text/javascript" src="../../../librerias/bootstrap/js/jquery-1.10.1.js"></script>
+   
         <script type="text/javascript" src="../../../librerias/bootstrap/js/bootstrap.js"></script>        
         <script type="text/javascript" src="../../../librerias/bootstrap/js/bootstrap-collapse.js"></script>  
         <script type="text/javascript" src="../../../librerias/bootstrap/js/bootstrap-transition.js"></script>

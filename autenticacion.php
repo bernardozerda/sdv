@@ -236,9 +236,10 @@ $sql = "
 		FROM 
 			T_FRM_PUNTO_ATENCION
 		WHERE
-			seqPuntoAtencion > 1
+			seqPuntoAtencion > 1 and bolMostrar = 1
+                        
 		ORDER BY
-			txtPuntoAtencion		
+			txtPuntoAtencion ASC		
 	";
 $arrPuntos = array();
 $arrPuntos[1] = "Ninguno";

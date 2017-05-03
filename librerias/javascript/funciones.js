@@ -44,6 +44,13 @@ function cargarContenido(txtDivDestino, txtArchivoPhp, txtParametros, bolCargand
                     // si hubo pantalla de bloque al usuario, se oculta
                     if (bolCargando == 1) {
                         objCargando.hide();
+                        $(document).ready(function () {
+                            $('#example').DataTable({
+                                "pagingType": "full_numbers",
+                                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                                "order": [[1, "desc"]]
+                            });
+                        });
                     }
                 }
             };
@@ -81,6 +88,7 @@ function cargarContenido(txtDivDestino, txtArchivoPhp, txtParametros, bolCargand
     // si hay pantalla de bloque al usuario se muestra
     if (bolCargando == 1) {
         objCargando.show();
+
     }
 
     // peticion asincrona al servidor
@@ -842,8 +850,9 @@ function agregarMiembroHogarBp() {
     var objCompensacion = document.getElementById("cajaCompensacion");
     var objNvlEducativo = document.getElementById("nivelEducativo");
     var objAnosAprobados = document.getElementById("anosAprobados");
-    var objAfiliacionSalud = document.getElementById("afiliacionSalud");
-    var objSalud = document.getElementById("salud");
+    var objSeqSalud = document.getElementById("seqSalud");
+    //var objAfiliacionSalud = document.getElementById("afiliacionSalud");
+    //var objSalud = document.getElementById("salud");
     var objBeneficiario = document.getElementById("beneficiario");
 
     var objPlanGobierno = document.getElementById("seqPlanGobierno");
@@ -963,8 +972,9 @@ function agregarMiembroHogarBp() {
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCajaCompensacion' name='hogar[" + objNumDocumento.value + "][seqCajaCompensacion]' value='" + objCompensacion.options[ objCompensacion.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqNivelEducativo' name='hogar[" + objNumDocumento.value + "][seqNivelEducativo]' value='" + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-anosAprobados' name='hogar[" + objNumDocumento.value + "][anosAprobados]' value='" + objAnosAprobados.options[objAnosAprobados.selectedIndex ].value + "'>";
-    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
-    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSalud' name='hogar[" + objNumDocumento.value + "][seqSalud]' value='" + objSalud.options[ objSalud.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-anosAprobados' name='hogar[" + objNumDocumento.value + "][seqSalud]' value='" + objSeqSalud.options[objSeqSalud.selectedIndex ].value + "'>";
+    // txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
+    // txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSalud' name='hogar[" + objNumDocumento.value + "][seqSalud]' value='" + objSalud.options[ objSalud.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolBeneficiario' name='hogar[" + objNumDocumento.value + "][bolBeneficiario]' value='" + objBeneficiario.options[ objBeneficiario.selectedIndex ].value + "'>";
     txtInsertar += "</table> ";
 
@@ -993,7 +1003,7 @@ function agregarMiembroHogarBp() {
     txtInsertar += "					<td><b>Condici&oacute;n Especial 3:</b> " + objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text.substr(objCondEspecial3.options[ objCondEspecial3.selectedIndex ].text.indexOf("-") + 2) + "</td> ";
     txtInsertar += "				</tr> ";
     txtInsertar += "				<tr> ";
-    txtInsertar += "					<td><b>Sistema de Salud:</b> " + objSalud.options[ objSalud.selectedIndex ].text + "</td> ";
+    //txtInsertar += "					<td><b>Sistema de Salud:</b> " + objSalud.options[ objSalud.selectedIndex ].text + "</td> ";
     txtInsertar += "					<td><b>Beneficiario de Subsidios:</b> " + objBeneficiario.options[ objBeneficiario.selectedIndex ].text + "</td> ";
     txtInsertar += "				</tr> ";
     txtInsertar += "				<tr> ";
@@ -1026,7 +1036,6 @@ function agregarMiembroHogarBp() {
     eliminarObjeto(objNumDocumento.value + "-seqCajaCompensacion");
     eliminarObjeto(objNumDocumento.value + "-seqNivelEducativo");
     eliminarObjeto(objNumDocumento.value + "-anosAprobados");
-    eliminarObjeto(objNumDocumento.value + "-afiliacionSalud");
     eliminarObjeto(objNumDocumento.value + "-seqSalud");
     eliminarObjeto(objNumDocumento.value + "-bolBeneficiario");
 
@@ -1068,8 +1077,8 @@ function agregarMiembroHogarBp() {
     objCompensacion.selectedIndex = 0;
     objNvlEducativo.selectedIndex = 0;
     objAnosAprobados.selectedIndex = 0;
-    objAfiliacionSalud.selectedIndex = 0;
-    objSalud.selectedIndex = 0;
+    objSeqSalud.selectedIndex = 0;
+    //objSalud.selectedIndex = 0;
     objBeneficiario.selectedIndex = 0;
 
     mostrarOcultar('agregarMiembro');
@@ -1109,7 +1118,7 @@ function agregarMiembroHogar() {
     var objIngresos = document.getElementById("ingresos");
     var objNvlEducativo = document.getElementById("nivelEducativo");
     var objAnosAprobados = document.getElementById("anosAprobados");
-    var objAfiliacionSalud = document.getElementById("afiliacionSalud");
+    var objSeqSalud = document.getElementById("seqSalud");
     var objSeqTipoVictima = document.getElementById("seqTipoVictima");
     var objSeqGrupoLgtbi = document.getElementById("seqGrupoLgtbi");
 
@@ -1259,7 +1268,8 @@ function agregarMiembroHogar() {
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-valIngresos' name='hogar[" + objNumDocumento.value + "][valIngresos]' value='" + objIngresos.value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqNivelEducativo' name='hogar[" + objNumDocumento.value + "][seqNivelEducativo]' value='" + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-anosAprobados' name='hogar[" + objNumDocumento.value + "][anosAprobados]' value='" + objAnosAprobados.options[ objAnosAprobados.selectedIndex ].value + "'>";
-    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
+    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSalud' name='hogar[" + objNumDocumento.value + "][seqSalud]' value='" + objSeqSalud.options[ objSeqSalud.selectedIndex ].value + "'>";
+    // txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqTipoVictima' name='hogar[" + objNumDocumento.value + "][seqTipoVictima]' value='" + objSeqTipoVictima.options[ objSeqTipoVictima.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqGrupoLgtbi' name='hogar[" + objNumDocumento.value + "][seqGrupoLgtbi]' value='" + objSeqGrupoLgtbi.options[ objSeqGrupoLgtbi.selectedIndex ].value + "'>";
     txtInsertar += "</table> ";
@@ -1336,7 +1346,7 @@ function agregarMiembroHogar() {
     objIngresos.value = "";
     objNvlEducativo.selectedIndex = 0;
     objAnosAprobados.selectedIndex = 0;
-    objAfiliacionSalud.selectedIndex = 0;
+    objSeqSalud.selectedIndex = 0;
     objSeqTipoVictima.selectedIndex = 0;
     objSeqGrupoLgtbi.selectedIndex = 0;
 
@@ -1775,11 +1785,12 @@ function modificarMiembroHogar(numDocumento) {
                 }
             }
 
-            if (arrVariables[ i ].id == numDocumentoSinPuntos + "-afiliacionSalud") {
-                for (j = 0; j < document.getElementById("afiliacionSalud").length; j++) {
-                    document.getElementById("afiliacionSalud").selectedIndex = (document.getElementById("afiliacionSalud").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-afiliacionSalud").value) ? j : document.getElementById("afiliacionSalud").selectedIndex;
+            if (arrVariables[ i ].id == numDocumentoSinPuntos + "-seqSalud") {
+                for (j = 0; j < document.getElementById("seqSalud").length; j++) {
+                    document.getElementById("seqSalud").selectedIndex = (document.getElementById("seqSalud").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-seqSalud").value) ? j : document.getElementById("seqSalud").selectedIndex;
                 }
             }
+
 
             if (arrVariables[ i ].id == numDocumentoSinPuntos + "-seqTipoVictima") {
                 for (j = 0; j < document.getElementById("seqTipoVictima").length; j++) {
@@ -2763,23 +2774,23 @@ function verCambiosFormulario(seqFormulario, seqSeguimiento) {
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
             function (o) {
-    	
-		    	var tmpObj = null;
-		        tmpObj = document.getElementById('cambios_mask');
-		        while (tmpObj != null) {
-		            //alert( tmpObj );
-		            eliminarObjeto("cambios_mask");
-		            tmpObj = document.getElementById('cambios_mask');
-		        }
-    	
-		        var tmpObj = null;
-		        tmpObj = document.getElementById('cambios_c');
-		        while (tmpObj != null) {
-		            //alert( tmpObj );
-		            eliminarObjeto("cambios_c"); 
-		            tmpObj = document.getElementById('cambios_c');
-		        }
-    	
+
+                var tmpObj = null;
+                tmpObj = document.getElementById('cambios_mask');
+                while (tmpObj != null) {
+                    //alert( tmpObj );
+                    eliminarObjeto("cambios_mask");
+                    tmpObj = document.getElementById('cambios_mask');
+                }
+
+                var tmpObj = null;
+                tmpObj = document.getElementById('cambios_c');
+                while (tmpObj != null) {
+                    //alert( tmpObj );
+                    eliminarObjeto("cambios_c");
+                    tmpObj = document.getElementById('cambios_c');
+                }
+
                 if (o.responseText !== undefined) {
 
                     var objConfiguracion = {
@@ -9855,7 +9866,7 @@ function selectAnidados(documento, valor) {
         3: ["5"],
         4: ["6", "7", "8", "9", "10"],
         5: ["11"],
-        6: ["6", "7", "8", "9", "10"],
+        6: ["6", "7", "8", "9", "10", "11"],
         7: ["11"],
         8: ["11"],
         9: ["11"],

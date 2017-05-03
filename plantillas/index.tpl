@@ -38,7 +38,7 @@
             <script language="JavaScript" type="text/javascript" src="./librerias/yui/cookie/cookie-min.js"></script>
             <script language="JavaScript" type="text/javascript" src="./librerias/yui/paginator/paginator-min.js"></script>
             <script language="JavaScript" type="text/javascript" src="./librerias/yui/datasource/datasource-min.js"></script>
-            <script language="JavaScript" type="text/javascript" src="./librerias/yui/datatable/datatable-min.js"></script>
+
             <script language="JavaScript" type="text/javascript" src="./librerias/yui/autocomplete/autocomplete-min.js"></script>
             <script language="JavaScript" type="text/javascript" src="./librerias/yui/json/json-min.js"></script>
             <script language="JavaScript" type="text/javascript" src="./librerias/yui/swf/swf-min.js"></script>
@@ -48,7 +48,12 @@
             <script language="JavaScript" type="text/javascript" src="./librerias/javascript/funcionesSubsidios.js"></script>
             <script language="JavaScript" type="text/javascript" src="./librerias/javascript/marquee.js"></script>
             <script language="JavaScript" type="text/javascript" src="./librerias/javascript/listenerIndex.js"></script>
-            <script language="JavaScript" type="text/javascript" src="./librerias/bootstrap/js/jquery-1.10.1.js"></script>
+            <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script src="librerias/jquery/jquery.dataTables.min.js"></script>
+            <script src="librerias/jquery/dataTables.bootstrap.min.js"></script>
+            <link rel="stylesheet" href="recursos/estilos/jquery-ui.css"/> 
+
+            <link rel="stylesheet" href="librerias/jquery/css/dataTables.bootstrap.min.css"/> 
     </head>
     <body class="yui-skin-sam" id="bodyHtml" topMargin="0"> 
 
@@ -168,7 +173,7 @@
         <footer>
             <div  >
                 <center>
-                    <div id="oScroll" style="width: 52%; margin-top: 5px; margin-bottom: 10px;" class="alert alert-danger">
+                    <div id="oScroll" style="width: 52%; margin-top: 5px; margin-bottom: 10px; height: 35px" class="alert alert-danger">
                         <div id="scroll" >
                             La información que se registra debe ser soportada documentalmente.
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

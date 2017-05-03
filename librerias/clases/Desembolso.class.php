@@ -357,7 +357,7 @@ class Desembolso {
 				FROM T_DES_ESCRITURACION esc
 				LEFT JOIN T_DES_FLUJO flu ON esc.seqFormulario = flu.seqFormulario
 				WHERE
-					esc.seqFormulario = " . $seqFormulario . "
+					esc.seqFormulario = " . $seqFormulario . " order by seqEscrituracion desc
 			";
 
         $objRes = $aptBd->execute($sql);
@@ -1474,10 +1474,10 @@ class Desembolso {
                 while (( $txtArchivo = readdir($aptDir) ) !== false) {
                     if ($txtArchivo != "." and $txtArchivo != "..") {
                         $numFormulario = intval(substr($txtArchivo, 0, strpos($txtArchivo, "_")));
-                        $seqFormulario = ( intval($seqFormulario) == 0 )? $this->seqFormulario : $seqFormulario;
+                        $seqFormulario = ( intval($seqFormulario) == 0 ) ? $this->seqFormulario : $seqFormulario;
                         if ($numFormulario == $seqFormulario) {
                             if (!in_array($txtArchivo, $arrNombreArchivoCargado)) {
-                                echo "<br> elimina archivo".$txtArchivo;
+                                echo "<br> elimina archivo" . $txtArchivo;
                                 unlink($txtPrefijoRuta . "recursos/imagenes/desembolsos/" . $txtArchivo);
                             }
                         }
@@ -1779,50 +1779,50 @@ class Desembolso {
             if ($seqTitulos == 0) {
 
                 $sql = "
-						INSERT INTO T_DES_ESTUDIO_TITULOS (
-							seqDesembolso,
-							numEscrituraIdentificacion,
-							fchEscrituraIdentificacion,
-							numNotariaIdentificacion,
-							numEscrituraTitulo,
-							fchEscrituraTitulo,
-							numNotariaTitulo,
-							numFolioMatricula,
-							txtZonaMatricula,
-							fchMatricula,
-							bolSubsidioSDHT,
-							bolSubsidioFonvivienda,
-							numResolucionFonvivienda,
-							numAnoResolucionFonvivienda,
-							txtAprobo,
-							fchCreacion,
-							fchActualizacion,
-							txtCiudadTitulo,
-							txtCiudadIdentificacion,
-							txtCiudadMatricula
-						) VALUES (
-							'" . $this->seqDesembolso . "',
-							'" . $arrPost['escritura1'] . "',
-							'" . $arrPost['fecha1'] . "',
-							'" . $arrPost['notaria1'] . "',
-							'" . $arrPost['escritura2'] . "',
-							'" . $arrPost['fecha2'] . "',
-							'" . $arrPost['notaria2'] . "',
-							'" . $arrPost['numerofolio'] . "',
-							'" . $arrPost['zona'] . "',
-							'" . $arrPost['fechaMatricula'] . "',
-							'" . $bolSubsidioSDHT . "',
-							'" . $bolSubsidioFonvivienda . "',
-							'" . $arrPost['resolucion'] . "',
-							'" . $arrPost['ano'] . "',
-							'" . $arrPost['aprobo'] . "',
-							'" . date("Y-m-d H:i:s") . "',
-							'" . date("Y-m-d H:i:s") . "',
-							'" . $arrPost['ciudadAdquisicion'] . "',
-							'" . $arrPost['ciudadIdentificacion'] . "',
-							'" . $arrPost['ciudadMatricula'] . "'
-						)
-					";
+                        INSERT INTO T_DES_ESTUDIO_TITULOS (
+                                seqDesembolso,
+                                numEscrituraIdentificacion,
+                                fchEscrituraIdentificacion,
+                                numNotariaIdentificacion,
+                                numEscrituraTitulo,
+                                fchEscrituraTitulo,
+                                numNotariaTitulo,
+                                numFolioMatricula,
+                                txtZonaMatricula,
+                                fchMatricula,
+                                bolSubsidioSDHT,
+                                bolSubsidioFonvivienda,
+                                numResolucionFonvivienda,
+                                numAnoResolucionFonvivienda,
+                                txtAprobo,
+                                fchCreacion,
+                                fchActualizacion,
+                                txtCiudadTitulo,
+                                txtCiudadIdentificacion,
+                                txtCiudadMatricula
+                        ) VALUES (
+                                '" . $this->seqDesembolso . "',
+                                '" . $arrPost['escritura1'] . "',
+                                '" . $arrPost['fecha1'] . "',
+                                '" . $arrPost['notaria1'] . "',
+                                '" . $arrPost['escritura2'] . "',
+                                '" . $arrPost['fecha2'] . "',
+                                '" . $arrPost['notaria2'] . "',
+                                '" . $arrPost['numerofolio'] . "',
+                                '" . $arrPost['zona'] . "',
+                                '" . $arrPost['fechaMatricula'] . "',
+                                '" . $bolSubsidioSDHT . "',
+                                '" . $bolSubsidioFonvivienda . "',
+                                '" . $arrPost['resolucion'] . "',
+                                '" . $arrPost['ano'] . "',
+                                '" . $arrPost['aprobo'] . "',
+                                '" . date("Y-m-d H:i:s") . "',
+                                '" . date("Y-m-d H:i:s") . "',
+                                '" . $arrPost['ciudadAdquisicion'] . "',
+                                '" . $arrPost['ciudadIdentificacion'] . "',
+                                '" . $arrPost['ciudadMatricula'] . "'
+                        )
+                ";
                 try {
                     $aptBd->execute($sql);
                     $seqTitulos = $aptBd->Insert_ID();
@@ -1971,7 +1971,7 @@ class Desembolso {
 						txtCiudadMatricula,
 					   txtElaboro
 					FROM T_DES_ESTUDIO_TITULOS
-					WHERE seqDesembolso = " . $this->seqDesembolso . "
+					WHERE seqDesembolso = " . $this->seqDesembolso . " order by seqEstudioTitulos desc
 			";
 
         $objRes = $aptBd->execute($sql);

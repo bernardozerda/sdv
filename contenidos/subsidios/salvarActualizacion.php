@@ -111,6 +111,8 @@ if (empty($arrErrores)) {
                         $arrErrores[] = "El tipo de documento seleccionado para el postulante principal no es válido";
                     }
                 }
+            } elseif ($arrCiudadano['seqParentesco'] == 13 or $arrCiudadano['seqParentesco'] == 12) {
+                $arrErrores[] = "El ciudadano con numero de documento " . number_format($numDocumento) . " tiene seleccionado un parentesco que no es válido";
             }
 
             // Solo puede haber una persona con condicion Especial Jefe de Hogar
@@ -135,7 +137,7 @@ if (empty($arrErrores)) {
                     $arrErrores[] = "El ciudadano debe seleccionar el numero de años aprobados";
                 }
 
-                if ($arrCiudadano['afiliacionSalud'] == 0) {
+                if ($arrCiudadano['seqSalud'] == 0) {
                     $arrErrores[] = "El ciudadano debe seleccionar si se encuentra afiliado a la salud";
                 }
             }
@@ -349,16 +351,33 @@ if (empty($arrErrores)) {
         $arrErrores[] = "Debe seleccionar una barrio diferente";
     }
 
-    // Formatos de expresion regular para telefonos fijos y celular
-    /* $txtFormatoFijo    = "/^[0-9]{7}$/";
+    // Sisben
+    $arrSisbenInactivos = obtenerDatosTabla("T_FRM_SISBEN", array("seqSisben","txtSisben"), "seqSisben","bolActivo = 0");
+    $seqPostSisben = intval($_POST['seqSisben']);
+    if($seqPostSisben == 0 ){
+    	$arrErrores[] = "Seleccione un valor para la pregunta ¿Tiene Sisben?";
+    }elseif(isset($arrSisbenInactivos[$seqPostSisben])){
+    	$arrErrores[] = "El valor seleccionado para la pregunta ¿Tiene Sisben? no es válido";
+    }
+
+    $txtFormatoFijo    = "/^[0-9]{7}$/";
       $txtFormatoCelular = "/^[3]{1}[0-9]{9}$/";
 
+    // Telefono Celular
+    if ( ! preg_match( $txtFormatoCelular , trim( $_POST['numCelular'] ) ) ) {
+    	$arrErrores[] = "El número telefonico celular debe tener 10 digitos y debe iniciar con el número 3";
+    }
+    
       // Telefono Fijo 1
       if( is_numeric( $_POST['numTelefono1'] ) == true and intval( $_POST['numTelefono1'] ) != 0 ){
       if ( ! preg_match( $txtFormatoFijo , trim( $_POST['numTelefono1'] ) ) ) {
       $arrErrores[] = "El número telefonico fijo 1 debe tener 7 digitos";
       }
       }
+
+    // Formatos de expresion regular para telefonos fijos y celular
+    /* $txtFormatoFijo    = "/^[0-9]{7}$/";
+      $txtFormatoCelular = "/^[3]{1}[0-9]{9}$/";
 
       // Telefono Fijo 2
       if( is_numeric( $_POST['numTelefono2'] ) == true and intval( $_POST['numTelefono2'] ) != 0 ){
@@ -696,7 +715,7 @@ if (empty($arrErrores)) {
         $claCiudadanoNuevo->seqSexo = $arrCiudadano['seqSexo'];
         $claCiudadanoNuevo->bolLgtb = $arrCiudadano['bolLgtb'];
         $claCiudadanoNuevo->numAnosAprobados = $arrCiudadano['anosAprobados'];
-        $claCiudadanoNuevo->numAfiliacionSalud = $arrCiudadano['afiliacionSalud'];
+        $claCiudadanoNuevo->seqSalud = $arrCiudadano['seqSalud'];
         $claCiudadanoNuevo->seqTipoVictima = $arrCiudadano['seqTipoVictima'];
         $claCiudadanoNuevo->seqGrupoLgtbi = $arrCiudadano['seqGrupoLgtbi'];
         $claCiudadanoNuevo->seqParentesco = $arrCiudadano['seqParentesco'];

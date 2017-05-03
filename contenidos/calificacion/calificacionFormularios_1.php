@@ -39,7 +39,7 @@ $sql = "
 		SELECT 
 			fchCalificacion AS fechaCalificacion, COUNT(*) AS cuantos
 		FROM 
-			t_frm_calificacion_plan3
+			t_frm_calificacion_plan2
 		GROUP BY 
 			fechaCalificacion
 		ORDER BY 
