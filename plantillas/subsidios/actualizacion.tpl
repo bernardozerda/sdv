@@ -669,7 +669,7 @@
                                                 {$objCiudadano->numDocumento|number_format:0:'.':'.'}
                                             </td>
                                             <td width="260px">
-                                                {$arrParentesco.$parentesco}
+                                                {$arrParentesco.$parentesco.txtParentesco}
                                             </td>
                                             <td align="right" style="padding-right:7px">
                                                 $ {$objCiudadano->valIngresos|number_format:0:',':'.'}
