@@ -29,53 +29,9 @@
         <td valign="top">
             <div style="padding-top:0px; padding-left: 10px" id="estados">
                 <div style="padding:5px; border-bottom: 1px dotted #999999;">
-                    <strong>Seleccione los estados para listar los hogares</strong>
+                    <strong>Seleccione una acción para probar commit 4</strong>
                 </div>
-                <div style="padding:5px; border-bottom: 1px dotted #999999;">
-                    <form onSubmit="return false;" id="frmListosCruce">
-                        
-                        <fieldset style="border: 1px dotted #999999;">
-                            <legend><strong>Inscripci&oacute;n</strong></legend>
-                            <input type="checkbox" 
-                                   name="estados[inscripcion][]" 
-                                   value="37"
-                                   onClick="someterFormulario('listado', this.form , './contenidos/cruces/listosCruce.php', false, true );"
-                            > 
-                            Inscripci&oacute;n - Hogar Actualizado<br>
-                            
-                            <input type="checkbox" 
-                                   name="estados[inscripcion][]" 
-                                   value="44"
-                                   onClick="someterFormulario('listado', this.form , './contenidos/cruces/listosCruce.php', false, true );"
-                            > 
-                            Inscripci&oacute;n - CEM - Primera Verificaci&oacute;n<br>
-                            
-                        </fieldset>
-                        <fieldset style="border: 1px dotted #999999;">
-                            <legend><strong>Postulaci&oacute;n</strong></legend>
-                            <input type="checkbox" 
-                                   name="estados[postulacion][]" 
-                                   value="47"
-                                   onClick="someterFormulario('listado', this.form , './contenidos/cruces/listosCruce.php', false, true );"
-                            > 
-                            Postulaci&oacute;n - CEM - Hogar Postulado<br>
-                            
-                            <input type="checkbox" 
-                                   name="estados[postulacion][]" 
-                                   value="54"
-                                   onClick="someterFormulario('listado', this.form , './contenidos/cruces/listosCruce.php', false, true );"
-                            > 
-                            Postulaci&oacute;n - IND - Hogar Postulado<br>
-                            
-                            <input type="checkbox" 
-                                   name="estados[postulacion][]" 
-                                   value="7"
-                                   onClick="someterFormulario('listado', this.form , './contenidos/cruces/listosCruce.php', false, true );"
-                            > 
-                            Postulaci&oacute;n - Calificación Vulnerabilidad<br>
-                        </fieldset>
-                    </form>
-                </div>
+                
                 <div style="padding:5px;">
                     <button onclick="exportarInhabilidadesExcel( 'frmListadoListos' );" style="width:70px;">
                         <img src="./recursos/imagenes/excel.gif" width="25px" height="25px"><br>

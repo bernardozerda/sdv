@@ -352,28 +352,28 @@ if (empty($arrErrores)) {
     }
 
     // Sisben
-    $arrSisbenInactivos = obtenerDatosTabla("T_FRM_SISBEN", array("seqSisben","txtSisben"), "seqSisben","bolActivo = 0");
+    $arrSisbenInactivos = obtenerDatosTabla("T_FRM_SISBEN", array("seqSisben", "txtSisben"), "seqSisben", "bolActivo = 0");
     $seqPostSisben = intval($_POST['seqSisben']);
-    if($seqPostSisben == 0 ){
-    	$arrErrores[] = "Seleccione un valor para la pregunta ¿Tiene Sisben?";
-    }elseif(isset($arrSisbenInactivos[$seqPostSisben])){
-    	$arrErrores[] = "El valor seleccionado para la pregunta ¿Tiene Sisben? no es válido";
+    if ($seqPostSisben == 0) {
+        $arrErrores[] = "Seleccione un valor para la pregunta ¿Tiene Sisben?";
+    } elseif (isset($arrSisbenInactivos[$seqPostSisben])) {
+        $arrErrores[] = "El valor seleccionado para la pregunta ¿Tiene Sisben? no es válido";
     }
 
-    $txtFormatoFijo    = "/^[0-9]{7}$/";
-      $txtFormatoCelular = "/^[3]{1}[0-9]{9}$/";
+    $txtFormatoFijo = "/^[0-9]{7}$/";
+    $txtFormatoCelular = "/^[3]{1}[0-9]{9}$/";
 
     // Telefono Celular
-    if ( ! preg_match( $txtFormatoCelular , trim( $_POST['numCelular'] ) ) ) {
-    	$arrErrores[] = "El número telefonico celular debe tener 10 digitos y debe iniciar con el número 3";
+    if (!preg_match($txtFormatoCelular, trim($_POST['numCelular']))) {
+        $arrErrores[] = "El número telefonico celular debe tener 10 digitos y debe iniciar con el número 3";
     }
-    
-      // Telefono Fijo 1
-      if( is_numeric( $_POST['numTelefono1'] ) == true and intval( $_POST['numTelefono1'] ) != 0 ){
-      if ( ! preg_match( $txtFormatoFijo , trim( $_POST['numTelefono1'] ) ) ) {
-      $arrErrores[] = "El número telefonico fijo 1 debe tener 7 digitos";
-      }
-      }
+
+    // Telefono Fijo 1
+    if (is_numeric($_POST['numTelefono1']) == true and intval($_POST['numTelefono1']) != 0) {
+        if (!preg_match($txtFormatoFijo, trim($_POST['numTelefono1']))) {
+            $arrErrores[] = "El número telefonico fijo 1 debe tener 7 digitos";
+        }
+    }
 
     // Formatos de expresion regular para telefonos fijos y celular
     /* $txtFormatoFijo    = "/^[0-9]{7}$/";

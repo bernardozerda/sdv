@@ -578,17 +578,18 @@
                                                     </select>
                                                 </td>
                                             </tr>
-                                            <tr >
+                                            <tr>
                                                 <td>Afiliación a Salud</td>
                                                 <td align="center">
                                                     <select onFocus="this.style.backgroundColor = '#ADD8E6';" 
                                                             onBlur="this.style.backgroundColor = '#FFFFFF';" 
-                                                            id="seqSalud" 
+                                                            id="afiliacionSalud" 
                                                             style="width:90%;"
-                                                            >                                                        
-                                                       {foreach from=$arrSalud key=seqSalud item=txtSalud}
-                                                            <option value="{$seqSalud}">{$txtSalud}</option>
-                                                        {/foreach}                                                      
+                                                            >
+                                                        <option value="0" >Ninguno</option>
+                                                        <option value="1" >Contributivo</option>
+                                                        <option value="2" >Especial ó de Excepción (Fuerzas Armadas, Ecopetrol, universidades públicas, Magisterio)</option>
+                                                        <option value="3" >Subsidiado (ARS o EPS-S)</option>                                                        
                                                     </select>
                                                 </td>
                                                 <td>&nbsp;</td>
@@ -630,7 +631,7 @@
                                     {assign var=lgbt               value=$objCiudadano->bolLgbt}
                                     {assign var=nivelEducativo     value=$objCiudadano->seqNivelEducativo}
                                     {assign var=anosAprobados      value=$objCiudadano->numAnosAprobados}
-                                    {assign var=seqSalud      value=$objCiudadano->seqSalud}
+                                    {assign var=afiliacionSalud      value=$objCiudadano->numAfiliacionSalud}
                                     {assign var=ocupacion          value=$objCiudadano->seqOcupacion}
                                     {if $objCiudadano->seqTipoVictima ==2}
                                         {assign var=victima  value='OK'}
@@ -715,7 +716,7 @@
                                         <input type="hidden" id="{$objCiudadano->numDocumento}-seqTipoVictima" name="hogar[{$objCiudadano->numDocumento}][seqTipoVictima]" value="{$objCiudadano->seqTipoVictima}">
                                         <input type="hidden" id="{$objCiudadano->numDocumento}-seqNivelEducativo" name="hogar[{$objCiudadano->numDocumento}][seqNivelEducativo]" value="{$objCiudadano->seqNivelEducativo}">
                                         <input type="hidden" id="{$objCiudadano->numDocumento}-anosAprobados" name="hogar[{$objCiudadano->numDocumento}][anosAprobados]" value="{$objCiudadano->numAnosAprobados}">
-                                        <input type="hidden" id="{$objCiudadano->numDocumento}-seqSalud" name="hogar[{$objCiudadano->numDocumento}][seqSalud]" value="{$objCiudadano->seqSalud}">
+                                        <input type="hidden" id="{$objCiudadano->numDocumento}-afiliacionSalud" name="hogar[{$objCiudadano->numDocumento}][afiliacionSalud]" value="{$objCiudadano->numAfiliacionSalud}">
 
                                     </table>
 
@@ -1031,7 +1032,7 @@
                                                 id="seqSisben" 
                                                 style="width:260px;"
                                                 ><option value="0" selected>SELECCIONE</option>
-                                            {foreach from=$arrSisben key=seqSisben item=txtSisben}
+                                            {foreach from=$arrSisben key=seqSisben item=arrRegistro}
                                                 <option value="{$seqSisben}"
                                                         {if $objFormulario->seqSisben == $seqSisben} selected {/if}
                                                         {if $arrRegistro.bolActivo == 0}

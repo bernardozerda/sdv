@@ -43,11 +43,11 @@ if (!isset($_POST['cedula'])) {
     $arrEstadoCivil = obtenerDatosTabla("T_CIU_ESTADO_CIVIL", array("seqEstadoCivil", "txtEstadoCivil"), "seqEstadoCivil", "", "txtEstadoCivil");
     $arrVivienda = obtenerDatosTabla("T_FRM_VIVIENDA", array("seqVivienda", "txtVivienda"), "seqVivienda", "", "txtVivienda");
     $arrModalidad = obtenerDatosTabla("T_FRM_MODALIDAD", array("seqModalidad", "txtModalidad", "seqPlanGobierno"), "seqModalidad", "", "seqPlanGobierno DESC, txtModalidad");
-    $arrSisben = obtenerDatosTabla("T_FRM_SISBEN", array("seqSisben", "txtSisben"), "seqSisben");
+    $arrSisben = obtenerDatosTabla("T_FRM_SISBEN", array("seqSisben", "txtSisben","bolActivo"), "seqSisben","","bolActivo DESC");
     $arrCajaCompensacion = obtenerDatosTabla("T_CIU_CAJA_COMPENSACION", array("seqCajaCompensacion", "txtCajaCompensacion"), "seqCajaCompensacion");
     $arrBanco = obtenerDatosTabla("T_FRM_BANCO", array("seqBanco", "txtBanco"), "seqBanco", "seqBanco > 1", "txtBanco");
     $arrEstados = estadosProceso();
-    $arrParentesco = obtenerDatosTabla("T_CIU_PARENTESCO", array("seqParentesco", "txtParentesco"), "seqParentesco", "", "txtParentesco");
+    $arrParentesco = obtenerDatosTabla("T_CIU_PARENTESCO", array("seqParentesco", "txtParentesco","bolActivo"), "seqParentesco", "", "txtParentesco");
     $arrCondicionEspecial = obtenerDatosTabla("T_CIU_CONDICION_ESPECIAL", array("seqCondicionEspecial", "txtCondicionEspecial"), "seqCondicionEspecial", "seqCondicionEspecial <> 6", "txtCondicionEspecial");
     $arrCondicionEtnica = obtenerDatosTabla("T_CIU_ETNIA", array("seqEtnia", "txtEtnia"), "seqEtnia", "seqEtnia > 1", "txtEtnia");
     $arrOcupacion = obtenerDatosTabla("T_CIU_OCUPACION", array("seqOcupacion", "txtOcupacion"), "seqOcupacion", "seqOcupacion <> 20", "txtOcupacion");
@@ -109,7 +109,15 @@ if (!isset($_POST['cedula'])) {
         $claFormulario->cargarFormulario($seqFormulario);
         $arrBarrio = obtenerDatosTabla("T_FRM_BARRIO", array("seqBarrio", "txtBarrio"), "seqBarrio", "seqLocalidad = " . $claFormulario->seqLocalidad, "txtBarrio");
         $claFormulario->seqEtapa = obtenerCampo("T_FRM_ESTADO_PROCESO", $claFormulario->seqEstadoProceso, "seqEtapa", "seqEstadoProceso");
-        $txtPlantilla = "subsidios/actualizacion.tpl";
+        
+        
+        if( $claFormulario->seqEtapa == 1 ){
+        	$txtPlantilla = "subsidios/actualizacion.tpl";
+        }else{
+        	$txtPlantilla = "";
+        	imprimirErrores(array("Hogar en proceso de postulación, ingrese por el menú Proceso --> Postulación"));
+        }
+        
         //}
     }
 

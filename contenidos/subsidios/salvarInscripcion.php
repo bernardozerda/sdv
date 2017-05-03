@@ -124,22 +124,38 @@
         }
     }*/
 	
-	$exregfijo = "/^[0-9]{7}$/";
-	$exregcel = "/^[3]{1}[0-9]{9}$/";
-	if ($_POST['numTelefono1'] == "" and $_POST['numCelular'] == "") {
-		$arrErrores[] = "El ciudadano debe tener un telefono de contacto";
-	} else {
-		if ($_POST['numTelefono1'] != "" || $_POST['numTelefono1'] != 0) {
-			if (!preg_match($exregfijo, $_POST['numTelefono1'])) {
-				$arrErrores[] = "El Numero Telefonico no puede ser menor ni mayor a 7 digitos";
-			}
-		}
-		if ($_POST['numCelular'] != "" || $_POST['numCelular'] != 0) {
-			if (!preg_match($exregcel, $_POST['numCelular'])) {
-				$arrErrores[] = "El Numero celular no puede ser menor ni mayor a 10 digitos y debe empezar por 3";
-			}
-		}
-	}
+    $txtFormatoFijo    = "/^[0-9]{7}$/";
+    $txtFormatoCelular = "/^[3]{1}[0-9]{9}$/";
+
+    // Telefono Celular
+    if ( ! preg_match( $txtFormatoCelular , trim( $_POST['numCelular'] ) ) ) {
+    	$arrErrores[] = "El número telefonico celular debe tener 10 digitos y debe iniciar con el número 3";
+    }
+    
+    
+    // Telefono Fijo 1
+    if( is_numeric( $_POST['numTelefono1'] ) == true and intval( $_POST['numTelefono1'] ) != 0 ){
+    	if ( ! preg_match( $txtFormatoFijo , trim( $_POST['numTelefono1'] ) ) ) {
+    		$arrErrores[] = "El número telefonico fijo 1 debe tener 7 digitos";
+    	}
+    }
+    
+// 	$exregfijo = "/^[0-9]{7}$/";
+// 	$exregcel = "/^[3]{1}[0-9]{9}$/";
+// 	if ($_POST['numTelefono1'] == "" and $_POST['numCelular'] == "") {
+// 		$arrErrores[] = "El ciudadano debe tener un telefono de contacto";
+// 	} else {
+// 		if ($_POST['numTelefono1'] != "" || $_POST['numTelefono1'] != 0) {
+// 			if (!preg_match($exregfijo, $_POST['numTelefono1'])) {
+// 				$arrErrores[] = "El Numero Telefonico no puede ser menor ni mayor a 7 digitos";
+// 			}
+// 		}
+// 		if ($_POST['numCelular'] != "" || $_POST['numCelular'] != 0) {
+// 			if (!preg_match($exregcel, $_POST['numCelular'])) {
+// 				$arrErrores[] = "El Numero celular no puede ser menor ni mayor a 10 digitos y debe empezar por 3";
+// 			}
+// 		}
+// 	}
 
     // Valor del arriendo
     $_POST['valArriendo'] = mb_ereg_replace("[^0-9]", "", $_POST['valArriendo']);
