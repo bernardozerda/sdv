@@ -115,7 +115,8 @@ if (!isset($_POST['cedula'])) {
         	$txtPlantilla = "subsidios/actualizacion.tpl";
         }else{
         	$txtPlantilla = "";
-        	imprimirErrores(array("Hogar en proceso de postulación, ingrese por el menú Proceso --> Postulación"));
+        	$txtEtapa = obtenerNombres("T_FRM_ETAPA", seqEtapa, $claFormulario->seqEtapa);
+        	imprimirErrores(array("Hogar en proceso de ".$txtEtapa.", ingrese por el menú Proceso --> Postulación"));
         }
         
         //}
