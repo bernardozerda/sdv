@@ -94,8 +94,15 @@
         } else {
             
             $claFormulario->cargarFormulario($seqFormulario);
-                
-            $txtPlantilla = "postulacionIndividual/postulacion.tpl";
+            $claFormulario->seqEtapa = obtenerCampo("T_FRM_ESTADO_PROCESO", $claFormulario->seqEstadoProceso, "seqEtapa", "seqEstadoProceso");
+            
+            if($claFormulario->seqEtapa == 1){
+            	$txtPlantilla = "";
+            	$arrErrores[] = "Hogar en etapa de inscripción, solicite la asistencia del administrador del sistema";
+            }else{
+            	$txtPlantilla = "postulacionIndividual/postulacion.tpl";
+            }
+            
             $txtImpresion = "imprimirPostulacionCEM( document.frmIndividual , './contenidos/postulacionIndividual/pedirConfirmacion.php' )";
 
             $arrBarrio = obtenerDatosTabla("T_FRM_BARRIO", array("seqBarrio", "txtBarrio"), "seqBarrio", "seqLocalidad = " . $claFormulario->seqLocalidad, "txtBarrio");
