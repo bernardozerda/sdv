@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3f42b06-e55d-42ad-811e-ce3ad2a3f7a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/autenticacion.php" beforeDir="false" afterPath="$PROJECT_DIR$/autenticacion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive_1.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive_1.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contenidos/migracionesIndividual/CargaCopiaEscrituracion/archivo.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/migracionesIndividual/CargaCopiaEscrituracion/archivo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contenidos/subsidios/salvarActualizacion.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/subsidios/salvarActualizacion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/espia.txt" beforeDir="false" afterPath="$PROJECT_DIR$/espia.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/librerias/clases/Desembolso.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/librerias/clases/Desembolso.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plantillas/index.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/plantillas/index.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plantillas/menu.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/plantillas/menu.tpl" afterDir="false" />
+    <list default="true" id="c3f42b06-e55d-42ad-811e-ce3ad2a3f7a2" name="Default" comment="Regularizando sdv844">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,7 +13,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="777">
+              <caret line="50" column="10" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,6 +35,7 @@
         <option value="$PROJECT_DIR$/recursos/archivos/lecturaConfiguracion.php" />
         <option value="$USER_HOME$/AppData/Local/Temp/fz3temp-2/datosSeguimientoFicha.php" />
         <option value="$PROJECT_DIR$/contenidos/calificacion/calificacionPlan2.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -100,7 +102,7 @@
       <workItem from="1518452080278" duration="221000" />
       <workItem from="1529692030908" duration="332000" />
       <workItem from="1529692391029" duration="5872000" />
-      <workItem from="1529946314992" duration="265000" />
+      <workItem from="1529946314992" duration="674000" />
     </task>
     <task id="LOCAL-00001" summary="Regularizando sdv844">
       <created>1529946444890</created>
@@ -113,10 +115,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6690000" />
+    <option name="totallyTimeSpent" value="7099000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18496802" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -125,7 +128,7 @@
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32963374" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32963374" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32963374" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -146,6 +149,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Regularizando sdv844" />
     <option name="LAST_COMMIT_MESSAGE" value="Regularizando sdv844" />
   </component>
@@ -210,6 +215,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="50" column="10" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
         </state>
       </provider>
     </entry>
