@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c3f42b06-e55d-42ad-811e-ce3ad2a3f7a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/autenticacion.php" beforeDir="false" afterPath="$PROJECT_DIR$/autenticacion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive_1.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/calificacion/calificacionPive_1.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contenidos/migracionesIndividual/CargaCopiaEscrituracion/archivo.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/migracionesIndividual/CargaCopiaEscrituracion/archivo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contenidos/subsidios/salvarActualizacion.php" beforeDir="false" afterPath="$PROJECT_DIR$/contenidos/subsidios/salvarActualizacion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/espia.txt" beforeDir="false" afterPath="$PROJECT_DIR$/espia.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/librerias/clases/Desembolso.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/librerias/clases/Desembolso.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plantillas/index.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/plantillas/index.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plantillas/menu.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/plantillas/menu.tpl" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php" />
+        <option value="$PROJECT_DIR$/recursos/archivos/lecturaConfiguracion.php" />
+        <option value="$USER_HOME$/AppData/Local/Temp/fz3temp-2/datosSeguimientoFicha.php" />
+        <option value="$PROJECT_DIR$/contenidos/calificacion/calificacionPlan2.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="953" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sdv" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sdv" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="lectu&#9;FILE&#9;file://D:/wamp64/www/sdv/recursos/archivos/lecturaConfiguracion.php&#10;calificacionFormularios&#9;FILE&#9;file://D:/wamp64/www/sdv/plantillas/calificacion/calificacionFormularios.tpl&#10;lectura&#9;FILE&#9;file://D:/wamp64/www/sdv/recursos/archivos/lecturaConfiguracion.php" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c3f42b06-e55d-42ad-811e-ce3ad2a3f7a2" name="Default" comment="" />
+      <created>1518452078483</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1518452078483</updated>
+      <workItem from="1518452080278" duration="221000" />
+      <workItem from="1529692030908" duration="332000" />
+      <workItem from="1529692391029" duration="5872000" />
+      <workItem from="1529946314992" duration="265000" />
+    </task>
+    <task id="LOCAL-00001" summary="Regularizando sdv844">
+      <created>1529946444890</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1529946444890</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="6690000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18496802" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32963374" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32963374" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Regularizando sdv844" />
+    <option name="LAST_COMMIT_MESSAGE" value="Regularizando sdv844" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plantillas/calificacion/calificacionFormularios.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="84" selection-start-line="11" selection-start-column="67" selection-end-line="11" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contenidos/calificacion/calificacionPlan2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recursos/archivos/coneccionBaseDatos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recursos/archivos/coneccionBaseDatos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plantillas/calificacion/calificacionFormularios.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="84" selection-start-line="11" selection-start-column="67" selection-end-line="11" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recursos/archivos/lecturaConfiguracion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="42" column="62" lean-forward="true" selection-start-line="42" selection-start-column="62" selection-end-line="42" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contenidos/calificacion/calificacionFormularios.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/fz3temp-2/datosSeguimientoFicha.php" />
+    <entry file="file://$PROJECT_DIR$/contenidos/calificacion/calificacionPlan2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
