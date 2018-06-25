@@ -94,6 +94,7 @@
         } else {
             
             $claFormulario->cargarFormulario($seqFormulario);
+                
             $claFormulario->seqEtapa = obtenerCampo("T_FRM_ESTADO_PROCESO", $claFormulario->seqEstadoProceso, "seqEtapa", "seqEstadoProceso");
             
             if($claFormulario->seqEtapa == 1){
@@ -102,7 +103,6 @@
             }else{
             	$txtPlantilla = "postulacionIndividual/postulacion.tpl";
             }
-            
             $txtImpresion = "imprimirPostulacionCEM( document.frmIndividual , './contenidos/postulacionIndividual/pedirConfirmacion.php' )";
 
             $arrBarrio = obtenerDatosTabla("T_FRM_BARRIO", array("seqBarrio", "txtBarrio"), "seqBarrio", "seqLocalidad = " . $claFormulario->seqLocalidad, "txtBarrio");

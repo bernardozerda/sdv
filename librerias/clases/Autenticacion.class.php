@@ -212,8 +212,8 @@
                   AND emp.bolActivo = 1
                   AND emp.fchVencimiento >= CONCAT( YEAR( NOW() ) , '-' , MONTH( NOW() ) , '-' , DAY( NOW() ) )
                 GROUP BY 
-                    per.seqMenu, emp.seqProyecto
-            ";
+                    per.seqMenu 
+            "; // AND men.seqMenuPadre = 0
             $objRes = $aptBd->execute( $sql );
             while( $objRes->fields ){
                 $seqProyecto = $objRes->fields['seqProyecto'];

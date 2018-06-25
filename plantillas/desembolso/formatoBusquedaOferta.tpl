@@ -72,7 +72,9 @@
                                                                         {if $seqCasaMano == 0}
                                                                             <tr>
                                                                                 <td style="border-bottom: 1px dotted #999999;"><b>Resoluci&oacute;n de Asignaci&oacute;n</b></td>
-                                                                                <td style="border-bottom: 1px dotted #999999;">{$arrBeneficiario.resolucion}&nbsp;</td>
+																				<!-- *****************************Cambio provisional Liliana**********************-->
+																				<td>Resolución 1424 de 30 de Noviembre de 2016</td>
+                                                                               <!-- <td style="border-bottom: 1px dotted #999999;">{$arrBeneficiario.resolucion}&nbsp;</td>-->
                                                                                 <td style="border-bottom: 1px dotted #999999;">&nbsp;</td>
                                                                                 <td style="border-bottom: 1px dotted #999999;">&nbsp;</td>
                                                                             </tr>

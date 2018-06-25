@@ -184,7 +184,7 @@
 		FROM 
 			T_SEG_GRUPO_GESTION
 		WHERE 
-			seqGrupoGestion not in (". implode(',', $arrGrupoGestionAdministrador) .")  
+			seqGrupoGestion not in (". implode(',', $arrGrupoGestionAdministrador) .")
 		ORDER BY 
 			txtGrupoGestion
 	";

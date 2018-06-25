@@ -13,15 +13,11 @@ and open the template in the editor.
         <?php
         $txtPrefijoRuta = "../../";
         include( $txtPrefijoRuta . "recursos/archivos/verificarSesion.php" );
-
         include( $txtPrefijoRuta . "recursos/archivos/lecturaConfiguracion.php" );
         include( $txtPrefijoRuta . $arrConfiguracion['carpetas']['recursos'] . "archivos/coneccionBaseDatos.php" );
         include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases'] . "calificacion.class.php" );
         $claCalificacion = new calificacion();
-//        header("Content-Type: application/vnd.ms-excel");
-//        header("Expires: 0");
-//        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-//        header("content-disposition: attachment;filename=INFORME_CONTENCIÓN.xls");
+
         $ejecutaConsultaPersonalizada = false;
         $separado_por_comas = "";
         $formularios = "";
@@ -51,9 +47,11 @@ and open the template in the editor.
                     //$formularios .= $value['seqFormulario'] . ",";
                     $idCalificacion = $claCalificacion->insertarCalificacion($value['seqFormulario'], $value['fchUltimaActualizacion'], $value['cant'], $value['edades'], $value['ingresos'], $fecha);
                     /*                     * ************************************Bajo logro educativo*********************************************** */
-                    $calcEducacion = number_format($value['aprobados'] / ($value['cantMayor'] + 1));
+                    $calcEducacion = ($value['aprobados'] / ($value['cantMayor']));
                     $educacion = 0;
-                    if ($calcEducacion < 9 || $value['cantMayor'] == 0) {
+                    if ($calcEducacion < 9) {
+                        $educacion = 1;
+                    } else if ($value['cantMayor'] == 0) {
                         $educacion = 1;
                     } else {
                         $educacion = 0;
@@ -80,7 +78,7 @@ and open the template in the editor.
                     $calchacinamiento = 0;
                     if ($dormitorios != 0) {
                         $calchacinamiento = ($value['cant'] / $dormitorios);
-                        if ($calchacinamiento > 3) {
+                        if ($calchacinamiento >= 4) {
                             $hacinamiento = 1;
                         } else {
                             $hacinamiento = 0;
@@ -157,8 +155,7 @@ and open the template in the editor.
                         $programa = 1;
                     }
                     $sqlIndicadores .= "(" . $value['bolIntegracionSocial'] . ", " . $value['bolSecMujer'] . ", " . $value['bolIpes'] . ", null, " . $programa . ", " . ($claCalificacion->PPGD * ($programa * 100)) . ", " . $idCalificacion . ",15);";
-
-                    $insertInd = $claCalificacion->insertarIndicadores($sqlIndicadores);
+                     $insertInd = $claCalificacion->insertarIndicadores($sqlIndicadores);
                     if ($insertInd) {
                         $formula = ($claCalificacion->BLE * ($educacion * 100)) + ($claCalificacion->RSA * ($saludSubsidiados * 100)) + ($claCalificacion->COH * ($cohabitacion * 100)) + ($claCalificacion->HACN * ($hacinamiento * 100)) + (100 * (1 - exp(-$totalIngresos / 52.05))) + ($claCalificacion->TDE * ($dependenciaEcon * 100)) + ($claCalificacion->HN12 * ($menores * 100)) + ($claCalificacion->MCF * ($monoparentalFem * 100)) + ($claCalificacion->HAMY * ($cantAdultoMayor * 100)) + ($claCalificacion->CDISC * ($discapacidad * 100)) + ($claCalificacion->HPGE * ($grupoEtnico * 100)) + ($claCalificacion->HN18 * ($cantAdolecentes * 100)) + ($claCalificacion->HCF * ($monoparentalMasc * 100)) + ($claCalificacion->PLGTBI * ($grupoLGTBI * 100)) + ($claCalificacion->PPGD * ($programa * 100));
                         //echo "<br>".$formula;
@@ -177,26 +174,22 @@ and open the template in the editor.
                          ),";
                     // echo "<br>***" . $formularios;
                 }
-                
-                
-                
             }
             $formularios = substr_replace($formularios, '', -1, 1);
-            $cambioEstado = $claCalificacion->cambiarEstado($formularios);
-            $seg = false;
-            // echo "<br>++++++++".$cambioEstado;
-
-            if ($cambioEstado) {
-
-                $seg = $claCalificacion->insertarSeguimiento($valSeg);
-            }
-            if ($seg) {
-                echo "<p class='alert alert-danger'><b>Se almacenaron los datos con exito</b></p>";
-            }
-        }else{
+//            $cambioEstado = $claCalificacion->cambiarEstado($formularios);
+//            $seg = false;
+//            // echo "<br>++++++++".$cambioEstado;
+//
+//            if ($cambioEstado) {
+//
+//                $seg = $claCalificacion->insertarSeguimiento($valSeg);
+//            }
+//            if ($seg) {
+//                echo "<p class='alert alert-danger'><b>Se almacenaron los datos con exito</b></p>";
+//            }
+        } else {
             echo "<p class='alert alert-danger'><b>No existen formularios en estado Hogar actualizado</b></p>";
         }
-
 
         //$formula = ($BLE * ($educacion * 100)) + ($RSA * ($saludSubsidiados * 100)) + ($COH * ($cohabitacion * 100)) + ($HACN * ($hacinamiento * 100)) + (100 * (1 - exp(-$totalIngresos / 52.05))) + ($TDE * ($dependenciaEcon * 100)) + ($HN12 * ($menores * 100)) + ($MCF * ($monoparentalFem * 100)) + ($HAMY * ($cantAdultoMayor * 100)) + ($CDISC * ($discapacidad * 100)) + ($HPGE * ($grupoEtnico * 100)) + ($HN18 * ($cantAdolecentes * 100)) + ($HCF * ($monoparentalMasc * 100)) + ($PLGTBI * ($grupoLGTBI * 100)) + ($PPGD * ($programa * 100));
         ?>

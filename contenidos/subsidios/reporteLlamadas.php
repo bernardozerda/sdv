@@ -63,7 +63,6 @@
 			and hog.seqParentesco = 1
 			and frm.fchInscripcion >= '" . $_POST['fchInicio'] . " 00:00:00'
 			and frm.fchInscripcion <= '" . $_POST['fchFin']   . " 23:59:59'
-                            and frm.seqPlanGobierno = 3
 	";
 
 	// and frm.seqEstadoProceso in (1, 36) // No necesariamente están actualmente en estado Inscrito

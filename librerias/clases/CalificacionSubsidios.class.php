@@ -112,7 +112,7 @@
 	    	$this->arrConstantes['estructural']['b5']   = 198.6428321366240; // Dos o mas condiciones especiales
 	    	$this->arrConstantes['estructural']['b6']   = 231.3753942672280; // Ubicacion de hogares en sector catastral
 	    	
-                $this->arrConstantes['habitabilidad']['b1'] = 115.9635982844360; // Sisben 1
+			$this->arrConstantes['habitabilidad']['b1'] = 115.9635982844360; // Sisben 1
 	    	$this->arrConstantes['habitabilidad']['b2'] =  87.9527692918879; // Sisben 2
 	    	$this->arrConstantes['habitabilidad']['b3'] = 131.2439096105280; // Etnias
 	    	$this->arrConstantes['habitabilidad']['b4'] =  58.7347359638759; // Monoparental

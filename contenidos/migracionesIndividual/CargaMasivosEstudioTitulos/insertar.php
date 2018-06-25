@@ -11,6 +11,17 @@ $observacion4 = 'RESTRICCIONES';
 $observacion5 = 'PATRIMONIO DE FAMILIA REGISTRADO';
 $observacion6 = utf8_decode('NOMBRE Y CÉDULA DE LOS PROPIETARIOS');
 $observacion7 = 'COMPRAVENTA REALIZADA CON SDV';
+
+/*
+$observacion1 = 'PROPIETARIOS SON BENEFICIARIOS DEL SDV';
+$observacion2 = utf8_decode('CONSTITUCIÓN PATRIMONIO DE FAMILIA');
+$observacion3 = 'RESTRICCIONES';
+$observacion4 = utf8_decode('PROHIBICIÓN DE ENAJENACIÓN');
+$observacion5 = 'DERECHO DE PREFERENCIA';
+$observacion6 = 'PATRIMONIO DE FAMILIA REGISTRADO';
+$observacion7 = utf8_decode('NOMBRE Y CÉDULA DE LOS PROPIETARIOS');
+$observacion8 = 'FORMA DE PAGO REALIZADA CON SFVE Y/O SDV';
+*/
 $documentos1 = utf8_decode('ESCRITURA PÚBLICA');
 $documentos2 = utf8_decode('FOLIO DE MATRÍCULA INMOBILIARIA');
 $documentos3 = 'CERTIFICADO DE EXISTENCIA Y HABITABILIDAD VIABILIZADO';

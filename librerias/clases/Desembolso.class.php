@@ -259,7 +259,7 @@ class Desembolso {
     public function cargarEscrituracion($seqFormulario) {
         global $aptBd;
 
-        $sql = "
+         $sql = "
 				SELECT
 					esc.seqEscrituracion,
 					esc.bolPoseedor,
@@ -1474,10 +1474,10 @@ class Desembolso {
                 while (( $txtArchivo = readdir($aptDir) ) !== false) {
                     if ($txtArchivo != "." and $txtArchivo != "..") {
                         $numFormulario = intval(substr($txtArchivo, 0, strpos($txtArchivo, "_")));
-                        $seqFormulario = ( intval($seqFormulario) == 0 ) ? $this->seqFormulario : $seqFormulario;
+                        $seqFormulario = ( intval($seqFormulario) == 0 )? $this->seqFormulario : $seqFormulario;
                         if ($numFormulario == $seqFormulario) {
                             if (!in_array($txtArchivo, $arrNombreArchivoCargado)) {
-                                echo "<br> elimina archivo" . $txtArchivo;
+                                echo "<br> elimina archivo".$txtArchivo;
                                 unlink($txtPrefijoRuta . "recursos/imagenes/desembolsos/" . $txtArchivo);
                             }
                         }
@@ -1947,7 +1947,7 @@ class Desembolso {
 
         $arrErrores = array();
 
-        $sql = "
+         $sql = "
 				SELECT seqEstudioTitulos,
 						seqDesembolso,
 						numEscrituraIdentificacion,

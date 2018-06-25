@@ -667,14 +667,11 @@ function mostrarOcultar(idObj) {
 
     if (document.getElementById(idObj).style.display == "none") {
         document.getElementById(idObj).style.display = "";
-        selectAnidados(0, 0);
         return "mostrar";
-
     } else {
         document.getElementById(idObj).style.display = "none";
         return "ocultar";
     }
-
 }
 
 /**
@@ -841,16 +838,11 @@ function agregarMiembroHogarBp() {
     var objIngresos = document.getElementById("ingresos");
     var objCompensacion = document.getElementById("cajaCompensacion");
     var objNvlEducativo = document.getElementById("nivelEducativo");
-    var objAnosAprobados = document.getElementById("anosAprobados");
-    var objAfiliacionSalud = document.getElementById("afiliacionSalud");
     var objSalud = document.getElementById("salud");
     var objBeneficiario = document.getElementById("beneficiario");
 
     var objPlanGobierno = document.getElementById("seqPlanGobierno");
     //alert (objPlanGobierno);
-    if (objAnosAprobados == null || objAnosAprobados == "") {
-        selectAnidados(objNumDocumento, 0);
-    }
 
     // Celda que contiene los miembros del hogar
     var objHogar = document.getElementById("datosHogar");
@@ -962,8 +954,6 @@ function agregarMiembroHogarBp() {
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-valIngresos' name='hogar[" + objNumDocumento.value + "][valIngresos]' value='" + objIngresos.value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqCajaCompensacion' name='hogar[" + objNumDocumento.value + "][seqCajaCompensacion]' value='" + objCompensacion.options[ objCompensacion.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqNivelEducativo' name='hogar[" + objNumDocumento.value + "][seqNivelEducativo]' value='" + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].value + "'>";
-    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-anosAprobados' name='hogar[" + objNumDocumento.value + "][anosAprobados]' value='" + objAnosAprobados.options[objAnosAprobados.selectedIndex ].value + "'>";
-    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqSalud' name='hogar[" + objNumDocumento.value + "][seqSalud]' value='" + objSalud.options[ objSalud.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolBeneficiario' name='hogar[" + objNumDocumento.value + "][bolBeneficiario]' value='" + objBeneficiario.options[ objBeneficiario.selectedIndex ].value + "'>";
     txtInsertar += "</table> ";
@@ -1025,8 +1015,6 @@ function agregarMiembroHogarBp() {
     eliminarObjeto(objNumDocumento.value + "-valIngresos");
     eliminarObjeto(objNumDocumento.value + "-seqCajaCompensacion");
     eliminarObjeto(objNumDocumento.value + "-seqNivelEducativo");
-    eliminarObjeto(objNumDocumento.value + "-anosAprobados");
-    eliminarObjeto(objNumDocumento.value + "-afiliacionSalud");
     eliminarObjeto(objNumDocumento.value + "-seqSalud");
     eliminarObjeto(objNumDocumento.value + "-bolBeneficiario");
 
@@ -1067,8 +1055,6 @@ function agregarMiembroHogarBp() {
     objIngresos.value = "";
     objCompensacion.selectedIndex = 0;
     objNvlEducativo.selectedIndex = 0;
-    objAnosAprobados.selectedIndex = 0;
-    objAfiliacionSalud.selectedIndex = 0;
     objSalud.selectedIndex = 0;
     objBeneficiario.selectedIndex = 0;
 
@@ -1108,14 +1094,10 @@ function agregarMiembroHogar() {
     var objLgtb = document.getElementById("bolLgtb");
     var objIngresos = document.getElementById("ingresos");
     var objNvlEducativo = document.getElementById("nivelEducativo");
-    var objAnosAprobados = document.getElementById("anosAprobados");
-    var objAfiliacionSalud = document.getElementById("afiliacionSalud");
     var objSeqTipoVictima = document.getElementById("seqTipoVictima");
     var objSeqGrupoLgtbi = document.getElementById("seqGrupoLgtbi");
 
-    if (objAnosAprobados == null || objAnosAprobados == "") {
-        selectAnidados(objNumDocumento, 0);
-    }
+
 
     // Celda que contiene los miembros del hogar
     var objHogar = document.getElementById("datosHogar");
@@ -1176,8 +1158,6 @@ function agregarMiembroHogar() {
             return false;
         }
     }
-
-
 
     // Ciudadano
     var txtNombreCiudadano = ucwords(objNombre1.value.toString().toLowerCase() + " " + objNombre2.value.toString().toLowerCase() + " " + objApellido1.value.toString().toLowerCase() + " " + objApellido2.value.toString().toLowerCase());
@@ -1258,8 +1238,6 @@ function agregarMiembroHogar() {
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-bolLgtb' name='hogar[" + objNumDocumento.value + "][bolLgtb]' value='" + objLgtb.options[ objLgtb.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-valIngresos' name='hogar[" + objNumDocumento.value + "][valIngresos]' value='" + objIngresos.value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqNivelEducativo' name='hogar[" + objNumDocumento.value + "][seqNivelEducativo]' value='" + objNvlEducativo.options[ objNvlEducativo.selectedIndex ].value + "'>";
-    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-anosAprobados' name='hogar[" + objNumDocumento.value + "][anosAprobados]' value='" + objAnosAprobados.options[ objAnosAprobados.selectedIndex ].value + "'>";
-    txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-afiliacionSalud' name='hogar[" + objNumDocumento.value + "][afiliacionSalud]' value='" + objAfiliacionSalud.options[ objAfiliacionSalud.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqTipoVictima' name='hogar[" + objNumDocumento.value + "][seqTipoVictima]' value='" + objSeqTipoVictima.options[ objSeqTipoVictima.selectedIndex ].value + "'>";
     txtInsertar += "<input type='hidden' id='" + objNumDocumento.value + "-seqGrupoLgtbi' name='hogar[" + objNumDocumento.value + "][seqGrupoLgtbi]' value='" + objSeqGrupoLgtbi.options[ objSeqGrupoLgtbi.selectedIndex ].value + "'>";
     txtInsertar += "</table> ";
@@ -1335,8 +1313,6 @@ function agregarMiembroHogar() {
     objLgtb.selectedIndex = 0;
     objIngresos.value = "";
     objNvlEducativo.selectedIndex = 0;
-    objAnosAprobados.selectedIndex = 0;
-    objAfiliacionSalud.selectedIndex = 0;
     objSeqTipoVictima.selectedIndex = 0;
     objSeqGrupoLgtbi.selectedIndex = 0;
 
@@ -1649,13 +1625,11 @@ function sumarTotalRecursos() {
 
 
 function modificarMiembroHogar(numDocumento) {
-
     var txtResultado = "";
     for (i = 0; i < numDocumento.length; i++) {
         txtCaracter = numDocumento.charAt(i);
         txtResultado += txtCaracter.replace(/[^0-9]/, ""); // todo lo que no sea numero es removido
     }
-
     numDocumentoSinPuntos = txtResultado;
 
     // Muestra la tabla
@@ -1769,18 +1743,6 @@ function modificarMiembroHogar(numDocumento) {
                 }
             }
 
-            if (arrVariables[ i ].id == numDocumentoSinPuntos + "-anosAprobados") {
-                for (j = 0; j < document.getElementById("anosAprobados").length; j++) {
-                    document.getElementById("anosAprobados").selectedIndex = (document.getElementById("anosAprobados").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-anosAprobados").value) ? j : document.getElementById("anosAprobados").selectedIndex;
-                }
-            }
-
-            if (arrVariables[ i ].id == numDocumentoSinPuntos + "-afiliacionSalud") {
-                for (j = 0; j < document.getElementById("afiliacionSalud").length; j++) {
-                    document.getElementById("afiliacionSalud").selectedIndex = (document.getElementById("afiliacionSalud").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-afiliacionSalud").value) ? j : document.getElementById("afiliacionSalud").selectedIndex;
-                }
-            }
-
             if (arrVariables[ i ].id == numDocumentoSinPuntos + "-seqTipoVictima") {
                 for (j = 0; j < document.getElementById("seqTipoVictima").length; j++) {
                     document.getElementById("seqTipoVictima").selectedIndex = (document.getElementById("seqTipoVictima").options[ j ].value == document.getElementById(numDocumentoSinPuntos + "-seqTipoVictima").value) ? j : document.getElementById("seqTipoVictima").selectedIndex;
@@ -1790,12 +1752,10 @@ function modificarMiembroHogar(numDocumento) {
         }
     }
 
-    selectAnidados(numDocumento, 1);
     var objTotalValor = document.getElementById("valIngresoHogar");
     var objTotalMostrar = document.getElementById("valTotalMostrar");
     var objIngreso = document.getElementById("ingreso-" + numDocumento);
     var objParentesco = document.getElementById("parentesco-" + numDocumento);
-
 
     // Resta el valor al total
     objTotalValor.value = parseInt(objTotalValor.value);
@@ -1904,89 +1864,88 @@ function sumarTotal() {
 
 
 function pedirConfirmacion(txtDestino, objFormulario, txtArchivo) {
-
-    if (navigator.onLine) {
-
-        eliminarObjeto("dlgPedirConfirmacionListener");
-
-        someterFormulario(txtDestino, objFormulario, txtArchivo, false, true);
-
-        YAHOO.util.Event.onContentReady(
-                "dlgPedirConfirmacionListener",
-                function () {
-
-                    // Acion de someter el formulario
-                    var handleSubmit = function () {
-                        this.submit();
-                    };
-
-                    // Cancela la accion de someter el formulario y cierra el cuadro de dialogo
-                    var handleCancel = function () {
-                        this.cancel();
-                    };
-
-                    // Cuando da Submit al formulario del dialogo este es la funcion que contesta
-                    var handleSuccess = function (o) {
-                        var response = o.responseText;
-                        response = response.split("<!")[0];
-                        document.getElementById("mensajes").innerHTML = response;
-                        var tmpObj = null;
-                        tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
-                        while (tmpObj != null) {
-                            //alert( tmpObj );
-                            eliminarObjeto("dlgPedirConfirmacion_mask");
-                            tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
-                        }
-                    };
-
-                    // Cuando se da submit y la accion falla este es el mensaje
-                    var handleFailure = function (o) {
-                        alert("Submission failed: " + o.status);
-                    };
-
-                    // Objeto de configuracion
-                    var objConfiguracion = {
-                        width: "300px",
-                        fixedcenter: true,
-                        close: false,
-                        draggable: false,
-                        modal: true,
-                        buttons: [{
-                                text: "Salvar Información",
-                                handler: handleSubmit,
-                                isDefault: true
-                            },
-                            /*{
-                             text:"Salvar InformaciÃ³n Parcial", 
-                             handler:handleSubmit, 
-                             isDefault:false
-                             },*/
-                            {
-                                text: "Cancelar",
-                                handler: handleCancel
-                            }
-                        ],
-                        constraintoviewport: true
-                    };
-
-                    // Instancia el cuadro de dialogo
-                    var dialog1 = new YAHOO.widget.Dialog("dlgPedirConfirmacion", objConfiguracion);
-
-                    // Objeto callback del formulario para manejar la respuesta de este
-                    dialog1.callback = {
-                        success: handleSuccess,
-                        failure: handleFailure
-                    };
-
-                    // Muestra el cuadro de dialogo
-                    dialog1.render();
-                    dialog1.show();
-
-                }
-        );
-    } else {
-        alert('Por favor verifique la conexión a internet y de nuevo haga clic en Salvar Acualización');
+    if (document.getElementById("agregarMiembro") != null && document.getElementById("agregarMiembro") != 'null') {
+        if (document.getElementById("agregarMiembro").style.display != 'none') {
+            agregarMiembroHogar();
+        }
     }
+    eliminarObjeto("dlgPedirConfirmacionListener");
+
+    someterFormulario(txtDestino, objFormulario, txtArchivo, false, true);
+
+    YAHOO.util.Event.onContentReady(
+            "dlgPedirConfirmacionListener",
+            function () {
+
+                // Acion de someter el formulario
+                var handleSubmit = function () {
+                    this.submit();
+                };
+
+                // Cancela la accion de someter el formulario y cierra el cuadro de dialogo
+                var handleCancel = function () {
+                    this.cancel();
+                };
+
+                // Cuando da Submit al formulario del dialogo este es la funcion que contesta
+                var handleSuccess = function (o) {
+                    var response = o.responseText;
+                    response = response.split("<!")[0];
+                    document.getElementById("mensajes").innerHTML = response;
+                    var tmpObj = null;
+                    tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
+                    while (tmpObj != null) {
+                        //alert( tmpObj );
+                        eliminarObjeto("dlgPedirConfirmacion_mask");
+                        tmpObj = document.getElementById('dlgPedirConfirmacion_mask');
+                    }
+                };
+
+                // Cuando se da submit y la accion falla este es el mensaje
+                var handleFailure = function (o) {
+                    alert("Submission failed: " + o.status);
+                };
+
+                // Objeto de configuracion
+                var objConfiguracion = {
+                    width: "300px",
+                    fixedcenter: true,
+                    close: false,
+                    draggable: false,
+                    modal: true,
+                    buttons: [{
+                            text: "Salvar Información",
+                            handler: handleSubmit,
+                            isDefault: true
+                        },
+                        /*{
+                         text:"Salvar InformaciÃ³n Parcial", 
+                         handler:handleSubmit, 
+                         isDefault:false
+                         },*/
+                        {
+                            text: "Cancelar",
+                            handler: handleCancel
+                        }
+                    ],
+                    constraintoviewport: true
+                };
+
+                // Instancia el cuadro de dialogo
+                var dialog1 = new YAHOO.widget.Dialog("dlgPedirConfirmacion", objConfiguracion);
+
+                // Objeto callback del formulario para manejar la respuesta de este
+                dialog1.callback = {
+                    success: handleSuccess,
+                    failure: handleFailure
+                };
+
+                // Muestra el cuadro de dialogo
+                dialog1.render();
+                dialog1.show();
+
+            }
+    );
 
 }
 
@@ -2763,23 +2722,23 @@ function verCambiosFormulario(seqFormulario, seqSeguimiento) {
     // Objeto de respuesta si es satisfactoria la carga
     var handleSuccess =
             function (o) {
-
-                var tmpObj = null;
-                tmpObj = document.getElementById('cambios_mask');
-                while (tmpObj != null) {
-                    //alert( tmpObj );
-                    eliminarObjeto("cambios_mask");
-                    tmpObj = document.getElementById('cambios_mask');
-                }
-
-                var tmpObj = null;
-                tmpObj = document.getElementById('cambios_c');
-                while (tmpObj != null) {
-                    //alert( tmpObj );
-                    eliminarObjeto("cambios_c");
-                    tmpObj = document.getElementById('cambios_c');
-                }
-
+				
+				var tmpObj = null;
+		        tmpObj = document.getElementById('cambios_mask');
+		        while (tmpObj != null) {
+		            //alert( tmpObj );
+		            eliminarObjeto("cambios_mask");
+		            tmpObj = document.getElementById('cambios_mask');
+		        }
+    	
+		        var tmpObj = null;
+		        tmpObj = document.getElementById('cambios_c');
+		        while (tmpObj != null) {
+		            //alert( tmpObj );
+		            eliminarObjeto("cambios_c"); 
+		            tmpObj = document.getElementById('cambios_c');
+		        }
+				
                 if (o.responseText !== undefined) {
 
                     var objConfiguracion = {
@@ -9846,40 +9805,10 @@ function certificadoHabitabilidadUnidades(seqFormulario) { //(SI NO SE USA BORRA
     }
 }
 
-function selectAnidados(documento, valor) {
-
-    var apr = "anosAprobados";
-    var options = {
-        1: ["0"],
-        2: ["1", "2", "3", "4"],
-        3: ["5"],
-        4: ["6", "7", "8", "9", "10"],
-        5: ["11"],
-        6: ["6", "7", "8", "9", "10", "11"],
-        7: ["11"],
-        8: ["11"],
-        9: ["11"],
-        12: ["11"]
+function selectAllCheck(valor) {
+    if (valor == true) {
+        $("#marcarTodos").change(function () {
+            $("input:checkbox").prop('checked', $(this).prop("checked"));
+        });
     }
-
-    $(function () {
-        var fillSecondary = function () {
-            $('#anosAprobados').empty();
-            var selected = $('#nivelEducativo').val();
-
-            options[selected].forEach(function (element, index) {
-                $('#anosAprobados').append('<option value="' + element + '">' + element + '</option>');
-            });
-            if (document.getElementById(documento + '-anosAprobados')) {
-                if (valor == 1 && document.getElementById(documento + '-anosAprobados').value != "") {
-                    var anos = document.getElementById(documento + '-anosAprobados').value;
-                    $('#anosAprobados').val(anos);
-                }
-            }
-        }
-        $('#nivelEducativo').change(fillSecondary);
-        fillSecondary();
-    });
-
 }
-

@@ -1,22 +1,23 @@
 <?php
 
-/**
- * REPORTE DE HOGARES PARA LLAMAR
- * @author Bernardo Zerda
- * @version 1.0 Agosto 2009
- */
-$txtPrefijoRuta = "../../";
+	/**
+	 * REPORTE DE HOGARES PARA LLAMAR
+	 * @author Bernardo Zerda
+	 * @version 1.0 Agosto 2009
+	 */
+	
+	$txtPrefijoRuta = "../../";
+	
+	include( $txtPrefijoRuta . "recursos/archivos/verificarSesion.php" );
+    include( $txtPrefijoRuta . "recursos/archivos/lecturaConfiguracion.php" );
+    include( $txtPrefijoRuta . $arrConfiguracion['librerias']['funciones'] . "funciones.php" );
+    include( $txtPrefijoRuta . $arrConfiguracion['carpetas']['recursos'] . "archivos/coneccionBaseDatos.php" );	
+    include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases']  . "Reportes.class.php" );
 
-include( $txtPrefijoRuta . "recursos/archivos/verificarSesion.php" );
-include( $txtPrefijoRuta . "recursos/archivos/lecturaConfiguracion.php" );
-include( $txtPrefijoRuta . $arrConfiguracion['librerias']['funciones'] . "funciones.php" );
-include( $txtPrefijoRuta . $arrConfiguracion['carpetas']['recursos'] . "archivos/coneccionBaseDatos.php" );
-include( $txtPrefijoRuta . $arrConfiguracion['librerias']['clases'] . "Reportes.class.php" );
+	// Nombre del archivo exportable
+	$txtNombreArchivo = "reporteLlamadas_" . date( "Ymd_His" ) . ".xls"; 
 
-// Nombre del archivo exportable
-$txtNombreArchivo = "reporteLlamadas_" . date("Ymd_His") . ".xls";
-
-$sql = "
+	$sql = "
 		SELECT	
 			pat.txtPuntoAtencion as PuntoAtencion,
 			frm.seqFormulario as IdFormulario,
@@ -62,29 +63,32 @@ $sql = "
 			and seqEstadoProceso IN (1, 36)
 			and hog.seqParentesco = 1
 			and frm.fchInscripcion >= '" . $_POST['fchInicio'] . " 00:00:00'
-			and frm.fchInscripcion <= '" . $_POST['fchFin'] . " 23:59:59'
-                        and frm.seqPlanGobierno = 3
+			and frm.fchInscripcion <= '" . $_POST['fchFin']   . " 23:59:59'
 	";
-
-try {
-
-    if ($_POST['fchInicio'] == "") {
-        $arrErrores[] = "Fecha Inicial Inválida";
-    }
-    if ($_POST['fchFin'] == "") {
-        $arrErrores[] = "Fecha Final Inválida";
-    }
-
-    if (empty($arrErrores)) {
-        $objRes = $aptBd->execute($sql);
-
-        $claReportes = new Reportes;
-        $claReportes->obtenerReportesGeneral($objRes, $txtNombreArchivo);
-    } else {
-        throw new Exception(implode("\r\n", $arrErrores));
-    }
-} catch (Exception $objError) {
-    echo "Hubo un error en la consulta y el reporte no se puede obtener, las sigueintes son las causas:\r\n";
-    echo $objError->getMessage() . "\r\n";
-}
+	
+	try {
+		
+		if( $_POST['fchInicio'] == "" ){
+			$arrErrores[] = "Fecha Inicial Inválida";
+		}
+		if( $_POST['fchFin'] == "" ){
+			$arrErrores[] = "Fecha Final Inválida";
+		}
+		
+		if( empty( $arrErrores ) ){
+			$objRes = $aptBd->execute( $sql );
+			
+			$claReportes = new Reportes;
+			$claReportes->obtenerReportesGeneral( $objRes, $txtNombreArchivo );
+			
+		}else{
+			throw new Exception( implode( "\r\n" , $arrErrores ) );
+		}
+		
+	} catch ( Exception $objError ){ 
+		echo "Hubo un error en la consulta y el reporte no se puede obtener, las sigueintes son las causas:\r\n";
+		echo $objError->getMessage()."\r\n";
+	} 
+	
+	
 ?>

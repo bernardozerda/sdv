@@ -73,7 +73,7 @@
 			<!-- SOLO PARA UNA CEDULA -->
 			<tr>
 				<td colspan="2" style="border-bottom: 1px dotted #999999; border-left: 1px dotted #999999;" valign="top">
-					<table cellspacing="0" cellpadding="5" border="0" width="100%">
+					<table cellspacing="" cellpadding="0" border="0" width="100%">
 						<tr>
 							<td class="tituloCampo" width="150px">
 								Buscar por nombre:
@@ -147,18 +147,6 @@
 								</select>
 							</td>
 						</tr>
-						
-						<tr>
-							<td class="tituloCampo" width="200px" style="padding:5px; background-color: #E4E4E4;">
-								Cambio Especial de estado<br>
-								<strong><i style="font-size:8px;">Cambiará Modalidad, Esquema, Plan de Gobierno y Vinculación a Proyectos</i></strong>
-							</td>
-							<td style="padding:5px; background-color: #E4E4E4; vertical-align: middle;">
-								<input type="radio" name="especial" value="mejoramiento"> Mejoramiento
-								<input type="radio" name="especial" value="adquisicion"> Adquisición  
-							</td>
-						</tr>
-						
 					</table>
 					
 				</td>
@@ -166,22 +154,17 @@
 			
 			<!-- BOTON -->
 			<tr>
-				<td colspan="2" height="25px" align="center" style="padding-right:20px;" bgcolor="#F9F9F9">
-						<input type="button" 
-								 value="Cambiar Estados" 
-								 onClick="someterFormulario( 
+				<td colspan="2" height="25px" align="right" style="padding-right:20px;" bgcolor="#F9F9F9">
+						<input  type="button" 
+								value="Cambiar Estados" 
+								onClick="someterFormulario( 
 										'mensajes', 
 										this.form, 
 										'./contenidos/subsidios/cambioEstadosSalvar.php', 
 										true, 
 										true
 									); 
-								 "
-						/>
-						
-						
-						<input type="reset" 
-								 value="Reiniciar Formulario"
+								"
 						/>	
 				</td>
 			</tr>	
@@ -192,9 +175,9 @@
 	<div id="buscarCedulaListener"></div>
 	<div id="listenerBuscarNombre"></div>
 	
-	<div id="cambioEstadosPosibles" style="display:none;">
+	<div id="cambioEstadosPosibles" style="display:none">
 	    <div class="hd">Listado de Estados Validos</div>
-	    <div class="bd" style="overflow: auto; height: 500px;">
+	    <div class="bd">
 	    	<center>
 		    	<table cellpadding="2" cellspacing="0" border="0" width="90%">
 		    		<tr>
@@ -202,7 +185,7 @@
 		    			<td class="tituloTabla">Descripción</td>
 		    		</tr>
 			    	{foreach from=$arrEstados key=seqEstado item=txtEstado}
-						<tr><td width="30px" bgcolor="{cycle name=c1 values="#FFFFFF,#E4E4E4"}" align="center">{$seqEstado}</td>
+						<tr><td width="30px" bgcolor="{cycle name=c1 values="#FFFFFF,#E4E4E4"}">{$seqEstado}</td>
 						<td bgcolor="{cycle name=c2 values="#FFFFFF,#E4E4E4"}">{$txtEstado}</td></tr>
 					{/foreach}
 				</table>

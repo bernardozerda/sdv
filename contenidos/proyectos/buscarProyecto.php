@@ -5,6 +5,7 @@
  * @version 1.0 Septiembre de 2013
  */
 $txtPrefijoRuta = "../../";
+
 include( $txtPrefijoRuta . "recursos/archivos/verificarSesion.php" );
 include( $txtPrefijoRuta . "recursos/archivos/lecturaConfiguracion.php" );
 include( $txtPrefijoRuta . $arrConfiguracion['librerias']['funciones'] . "funciones.php" );

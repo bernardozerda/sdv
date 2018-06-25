@@ -38,6 +38,7 @@ $queCal = "SELECT T_FRM_CALIFICACION_PLAN2.seqFormulario,
               '-',
               numCelular)
           AS telefonos,
+       if(T_FRM_FORMULARIO.bolDesplazado = 1,'SI','NO') as desplazado,
        ROUND(divB1, 4) AS divB1,
        ROUND(valB1, 4) AS valB1,
        ROUND(divB2, 4) AS divB2,
@@ -83,6 +84,7 @@ echo"Nombre Completo" . "\t";
 echo "Telefono Fijo 1" . "\t";
 echo"Telefono Fijo 2" . "\t";
 echo"Celular" . "\t";
+echo"Desplazado" . "\t";
 echo("Valor IH") . "\t";
 echo ("Ingresos Hogar") . "\t";
 echo ("Valor TDE") . "\t";
@@ -114,6 +116,7 @@ while ($rowCalifica = mysql_fetch_assoc($resCal)) {
     echo ($telefonos[0]) . "\t";
     echo ($telefonos[1]) . "\t";
     echo ($telefonos[2]) . "\t";
+    echo ($rowCalifica['desplazado']) . "\t";
     echo (round($rowCalifica['divB1'], 2)) . "\t";
     echo (round($rowCalifica['valB1'], 2)) . "\t";
     echo (round($rowCalifica['divB2'], 2)) . "\t";
